@@ -1,0 +1,31 @@
+{% load currency_filters %}
+{% load i18n %}
+
+<div class="basket">
+    <ul>
+        <li>
+            <a href="#">
+                Желаемое
+                <span class="bg_blue">2</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url "basket:summary" %}">
+                Сумма
+                <span class="bg_green">
+                    {% if request.basket.is_tax_known %}
+                        {{ request.basket.total_incl_tax|currency:request.basket.currency }}
+                    {% else %}
+                        {{ request.basket.total_excl_tax|currency:request.basket.currency }}
+                    {% endif %}
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url "basket:summary" %}">
+                В корзине
+                <span class="bg_red">{{ request.basket.lines.count }}</span>
+            </a>
+        </li>
+    </ul>
+</div>

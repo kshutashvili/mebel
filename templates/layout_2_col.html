@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% load promotion_tags %}
+{% load static %}
+{% comment %}
+Keep the same header and footer as the standard layout template but override the 
+main content area to split it into a sidebar and a content block
+{% endcomment %}
+{% block content_wrapper %}
+
+    {% block slider %}{% endblock %}
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                {# block for left column #}
+                {% block column_left %}{% endblock %}
+
+                {# block for content #}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script src="{% static "js/script.js" %}"></script>
+{% endblock %}

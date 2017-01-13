@@ -167,6 +167,11 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+#################################################################
+# OSCAR settings
+
+OSCAR_DEFAULT_CURRENCY = 'UAH'
+
 try:
     from local_settings import *
 except ImportError:

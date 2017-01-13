@@ -5,33 +5,25 @@
 {% load staticfiles %}
 
 {% block product %}
-    <article class="product_pod">
+    <div>
         {% block product_image %}
-            <div class="image_container">
                 {% with image=product.primary_image %}
-                    {% thumbnail image.original "x155" upscale=False as thumb %}
-                    <a href="{{ product.get_absolute_url }}"><img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="thumbnail"></a>
+                    {% thumbnail image.original "x240" upscale=False as thumb %}
+                    <img src="{{ thumb.url }}" alt="{{ product.get_title }}">
                     {% endthumbnail %}
                 {% endwith %}
-            </div>
+
         {% endblock %}
 
-        {% block product_review %}
-            {% iffeature "reviews" %}
-                <p class="star-rating {{ product.rating|as_stars }}">
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                </p>
-            {% endiffeature %}
-        {% endblock %}
 
         {% block product_title %}
-            <h3><a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">{{ product.get_title|truncatewords:4 }}</a></h3>
+            <p>{{ product.get_title}}</p>
         {% endblock %}
-
+        <p>900Х2100Х420ММ</p>
+        <p>ART.: 295</p>
+        <a href="{{ product.get_absolute_url }}" class="items_more">ПОДРОБНЕЕ</a><a href="{{ product.get_absolute_url }}" class="items_buy">ВЫБРАТЬ</a>
+    </div>
+        {% comment %}
         {% block product_price %}
             <div class="product_price">
                 {% include "catalogue/partials/stock_record.html" %}
@@ -40,5 +32,5 @@
                 {% endif %}
             </div>
         {% endblock %}
-    </article>
+        {% endcomment %}
 {% endblock %}

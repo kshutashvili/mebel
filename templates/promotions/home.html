@@ -1,5 +1,6 @@
 {% extends "layout_2_col.html" %}
 {% load staticfiles %}
+{% load product_tags %}
 {% load i18n %}
 
 {% block styles %}
@@ -41,24 +42,7 @@
 {% block column_left %}
     <div class="col-xs-12 col-sm-3 col-md-3 cold-lg-3">
         <div class="left_column">
-            <h2>Все шкафы купе</h2>
-            <ul>
-                <li><a href="#">Шкафы-купе раздвижные</a></li>
-                <li><a href="#">Шкафы-купе на заказ</a></li>
-                <li><a href="#">Шкафы-купе угловы</a></li>
-                <li><a href="#">Шкафы-купе с рисунком</a></li>
-                <li><a href="#">Шкафы-купе с фотопечатью</a></li>
-                <li><a href="#">Конструктор шкафов-купе</a></li>
-            </ul>
-            <h2>Остальное</h2>
-            <ul>
-                <li><a href="#">Шкафы распашные</a></li>
-                <li><a href="#">Мебель для прихожей</a></li>
-                <li><a href="#">Мягкая мебель</a></li>
-                <li><a href="#">Детская мебель</a></li>
-                <li><a href="#">Мебель для спальни</a></li>
-                <li><a href="#">Столы и стулья</a></li>
-            </ul>
+            {% include "partials/left_nav.html" %}
             <h2>Фильтр</h2>
             <p class="select_caption">Количество дверей</p>
             <div class="custom_select">
@@ -89,69 +73,11 @@
     <div class="col-xs-12 col-sm-9 col-md-9 cold-lg-9">
         <div class="right_column">
             <ul>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
-                <li>
-                    <img src="{% static "img/shkaf.png" %}" alt="">
-                    <p>ШКАФ КУПЕ НА ДВЕ ДВЕРИ ДСП И ЗЕРКАЛО, ДУБ СВЕТЛЫЙ,</p>
-                    <p>900Х2100Х420ММ</p>
-                    <p>ART.: 295</p>
-                    <a href="#" class="items_more">ПОДРОБНЕЕ</a><a href="#" class="items_buy">ВЫБРАТЬ</a>
-                </li>
+                {% for product in last_products %}
+                    <li>
+                        {% render_product product %}
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="right_banner">

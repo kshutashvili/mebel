@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     'compressor',
     'widget_tweaks',
-] + get_core_apps()
+] + get_core_apps(['apps.promotions'])
 
 SITE_ID = 1
 

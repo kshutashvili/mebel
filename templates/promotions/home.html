@@ -11,30 +11,17 @@
 {% block slider %}
     <div class="slider">
         <ul class="bxslider">
-            <li style="background-image: url('{% static  "img/slider_photo.png"%}');">
+            {% for slide in slides %}
+            <li style="background-image: url('{{ slide.image.url }}');">
                 <div class="container">
-                    <h1>Доставка бесплатно</h1>
-                    <p>При заказе <span>от 3500</span> гривен доставка по Киеву - <span>бесплатно!</span></p>
+                    {% if slide.link %}
+                        <a href="{{ slide.url }}">{{ slide.text|safe }}</a>
+                    {% else %}
+                        {{ slide.text|safe }}
+                    {% endif %}
                 </div>
             </li>
-            <li style="background-image: url('{% static  "img/slider_photo.png"%}');">
-                <div class="container">
-                    <h1>Доставка бесплатно</h1>
-                    <p>При заказе <span>от 3500</span> гривен доставка по Киеву - <span>бесплатно!</span></p>
-                </div>
-            </li>
-            <li style="background-image: url('{% static  "img/slider_photo.png"%}');">
-                <div class="container">
-                    <h1>Доставка бесплатно</h1>
-                    <p>При заказе <span>от 3500</span> гривен доставка по Киеву - <span>бесплатно!</span></p>
-                </div>
-            </li>
-            <li style="background-image: url('{% static  "img/slider_photo.png"%}');">
-                <div class="container">
-                    <h1>Доставка бесплатно</h1>
-                    <p>При заказе <span>от 3500</span> гривен доставка по Киеву - <span>бесплатно!</span></p>
-                </div>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 {% endblock %}

@@ -46,6 +46,9 @@ INSTALLED_APPS = [
 
     'compressor',
     'widget_tweaks',
+    'ckeditor',
+
+    'slider'
 ] + get_core_apps(['apps.promotions'])
 
 SITE_ID = 1
@@ -165,6 +168,38 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
+}
+
+#################################################################
+# Ckeditor settings
+
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+            'toolbar_Custom': [
+                {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',
+                        '-', 'Undo', 'Redo'
+                    ]
+                },
+                {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat']},
+                {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-',
+                                    'Outdent', 'Indent', '-',
+                                    'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-',
+                                    'Blockquote']},
+                {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+                {'name': 'insert', 'items': ['Image', 'Table', 'HorizontalRule', 'SpecialChar']},
+                {'name': 'styles', 'items': ['Styles', 'Format']},
+                {'name': 'editing', 'items': ['Scayt']},
+                {'name': 'tools', 'items': ['Maximize']},
+                {'name': 'document', 'items': ['Source']}
+        ]
+    }
 }
 
 #################################################################

@@ -1,0 +1,14 @@
+
+<div class="review_block clear_fix">
+    <span class="review_caption">{{ article.title }}</span>
+    <select class="rating_photo">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <p class="comment_text">{{ article.description }}</p>
+    <span class="review_time">Добавлено: {% article.creation_date|date:'d.y.m' %}</span>
+    <a href="#" class="read_more">Читать полностью</a>
+</div>

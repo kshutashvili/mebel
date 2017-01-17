@@ -28,6 +28,8 @@ urlpatterns = [
     # Nonetheless, it's often useful for debugging.
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^articles/', include('articles.urls', namespace='articles')),
     url(r'', include(application.urls)),
     url(r'', include('apps.promotions.urls')),
+
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

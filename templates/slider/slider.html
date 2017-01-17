@@ -1,0 +1,16 @@
+
+<div class="slider">
+    <ul class="bxslider">
+        {% for slide in slides %}
+            <li style="background-image: url('{{ slide.image.url }}');">
+                <div class="container">
+                    {% if slide.link %}
+                        <a href="{{ slide.url }}">{{ slide.text|safe }}</a>
+                    {% else %}
+                        {{ slide.text|safe }}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

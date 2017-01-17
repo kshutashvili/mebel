@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% load promotion_tags %}
+{% load i18n %}
+
+{% block title %}
+    Статьи
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+    <li><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+     <li class="active">Список статей</li>
+    </ul>
+{% endblock %}
+{% block content %}
+    {% for article in articles_list %}
+        {% include 'articles/partials/article.html' with article=article %}
+    {% endfor %}
+{% endblock %}

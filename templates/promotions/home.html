@@ -8,24 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/jquery.bxslider.css" %}">
 {% endblock %}
 
-{% block slider %}
-    <div class="slider">
-        <ul class="bxslider">
-            {% for slide in slides %}
-            <li style="background-image: url('{{ slide.image.url }}');">
-                <div class="container">
-                    {% if slide.link %}
-                        <a href="{{ slide.url }}">{{ slide.text|safe }}</a>
-                    {% else %}
-                        {{ slide.text|safe }}
-                    {% endif %}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endblock %}
-
 {% block column_left %}
     <div class="col-xs-12 col-sm-3 col-md-3 cold-lg-3">
         <div class="left_column">

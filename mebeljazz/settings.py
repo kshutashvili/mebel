@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
 
-    'slider'
+    'slider',
+    'articles'
 ] + get_core_apps(['apps.promotions', 'apps.catalogue.reviews'])
 
 SITE_ID = 1

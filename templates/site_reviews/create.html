@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% if not request.user.site_reviews %}
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">отправить</button>
+    </form>
+    {% else %}
+        <p>Вы уже оставляли озтыв о нашем сайте</p>
+    {% endif %}
+{% endblock %}

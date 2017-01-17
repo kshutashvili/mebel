@@ -7,7 +7,7 @@
             <fieldset>
                 <legend>{% trans "Leave a product review" %}</legend>
                 {% csrf_token %}
-                
+
                 {% include 'partials/form_field.html' with field=form.title %}
 
                 <div class="reviewrating form-group {% if form.score.errors %}error{% endif %}">

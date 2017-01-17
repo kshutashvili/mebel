@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="product_info">
+        <div class="for_write_comment">
+            <a href="{% url 'site_reviews:create' %}" class="write_comment">Написать отзыв</a>
+        </div>
+        {% for review in reviews_list %}
+            {% include 'catalogue/partials/review.html' with review=review %}
+        {% endfor %}
+
+    </div>
+{% endblock %}

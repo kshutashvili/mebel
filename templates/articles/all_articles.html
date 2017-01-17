@@ -14,7 +14,10 @@
     </ul>
 {% endblock %}
 {% block content %}
+
+    <div class="product_info">
     {% for article in articles_list %}
         {% include 'articles/partials/article.html' with article=article %}
     {% endfor %}
+    </div>
 {% endblock %}

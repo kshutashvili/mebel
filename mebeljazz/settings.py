@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
 
     'slider',
-    'articles'
+    'articles',
 ] + get_core_apps(['apps.promotions', 'apps.catalogue.reviews'])
 
 SITE_ID = 1
@@ -203,6 +203,8 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 #################################################################
 # OSCAR settings
 

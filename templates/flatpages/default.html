@@ -23,8 +23,10 @@
     </ul>
 {% endblock %}
 
+{% block content_cls %}{{ block.super }} m-l-12{% endblock %}
+
 {% block content %}
-    <article>{{ flatpage.content }}</article>
+    {{ flatpage.content }}
 {% endblock %}
 
 {% block right_banner %}

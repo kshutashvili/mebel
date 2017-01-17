@@ -3,61 +3,21 @@
 {% load product_tags %}
 {% load i18n %}
 
-{% block styles %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.bxslider.css" %}">
-{% endblock %}
-
-{% block column_left %}
-    <div class="col-xs-12 col-sm-3 col-md-3 cold-lg-3">
-        <div class="left_column">
-            {% include "partials/left_nav.html" %}
-            <h2>Фильтр</h2>
-            <p class="select_caption">Количество дверей</p>
-            <div class="custom_select">
-                <select>
-                    <option>2-ух дверные двери</option>
-                    <option>одна дверь</option>
-                </select>
-            </div>
-            <div class="checkbox_main">
-                <input id="check1" type="checkbox" name="check" value="check1">
-                <label for="check1">Прихожие</label>
-                <br>
-                <input id="check2" type="checkbox" name="check" value="check2">
-                <label for="check2">Распашные</label>
-                <br>
-                <input id="check3" type="checkbox" name="check" value="check3">
-                <label for="check3">Все шкафы-купе</label>
-            </div>
-        </div>
-        <div class="left_banner">
-            <div class="container">
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
 {% block content %}
-    <div class="col-xs-12 col-sm-9 col-md-9 cold-lg-9">
-        <div class="right_column">
-            <ul>
-                {% for product in last_products %}
-                    <li>
-                        {% render_product product %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="right_banner">
-            <div class="container">
 
-            </div>
-        </div>
-    </div>
+        <ul>
+            {% for product in last_products %}
+                <li>
+                    {% render_product product %}
+                </li>
+            {% endfor %}
+        </ul>
+
 {% endblock content %}
 
-{% block extrascripts %}
-    {{ block.super }}
-    <script src="{% static "js/jquery.bxslider.min.js" %}"></script>
+{% block right_banner %}
+    <div class="right_banner">
+        <div class="container">
+        </div>
+    </div>
 {% endblock %}

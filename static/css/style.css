@@ -51,6 +51,10 @@ ul{
 body{
 	background-color: #f1f1f1;
 }
+
+.m-l-12{
+	margin-left: 12px !important;
+}
 .clear_fix:after {
 	content: ".";
 	display: block;

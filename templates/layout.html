@@ -12,7 +12,9 @@
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+     <link rel="stylesheet" href="{% static 'css/additional.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.bxslider.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/fontawesome-stars.css" %}">
     <link rel="stylesheet" href="{% static "oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "oscar/css/datetimepicker.css" %}" />
 {% endblock %}
@@ -52,7 +54,7 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						    <div class="bot_menu">
 						      <ul class="nav navbar-nav">
-								<li><a href="#">главная</a></li>
+								<li><a href="{{ homepage_url }}">главная</a></li>
 								<li><a href="/payment/">ОПЛАТА И ДОСТАВка</a></li>
 								<li><a href="#">ОТЗЫВЫ</a></li>
 								<li><a href="{% url 'articles:all' %}">СТАТЬИ</a></li>
@@ -73,7 +75,7 @@
 
     {# Main content of page - other layout templates may override this block #}
 
-    {% block content_wrapper %}
+
 
     {% block slider %}
         {% draw_slider %}
@@ -81,7 +83,6 @@
 
     <div class="content">
         <div class="container">
-
             <div class="row">
                 {# block for left column #}
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
@@ -108,6 +109,7 @@
                         </div>
                     {% endblock %}
                     </div>
+
                     <div class="left_banner">
                     {% block left_banner %}
                         <div class="container">
@@ -121,9 +123,10 @@
                 {% block breadcrumbs %}
                 
                 {% endblock %}
-                <div class="right_before">
+
+                    <div class="{% block content_cls %}right_before{% endblock %}">
                     {% block content %}{% endblock %}
-                </div>
+                    </div>
 
                 {% block right_banner %}
                 {% endblock %}
@@ -131,7 +134,6 @@
             </div>
         </div>
     </div>
-    {% endblock %}
 
     {% comment %}
         {% block content_wrapper %}

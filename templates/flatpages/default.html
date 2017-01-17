@@ -13,17 +13,15 @@
         <h1>{{ flatpage.title }}</h1>
     </div>
 {% endblock %}
-
+{% block content_cls %}{{ block.super }} m-l-12{% endblock %}
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
+    <ul class="breadcrumb m-l-12">
         <li>
             <a href="{{ homepage_url }}">{% trans "Home" %}</a>
         </li>
         <li class="active">{{ flatpage.title }}</li>
     </ul>
 {% endblock %}
-
-{% block content_cls %}{{ block.super }} m-l-12{% endblock %}
 
 {% block content %}
     {{ flatpage.content }}

@@ -5,7 +5,7 @@
 {% if tree_categories %}
     {% for tree_category, info in tree_categories %}
         {% if info.has_children or tree_category.depth == 1 %}
-            <h2>{{ tree_category.name }}</h2>
+            <h2><a href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></h2>
             <ul>
         {% else %}
             <li><a href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></li>

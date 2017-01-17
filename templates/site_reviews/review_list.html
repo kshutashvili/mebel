@@ -1,5 +1,12 @@
 {% extends 'layout.html' %}
 
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+    <li><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+     <li class="active">Отзывы</li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <div class="product_info">
         <div class="for_write_comment">

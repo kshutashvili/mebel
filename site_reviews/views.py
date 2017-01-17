@@ -17,7 +17,7 @@ class CreateSitetReview(CreateView):
     template_name = "site_reviews/create.html"
     model = SiteReview
     form_class = SiteReviewForm
-    redirect_to = '/'
+    success_url = '/sitereviews/'
 
     def dispatch(self, request, *args, **kwargs):
         # check permission to leave review
@@ -32,10 +32,6 @@ class CreateSitetReview(CreateView):
         kwargs = super(CreateSitetReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
-
-    def form_valid(self, form):
-        response = super(CreateSitetReview, self).form_valid(form)
-        return response
 
 class SiteReviewListView(ListView):
     model = SiteReview

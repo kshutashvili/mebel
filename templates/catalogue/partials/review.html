@@ -5,7 +5,7 @@
 <div class="comment_from_user clear_fix">
     <span class="comment_user">{{ review.reviewer_name }}</span>
     <select class="rating_photo">
-        {% for k,v in review.SCORE_CHOICES %}
+        {% for k,v in review.SCORE_CHOICES|slice:"1:" %}
             <option value="{{ k }}" {% if k == review.score  %}selected=""{% endif %}>{{ v }}</option>
         {% endfor %}
     </select>

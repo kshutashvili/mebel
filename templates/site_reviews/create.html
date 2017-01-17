@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    {% if not request.user.site_reviews or not request.user %}
+    {% if not request.user.site_reviews.count or not request.u %}
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}

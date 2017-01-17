@@ -4,7 +4,7 @@
 {% category_tree depth=2 as tree_categories %}
 {% if tree_categories %}
     {% for tree_category, info in tree_categories %}
-        {% if info.has_children %}
+        {% if info.has_children or tree_category.depth == 1 %}
             <h2>{{ tree_category.name }}</h2>
             <ul>
         {% else %}

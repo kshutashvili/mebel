@@ -7,7 +7,14 @@
 {% load product_tags %}
 {% load display_tags %}
 {% load i18n %}
+{% load thumbnail %}
 {% load purchase_info_tags %}
+{% load basket_tags %}
+
+{% block styles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/fontawesome-stars.css"%}">
+{% endblock %}
 
 {% block title %}
     {{ product.title }} | {{ block.super }}
@@ -46,23 +53,195 @@
 {% endblock header %}
 
 {% block content %}
+    {% purchase_info_for_product request product as session %}
+    {% basket_form request product as basket_form %}
 
+    <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk  %}" method="post">
+        <div class="product_info clear_fix">
+            {% with image=product.primary_image %}
+                {% thumbnail image.original "220" upscale=False as thumb %}
+                    <img src="{{ thumb.url }}" alt="{{ product.get_title }}">
+                {% endthumbnail %}
+            {% endwith %}
+            <div class="product_right">
+                <p class="product_caption">{{ product.get_title }}</p>
+                <p class="product_text">1200 х 2400 (2520) х 420 (600) мм</p>
+                <p class="product_text">ART.: 168</p>
+
+                <a href="#" class="button_green">{% if session.availability.is_available_to_buy %}Есть в наличии{% else %}Нету в наличии{% endif %}</a>
+
+                <div class="varianti">
+                    <p class="product_caption">Доступные варианты</p>
+                    <div class="custom_select">
+                        <label>Ширина</label>
+                        <select>
+                            <option>120см</option>
+                            <option>120см</option>
+                        </select>
+                    </div>
+                    <div class="custom_select">
+                        <label>Висота</label>
+                        <select>
+                            <option>240см</option>
+                            <option>240см</option>
+                        </select>
+                    </div>
+                    <div class="custom_select">
+                        <label>Глубина</label>
+                        <select>
+                            <option>42см</option>
+                            <option>42см</option>
+                        </select>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <p class="product_text"><span>В КОМПЛЕКТ ВХОДИТ:</span> Двери с фотопечатью №2а.</p>
+                    </li>
+                    <li>
+                        <p class="product_text"><span>Цвет ДСП:</span> на выбор.</p>
+                    </li>
+                    <li>
+                        <p class="product_text"><span>Система направляющих:</span> алюминиевая раздвижная система (пр-во Германия)</p>
+                    </li>
+                    <li>
+                        <p class="product_text"><span>Доставка:</span> до 14 дней</p>
+                    </li>
+                    <li>
+                        <p class="product_text"><span>Предоплата:</span> 10%</p>
+                    </li>
+                    <li>
+                        <p class="product_text"><span>Гарантия:</span> 18 месяцев</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {% if session.availability.is_available_to_buy %}
+        <div class="gray_bg">
+            <span class="red_span">ВАЖНО:</span>
+            <p class="product_text">Цвет материала шкафа-купе на экране монитора может отличаться от реального. Возможно незначительное отличие по оттенку (яркость, тон или насыщенность, а не глобально другой цвет)</p>
+        </div>
+        <div class="product_info clear_fix">
+            <ul class="dostavka">
+                <li>Доставка до подъезда<br>БЕСПЛАТНО</li>
+                <li>Занос в квартиру или дом<br>min 50 грн</li>
+                <li>Сборка<br>262,00 грн</li>
+            </ul>
+            <div class="zakaz">
+                <a href="#" class="zelanie">В список желаемого</a>
+                <div class="payment">
+                    {% if session.price.exists %}
+                        {% if session.price.excl_tax == 0 %}
+                            <span>{% trans "Free" %}</span>
+                        {% elif session.price.is_tax_known %}
+                            <span>{{ session.price.incl_tax|currency:session.price.currency }}</span>
+                        {% else %}
+                            <span>{{ session.price.excl_tax|currency:session.price.currency }}</span>
+                        {% endif %}
+                    {% else %}
+                        <span> </span>
+                    {% endif %}
+
+                    <button type="submit" class="button_green">В корзину</button>
+                </div>
+            </div>
+        </div>
+        <div class="gray_bg caption_choose">
+            <p class="product_text">ВНУТРЕННЕЕ НАПОЛНЕНИЕ ШКАФА:</p>
+        </div>
+        <div class="product_info">
+            <div class="radio_product">
+                <ul>
+                    <li>
+                        <input id="radio1" type="radio" name="napol" value="radio1">
+                        <label for="radio1"></label>
+                        <img src="img/first_shkaf.png" alt="">
+                    </li>
+                    <li>
+                        <input id="radio2" type="radio" name="napol" value="radio2">
+                        <label for="radio2"></label>
+                        <img src="img/first_shkaf.png" alt="">
+                    </li>
+                    <li>
+                        <input id="radio3" type="radio" name="napol" value="radio3">
+                        <label for="radio3"></label>
+                        <img src="img/first_shkaf.png" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="gray_bg caption_choose">
+            <p class="product_text">Цвет корпуса:</p>
+        </div>
+        <div class="product_info">
+            <div class="radio_product">
+                <ul>
+                    <li>
+                        <input id="radio4" type="radio" name="color" value="radio4">
+                        <label for="radio4"></label>
+                        <img src="img/first_color.png" alt="">
+                    </li>
+                    <li>
+                        <input id="radio5" type="radio" name="color" value="radio5">
+                        <label for="radio5"></label>
+                        <img src="img/second_color.png" alt="">
+                    </li>
+                    <li>
+                        <input id="radio6" type="radio" name="color" value="radio6">
+                        <label for="radio6"></label>
+                        <img src="img/third_color.png" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </form>
+    <div class="gray_bg caption_choose">
+        <p class="product_text">ОТЗЫВЫ:</p>
+    </div>
+
+    {% iffeature "reviews" %}
+        {% block product_review %}
+        <div class="product_info">
+            <div id="reviews" class="sub-header">
+                {% if product.num_approved_reviews > 3 %}
+                    <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn pull-right">{% trans "See all reviews" %}</a>
+                {% endif %}
+            </div>
+
+            {% if product.num_approved_reviews == 0 %}
+                <p>
+                    {% if product|is_review_permitted:user %}
+                        {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
+                            {% blocktrans %}This product does not have any reviews yet -
+                            <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
+                        {% endblocktrans %}
+                    {% else %}
+                        {% trans "This product does not have any reviews yet" %}.
+                    {% endif %}
+                </p>
+            {% else %}
+
+                {% for review in product.reviews.approved.all|slice:":3" %}
+                    {% include 'catalogue/partials/review.html' %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% endblock product_review %}
+    {% endiffeature %}
+    {% comment %}
 <article class="product_page"><!-- Start of product page -->
 
     <div class="row">
 
-        {% block product_gallery %}
-        <div class="col-sm-6">
-            {% include "catalogue/partials/gallery.html" %}
-        </div>
-        {% endblock %}
 
         {% block product_main %}
         <div class="col-sm-6 product_main">
-            {% comment %}
-            This is a but clunky here.  Better to have some kind of JS-driven dashboard menu that 
-            pops out when clicked.  A bit like the Django-Debug-Toolbar button
-            {% endcomment %}
+
+
+
             {% if user.is_authenticated and user.is_staff %}
                 <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="icon-edit"></i> {% trans "Edit this product" %}</small></a>
             {% endif %}
@@ -142,39 +321,7 @@
     </table>
     {% endblock %}
 
-    {% iffeature "reviews" %}
-        {% block product_review %}
-        <section>
-            <div id="reviews" class="sub-header">
-                {% if product.num_approved_reviews > 3 %}
-                    <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn pull-right">{% trans "See all reviews" %}</a>
-                {% endif %}
-                <h2>{% trans "Customer Reviews" %}</h2>
-            </div>
 
-            {% if product.num_approved_reviews == 0 %}
-                <p>
-                    {% if product|is_review_permitted:user %}
-                        {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
-                            {% blocktrans %}This product does not have any reviews yet -
-                            <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
-                        {% endblocktrans %}
-                    {% else %}
-                        {% trans "This product does not have any reviews yet" %}.
-                    {% endif %}
-                </p>
-            {% else %}
-                <ol class="list-unstyled review-list">
-                    {% for review in product.reviews.approved.all|slice:":3" %}
-                        <li>
-                        {% include 'catalogue/partials/review.html' %}
-                        </li>
-                    {% endfor %}
-                </ol>
-            {% endif %}
-        </section>
-        {% endblock product_review %}
-    {% endiffeature %}
 
     {% with recommended_products=product.recommended_products.all|slice:":6" %}
         {% if recommended_products %}
@@ -194,8 +341,17 @@
     {% recently_viewed_products current_product=product %}
 
 </article><!-- End of product page -->
+{% endcomment %}
 {% endblock content %}
 
 {% block extrascripts %}
+    <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
     {{ block.super }}
+    <script type="text/javascript">
+    $(function() {
+      $('.rating_photo').barrating({
+        theme: 'fontawesome-stars'
+      });
+   });
+    </script>
 {% endblock %}

@@ -71,7 +71,65 @@
 		</div>
 
     {# Main content of page - other layout templates may override this block #}
+
     {% block content_wrapper %}
+
+    {% block slider %}{% endblock %}
+
+    <div class="content">
+        <div class="container">
+
+            <div class="row">
+                {# block for left column #}
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                    <div class="left_column">
+                    {% block column_left %}
+                        {% include "partials/left_nav.html" %}
+                        <h2>Фильтр</h2>
+                        <p class="select_caption">Количество дверей</p>
+                        <div class="custom_select">
+                            <select>
+                                <option>2-ух дверные двери</option>
+                                <option>одна дверь</option>
+                            </select>
+                        </div>
+                        <div class="checkbox_main">
+                            <input id="check1" type="checkbox" name="check" value="check1">
+                            <label for="check1">Прихожие</label>
+                            <br>
+                            <input id="check2" type="checkbox" name="check" value="check2">
+                            <label for="check2">Распашные</label>
+                            <br>
+                            <input id="check3" type="checkbox" name="check" value="check3">
+                            <label for="check3">Все шкафы-купе</label>
+                        </div>
+                    {% endblock %}
+                    </div>
+                    <div class="left_banner">
+                    {% block left_banner %}
+                        <div class="container">
+                        </div>
+                    {% endblock %}
+                     </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-9 col-md-9 cold-lg-9">
+                {# block for content #}
+                {% block breadcrumbs %}
+                
+                {% endblock %}
+                <div class="right_before">
+                    {% block content %}{% endblock %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% comment %}
+        {% block content_wrapper %}
+
         <div class="container-fluid page">
             <div class="page_inner">
                 {% block breadcrumbs %}{% endblock %}
@@ -98,7 +156,7 @@
             </div>
         </div>
     {% endblock %}
-
+    {% endcomment %}
     {% include "partials/footer.html" %}
     </div>
 {% endblock %}
@@ -118,7 +176,9 @@
     <script type="text/javascript" src="{% static "oscar/js/bootstrap3/bootstrap.min.js" %}"></script>
     <!-- Oscar -->
     <script src="{% static "oscar/js/oscar/ui.js" %}" type="text/javascript" charset="utf-8"></script>
-
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/jquery.bxslider.min.js' %}"></script>
+    <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% static "oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "oscar/js/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.all.js" %}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

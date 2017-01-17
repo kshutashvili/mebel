@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
 
     'slider'
-] + get_core_apps(['apps.promotions'])
+] + get_core_apps(['apps.promotions', 'apps.catalogue.reviews'])
 
 SITE_ID = 1
 

@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'', include(application.urls)),
     url(r'', include('apps.promotions.urls')),
 
+
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'slider',
     'articles',
     'site_reviews',
-] + get_core_apps(['apps.promotions', 'apps.catalogue.reviews'])
+] + get_core_apps(['apps.promotions', 'apps.catalogue', 'apps.catalogue.reviews', 'apps.basket'])
 
 SITE_ID = 1
 

@@ -10,6 +10,8 @@
 {% load thumbnail %}
 {% load purchase_info_tags %}
 {% load basket_tags %}
+{% load form_tags %}
+{% load widget_tweaks %}
 
 {% block styles %}
     {{ block.super }}
@@ -66,33 +68,21 @@
             <div class="product_right">
                 <p class="product_caption">{{ product.get_title }}</p>
                 <p class="product_text">1200 х 2400 (2520) х 420 (600) мм</p>
-                <p class="product_text">ART.: 168</p>
+                <p class="product_text">ART.: {{ product.upc }}</p>
 
                 <a href="#" class="button_green">{% if session.availability.is_available_to_buy %}Есть в наличии{% else %}Нету в наличии{% endif %}</a>
 
                 <div class="varianti">
                     <p class="product_caption">Доступные варианты</p>
-                    <div class="custom_select">
-                        <label>Ширина</label>
-                        <select>
-                            <option>120см</option>
-                            <option>120см</option>
-                        </select>
-                    </div>
-                    <div class="custom_select">
-                        <label>Висота</label>
-                        <select>
-                            <option>240см</option>
-                            <option>240см</option>
-                        </select>
-                    </div>
-                    <div class="custom_select">
-                        <label>Глубина</label>
-                        <select>
-                            <option>42см</option>
-                            <option>42см</option>
-                        </select>
-                    </div>
+                    {% for field in basket_form %}
+                        {% annotate_form_field field %}
+                        {% if field.widget_type == 'Select' %}
+                            <div class="custom_select">
+                                {{ field.label }}
+                                {{ field }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <ul>
                     <li>
@@ -142,60 +132,41 @@
                     {% else %}
                         <span> </span>
                     {% endif %}
-
+                    {% csrf_token %}
                     <button type="submit" class="button_green">В корзину</button>
                 </div>
             </div>
         </div>
-        <div class="gray_bg caption_choose">
-            <p class="product_text">ВНУТРЕННЕЕ НАПОЛНЕНИЕ ШКАФА:</p>
-        </div>
-        <div class="product_info">
-            <div class="radio_product">
-                <ul>
-                    <li>
-                        <input id="radio1" type="radio" name="napol" value="radio1">
-                        <label for="radio1"></label>
-                        <img src="img/first_shkaf.png" alt="">
-                    </li>
-                    <li>
-                        <input id="radio2" type="radio" name="napol" value="radio2">
-                        <label for="radio2"></label>
-                        <img src="img/first_shkaf.png" alt="">
-                    </li>
-                    <li>
-                        <input id="radio3" type="radio" name="napol" value="radio3">
-                        <label for="radio3"></label>
-                        <img src="img/first_shkaf.png" alt="">
-                    </li>
-                </ul>
-            </div>
-        </div>
+        {% for field in basket_form %}
+             {% annotate_form_field field %}
+            {% if field.widget_type == 'RadioSelect' %}
+                <div class="gray_bg caption_choose">
+                    <p class="product_text">{{ field.label }}:</p>
+                </div>
+                <div class="product_info">
+                    {{ field.errors }}
+                    <div class="radio_product">
+                        <ul>
+                            {% for choice in field %}
+                            <li>
+                                {% comment %}
+                                <input id="radio1" type="radio" name="{{ field.html_name }}" value="radio1">
+                                <label for="radio1"></label>
+                                {% endcomment %}
+                                {{ choice.tag }}
+                                <label for="{{ choice.id_for_label }}"></label>
+                                {{ choice.choice_label }}
+                            </li>
+                            {% endfor %}
 
-        <div class="gray_bg caption_choose">
-            <p class="product_text">Цвет корпуса:</p>
-        </div>
-        <div class="product_info">
-            <div class="radio_product">
-                <ul>
-                    <li>
-                        <input id="radio4" type="radio" name="color" value="radio4">
-                        <label for="radio4"></label>
-                        <img src="img/first_color.png" alt="">
-                    </li>
-                    <li>
-                        <input id="radio5" type="radio" name="color" value="radio5">
-                        <label for="radio5"></label>
-                        <img src="img/second_color.png" alt="">
-                    </li>
-                    <li>
-                        <input id="radio6" type="radio" name="color" value="radio6">
-                        <label for="radio6"></label>
-                        <img src="img/third_color.png" alt="">
-                    </li>
-                </ul>
-            </div>
-        </div>
+                        </ul>
+                    </div>
+                </div>
+            {% elif field.widget_type != 'RadioSelect' and field.widget_type != 'Select' %}
+                {{ field }}
+            {% endif %}
+        {% endfor %}
+
         {% endif %}
     </form>
     <div class="gray_bg caption_choose">

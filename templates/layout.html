@@ -37,6 +37,8 @@
 			</div>
 		</div>
 
+        {% include 'partials/alert_messages.html' %}
+
 		<div class="menu clear_fix">
 			<div class="container">
 				<nav class="navbar navbar-default">
@@ -58,7 +60,7 @@
 								<li><a href="/payment/">ОПЛАТА И ДОСТАВка</a></li>
 								<li><a href="{% url 'site_reviews:reviews_list' %}">ОТЗЫВЫ</a></li>
 								<li><a href="{% url 'articles:all' %}">СТАТЬИ</a></li>
-								<li><a href="{% url 'contacts' %}">КОНТАКТЫ</a></li>
+								<li><a href="{% url 'common:contacts' %}">КОНТАКТЫ</a></li>
 						      </ul>
 						  	</div>
 					    </div>

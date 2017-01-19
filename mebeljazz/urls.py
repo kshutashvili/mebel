@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^sitereviews/', include('site_reviews.urls', namespace='site_reviews')),
     url(r'', include(application.urls)),
     url(r'', include('apps.promotions.urls')),
+    url(r'', include('common.urls', namespace='common')),
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

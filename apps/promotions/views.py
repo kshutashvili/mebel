@@ -1,5 +1,3 @@
-from django.views.generic import TemplateView
-
 from oscar.apps.promotions.views import HomeView as DefaultHomeView
 
 from oscar.core.loading import get_model
@@ -15,7 +13,3 @@ class HomeView(DefaultHomeView):
         context['last_products'] = Product.browsable.base_queryset()[:9]
         context['slides'] = SliderSlide.objects.all()
         return context
-
-
-class ContactView(TemplateView):
-    template_name = 'promotions/contacts.html'

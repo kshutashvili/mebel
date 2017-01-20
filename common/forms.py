@@ -15,6 +15,6 @@ class ContactMessageForm(forms.ModelForm):
         self.fields['name'].widget.attrs = {'placeholder': 'Ваше имя'}
         self.fields['email'].widget.attrs = {'placeholder': 'Ваш e-mail'}
         self.fields['message'].widget.attrs = {'placeholder': 'Ваш вопрос...'}
-        if request:
+        if request and request.user.is_authenticated():
             self.fields['name'].initial = request.user.first_name
             self.fields['email'].initial = request.user.email

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for mebeljazz project.
 
@@ -9,6 +10,7 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
+from __future__ import unicode_literals
 
 import os
 
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'compressor',
     'widget_tweaks',
     'ckeditor',
+    'constance',
+    'constance.backends.database',
 
     'slider',
     'articles',
@@ -93,6 +97,7 @@ TEMPLATES = [
                 'oscar.apps.checkout.context_processors.checkout',
                 'oscar.apps.customer.notifications.context_processors.notifications',
                 'oscar.core.context_processors.metadata',
+                'constance.context_processors.config',
             ],
         },
     },
@@ -207,6 +212,16 @@ CKEDITOR_CONFIGS = {
 
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'CONTACT_NUM_1': ('(066) 124 47 94', u'Телефон 1'),
+    'CONTACT_NUM_2': ('(093) 552 51 00', u'Телефон 2'),
+    'CONTACT_NUM_3': ('(068) 678 70 66', u'Телефон 3'),
+    'CONTACT_EMAIL': ('info@mebeljazz.com.ua', u'Почта'),
+    'ADDRESS': (u'г. Киев, ул. Кириловская 86', u'Адрес'),
+}
+
 #################################################################
 # OSCAR settings
 

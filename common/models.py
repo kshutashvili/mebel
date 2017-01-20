@@ -19,7 +19,7 @@ class ContactMessage(models.Model):
 
     class Meta:
         verbose_name = _('Контактное сообщение')
-        verbose_name = _('Контактные сообщения')
+        verbose_name_plural = _('Контактные сообщения')
 
     def __unicode__(self):
         return '{} - {}'.format(self.name, self.email)

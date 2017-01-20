@@ -18,17 +18,17 @@
 		<ul class="contacts_list">
 			<li>
 				<p class="contacts_list_caption">Наши телефоны:</p>
-				<a href="">(066) 124 47 94</a>
-				<a href="#">(093) 552 51 00</a>
-				<a href="#">(068) 678 70 66</a>
+				<a href="tel:{{ config.CONTACT_NUM_1 }}">{{ config.CONTACT_NUM_1 }}</a>
+				<a href="tel:{{ config.CONTACT_NUM_2 }}">{{ config.CONTACT_NUM_2 }}</a>
+				<a href="tel:{{ config.CONTACT_NUM_3 }}">{{ config.CONTACT_NUM_3 }}</a>
 			</li>
 			<li>
 				<p class="contacts_list_caption">Почта:</p>
-				<a href="#">info@mebeljazz.com.ua</a>
+				<a href="mailto:{{ config.CONTACT_EMAIL }}">{{ config.CONTACT_EMAIL }}</a>
 			</li>
 			<li>
 				<p class="contacts_list_caption">Наш склад:</p>
-				<p>г. Киев, ул. Кириловская 86</p>
+				<p>{{ config.ADDRESS }}</p>
 				<p class="descrip">Внимание, товар отпускается только по предварительному заказу через сайт или по телефонам </p>
 			</li>
 			<li>

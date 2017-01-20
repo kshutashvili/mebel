@@ -1,3 +1,7 @@
 .m-l-12{
     margin-left: 12px !important;
 }
+
+.error_field{
+    border-color: #ff0039 !important;
+}

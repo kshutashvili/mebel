@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load staticfiles %}
 {% load thumbnail %}
 {% load i18n %}
 
@@ -7,12 +8,6 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        <li class="active">{% trans "Basket" %}</li>
-    </ul>
 {% endblock %}
 
 {# Hide mini-basket so we don't have two baskets to keep in sync #}
@@ -21,10 +16,10 @@
 {% block headertext %}
     {% trans "Basket" %}
 {% endblock %}
-
+{% block content_cls %}contacts_page{% endblock %}
 {% block content %}
     {# Use a partial template so that AJAX can be used to re-render basket #}
-    {% include 'basket/partials/basket_content.html' %}
+    {% include 'basket/partials/basket_content.html' with order_form=order_form %}
 {% endblock content %}
 
 {% block onbodyload %}
@@ -34,4 +29,37 @@
         'basketURL': '{% url 'basket:summary' %}'
     };
     oscar.basket.init(options);
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script src="{% static 'js/plusminus.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#basket_submit').on('click', function (e) {
+            e.preventDefault();
+
+            $form = $(this).parents('form');
+            var url = $form.attr('action');
+            $form.find('.error_field').removeClass('error_field');
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data:$form.serialize(),
+                success:function (url) {
+                    alert('Благодарим ваш заказа оформлен');
+                    $(location).attr("href", url);
+                },
+                error:function (jqXHR, textStatus, exception) {
+                    if (jqXHR.status == 400){
+                        var errors = $.parseJSON(jqXHR.responseText);
+                        $.each(errors, function (key, val) {
+                            $form.find('#id_'+key).addClass('error_field');
+                        })
+                    }
+                }
+            })
+        })
+    })
+    </script>
 {% endblock %}

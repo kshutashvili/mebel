@@ -51,15 +51,10 @@ class OptionVariant(models.Model):
         return self.name
 
 
-
-def validate_variant(instance):
-    if instance.variant not in instance.option.choices.all():
-        ValidationError(u'Опция находиться за границой выбираемых значений')
-
 class LineOptionChoice(models.Model):
     basket_line = models.ForeignKey(Line, related_name='options_choices', verbose_name=u'Строка корзины')
     option = models.ForeignKey(MultipleOption, verbose_name=u'Доступные варианты')
-    variant = models.ForeignKey(OptionVariant, verbose_name=u'Выбраный вариант', validators=[validate_variant])
+    variant = models.ForeignKey(OptionVariant, verbose_name=u'Выбраный вариант')
 
     class Meta:
         app_label = 'basket'

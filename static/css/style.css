@@ -1174,9 +1174,10 @@ a.write_comment:before{
 	font: 14px "OpenSansBold";
 	text-transform: uppercase;
 	color: #fff;
-	padding: 20px 50px;
+	padding: 20px 45px;
 	background-color: #48515a;
 	position: relative;
+	text-align: center;
 }
 .basket_table table tr:first-child{
 	border-bottom: 0;
@@ -1186,6 +1187,9 @@ a.write_comment:before{
 }
 .basket_table table th:first-child{
 	padding: 20px 30px;
+}
+.basket_table table th:nth-child(2){
+	text-align: left;
 }
 .basket_table table th:last-child{
 	padding: 20px 25px;
@@ -1280,6 +1284,47 @@ a.write_comment:before{
 }
 .right_before_basket{
 	padding-bottom: 152px;
+}
+.number{
+	width: 105px;
+	font-size: 0;
+}
+.number input{
+	background-color: #48515a;
+	font: 14px "OpenSansSemiBold";
+	color: #fff;
+	width: 45px;
+	height: 27px;
+	border: 0;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+.number .plus{
+	background-color: #4fbd43;
+	font: 20px "OpenSansLight";
+	color: #fff;
+	width: 30px;
+	height: 27px;
+	border: 0;
+	border-bottom-left-radius: 2px;
+	border-top-left-radius: 2px;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+}
+.number .minus{
+	background-color: #dd3b3d;
+	font: 20px/24px "OpenSansLight";
+	color: #fff;
+	width: 30px;
+	height: 27px;
+	border: 0;
+	border-bottom-right-radius: 2px;
+	border-top-right-radius: 2px;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
 }
 @media (max-width: 1200px){
 	.basket ul li {
@@ -1662,5 +1707,29 @@ a.write_comment:before{
 	}
 	.basket_table table td {
 	    font: 8px "OpenSansSemiBold";
+	}
+	.number {
+	    width: 60px;
+	}
+	.number .plus {
+	    font: 14px "OpenSansLight";
+	    width: 15px;
+	    height: 20px;
+	}
+	.number input {
+	    font: 10px "OpenSansSemiBold";
+	    width: 30px;
+	    height: 20px;
+	}
+	.number .minus {
+	    font: 14px/16px "OpenSansLight";
+	    width: 15px;
+	    height: 20px;
+	}
+	.basket_table{
+		margin: 0 15px 0 0;
+	}
+	.basket_table table td:last-child {
+	    width: 40px;
 	}
 }

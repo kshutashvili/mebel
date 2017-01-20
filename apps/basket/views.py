@@ -1,13 +1,24 @@
 from oscar.apps.basket.views import *
-from oscar.apps.basket.views import BasketAddView as CoreBasketAddView
+from oscar.apps.basket.views import BasketAddView as CoreBasketAddView, BasketView as CoreBasketView
 
-from  django.views.generic import FormView
+
+from apps.order.forms import SimpleOrderForm
+
+
+class BasketView(CoreBasketView):
+
+    def get_context_data(self, **kwargs):
+        ctx = super(BasketView, self).get_context_data(**kwargs)
+
+        ctx['order_form'] = SimpleOrderForm()
+
+        return ctx
+
+
 
 class BasketAddView(CoreBasketAddView):
     def form_valid(self, form):
         offers_before = self.request.basket.applied_offers()
-        print(form.cleaned_data['quantity'])
-        print('Forma Valid')
         self.request.basket.add_product(
             form.product, form.cleaned_data['quantity'],
             form.cleaned_options(), form.cleaned_multiple_options())

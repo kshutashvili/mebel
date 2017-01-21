@@ -26,12 +26,13 @@
 
     {% block basket_form_main %}
             {% csrf_token %}
-            {{ formset.management_form }}
             <p class="basket_caption">Оформление заказа</p>
             <div class="right_before right_before_basket">
                 <div class="basket_table">
                 <form action="." method="post" class="basket_summary" id="basket_formset">
-                    <table>
+                    {{ formset.management_form }}
+                    <table id="basket_table">
+                        {% csrf_token %}
                         <tr class="first_row">
                             <th>Фото</th><th>наименование товара</th><th>Модель</th><th>кол-во</th><th>цена за шт.</th>
                         </tr>
@@ -58,9 +59,15 @@
                             <td>
                                 <div class="number">
                                     <span class="plus" onselectstart="return false" onmousedown="return false">+</span>
-                                    <input type="text" disabled value="{{ form.quantity.value }}"/>
+                                    {{ form.quantity|attr:'type:text' }}
                                     <span class="minus" onselectstart="return false" onmousedown="return false">-</span>
                                 </div>
+                                {% for field_errors in form.errors.values %}
+                                    {% for error in field_errors %}
+                                        <span class="error-block"><i class="icon-exclamation-sign"></i> {{ error }}</span>
+                                    {% endfor %}
+
+                                {% endfor %}
                             </td>
                             <td>
                                 {% if line.is_tax_known %}
@@ -183,3 +190,4 @@
         </div>
     {% endif %}
 {% endblock %}
+

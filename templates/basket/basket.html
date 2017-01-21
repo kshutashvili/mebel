@@ -59,7 +59,16 @@
                     }
                 }
             })
+        });
+
+        //TODO:Ajax update
+
+        $('.number input').on('change', function () {
+            $form = $(this).parents('form');
+            $form.submit();
+            //$('#basket_table').load('{% url 'basket:summary' %} #basket_table')
         })
+
     })
     </script>
 {% endblock %}

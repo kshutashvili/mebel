@@ -1,7 +1,7 @@
 #-*-coding:utf8-*-
 
 from oscar.apps.basket.forms import *
-from oscar.apps.basket.forms import AddToBasketForm as CoreAddToBasketForm, SimpleAddToBasketForm as CoreSimpleAddToBasketForm
+from oscar.apps.basket.forms import AddToBasketForm as CoreAddToBasketForm
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -28,7 +28,6 @@ class AddToBasketForm(CoreAddToBasketForm):
                 widget = forms.Select()
 
             self.fields[option.group.code] = ImageChoiceField(widget=widget, queryset=option.choices.all(), label=option.group.name, required=True, empty_label=None)
-
 
     def cleaned_multiple_options(self):
         options = []

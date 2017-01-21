@@ -6,14 +6,12 @@ from apps.order.forms import SimpleOrderForm
 
 
 class BasketView(CoreBasketView):
-
     def get_context_data(self, **kwargs):
         ctx = super(BasketView, self).get_context_data(**kwargs)
 
         ctx['order_form'] = SimpleOrderForm()
 
         return ctx
-
 
 
 class BasketAddView(CoreBasketAddView):

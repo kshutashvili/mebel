@@ -99,7 +99,7 @@ class Basket(AbstractBasket):
 
 class Line(AbstractLine):
     def get_preview_info(self):
-        return 'X'.join([var.variant.name for var in self.options_choices.all()])
+        return 'X'.join([var.variant.name for var in self.options_choices.all() if var.option.group.preview])
 
 
 

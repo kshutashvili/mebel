@@ -1,5 +1,5 @@
 import zlib
-from oscar.apps.basket.abstract_models import AbstractBasket
+from oscar.apps.basket.abstract_models import AbstractBasket, AbstractLine
 
 
 class Basket(AbstractBasket):
@@ -95,6 +95,12 @@ class Basket(AbstractBasket):
                            'value': repr(option['value'])} for option in multi_options]
         repr_options = repr_options_1 + repr_options_2
         return "%s_%s" % (base, zlib.crc32(repr(repr_options).encode('utf8')))
+
+
+class Line(AbstractLine):
+    def get_preview_info(self):
+        return 'X'.join([var.variant.name for var in self.options_choices.all()])
+
 
 
 from oscar.apps.basket.models import *  # noqa

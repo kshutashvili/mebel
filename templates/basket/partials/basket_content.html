@@ -50,8 +50,9 @@
                                     {% endthumbnail %}
                                 {% endwith %}
                             </td>
-                            <td>
-                                {{ line.description }}
+                            <td style="line-height: 1.5;">
+                                <p style="margin: 0px;">{{ line.description }}</p>
+                                <p style="font-size:12px;">{{ line.get_preview_info }}</p>
                             </td>
                             <td>
                                 {{ product.upc }}

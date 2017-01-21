@@ -67,7 +67,7 @@
             {% endwith %}
             <div class="product_right">
                 <p class="product_caption">{{ product.get_title }}</p>
-                <p class="product_text">1200 х 2400 (2520) х 420 (600) мм</p>
+                <p class="product_text">{{ product.get_preview_info }}</p>
                 <p class="product_text">ART.: {{ product.upc }}</p>
 
                 <a href="#" class="button_green">{% if session.availability.is_available_to_buy %}Есть в наличии{% else %}Нету в наличии{% endif %}</a>

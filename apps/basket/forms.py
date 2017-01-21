@@ -10,7 +10,7 @@ from django.utils.safestring import mark_safe
 
 class ImageChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        return mark_safe("<img src='%s'/>" % obj.image.url) if obj.image else obj.name
+        return mark_safe("<img src='%s'/>" % obj.image.url) if obj.image else '%s %s'%(obj.name, obj.group.postfix)
 
 
 class AddToBasketForm(CoreAddToBasketForm):
@@ -22,7 +22,7 @@ class AddToBasketForm(CoreAddToBasketForm):
     def _create_option_fields(self):
         for option in self.parent_product.multiple_options.all():
             choices = []
-            if option.display_type == 'radio':
+            if option.group.display_type == 'radio':
                 widget = forms.RadioSelect()
             else:
                 widget = forms.Select()

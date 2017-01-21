@@ -19,8 +19,8 @@
         {% block product_title %}
             <p>{{ product.get_title}}</p>
         {% endblock %}
-        <p>900Х2100Х420ММ</p>
-        <p>ART.: 295</p>
+        <p>{{ product.get_preview_info }}</p>
+        <p>ART.: {{ product.upc }}</p>
         <a href="{{ product.get_absolute_url }}" class="items_more">ПОДРОБНЕЕ</a><a href="{{ product.get_absolute_url }}" class="items_buy">ВЫБРАТЬ</a>
     </div>
         {% comment %}

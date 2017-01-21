@@ -9,11 +9,11 @@ from django import forms
 from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant
 
 
-
 class MultipleOptionAdminInline(admin.TabularInline):
     model = MultipleOption
     extra = 2
     filter_horizontal = ('choices',)
+
 
 class OptionVariantAdminInline(admin.TabularInline):
     model = OptionVariant

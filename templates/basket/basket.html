@@ -55,7 +55,8 @@
                         var errors = $.parseJSON(jqXHR.responseText);
                         $.each(errors, function (key, val) {
                             $form.find('#id_'+key).addClass('error_field');
-                        })
+                        });
+                        console.log(jqXHR.responseText);
                     }
                 }
             })

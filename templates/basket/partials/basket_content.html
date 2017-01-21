@@ -60,7 +60,7 @@
                             <td>
                                 <div class="number">
                                     <span class="plus" onselectstart="return false" onmousedown="return false">+</span>
-                                    {{ form.quantity|attr:'type:text' }}
+                                    {{ form.quantity|attr:'type:text'|attr:'min:0' }}
                                     <span class="minus" onselectstart="return false" onmousedown="return false">-</span>
                                 </div>
                                 {% for field_errors in form.errors.values %}

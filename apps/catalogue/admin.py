@@ -11,7 +11,7 @@ from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant
 
 class MultipleOptionAdminInline(admin.TabularInline):
     model = MultipleOption
-    extra = 2
+    extra = 0
     filter_horizontal = ('choices',)
 
 

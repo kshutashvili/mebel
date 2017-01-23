@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load promotion_tags %}
 {% load slider_tags %}
+{% load filter_tags %}
 
 {% block styles %}
     {% comment %}
@@ -66,10 +67,7 @@
 					</div>
 				</nav>
 				<div class="search">
-					<form action="">
-						<input type="text" placeholder="Шкаф-купе раздвижной желтый">
-						<button></button>
-					</form>
+                    {% include 'partials/search.html' %}
 				</div>
 			</div>
 		</div>
@@ -90,24 +88,8 @@
                     <div class="left_column">
                     {% block column_left %}
                         {% include "partials/left_nav.html" %}
-                        <h2>Фильтр</h2>
-                        <p class="select_caption">Количество дверей</p>
-                        <div class="custom_select">
-                            <select>
-                                <option>2-ух дверные двери</option>
-                                <option>одна дверь</option>
-                            </select>
-                        </div>
-                        <div class="checkbox_main">
-                            <input id="check1" type="checkbox" name="check" value="check1">
-                            <label for="check1">Прихожие</label>
-                            <br>
-                            <input id="check2" type="checkbox" name="check" value="check2">
-                            <label for="check2">Распашные</label>
-                            <br>
-                            <input id="check3" type="checkbox" name="check" value="check3">
-                            <label for="check3">Все шкафы-купе</label>
-                        </div>
+                        <h2>Фильтры</h2>
+                        {% draw_filter_form %}
                     {% endblock %}
                     </div>
 

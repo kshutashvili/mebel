@@ -1,8 +1,7 @@
 {% load i18n %}
+{% load widget_tweaks %}
 
-<form method="get" action="{% url 'search:search' %}" class="navbar-form navbar-right">
-    <div class="form-group">
-        {{ search_form.q }}
-    </div>
-    <input type="submit" value="{% trans "Search" %}" class="btn btn-default" />
+<form method="get" action="{% url 'search:search' %}">
+    {% render_field search_form.q class='' placeholder="Шкаф-купе раздвижной желтый" %}
+    <button></button>
 </form>

@@ -14,6 +14,8 @@ from __future__ import unicode_literals
 
 import os
 
+from django.utils.translation import ugettext_lazy as _
+
 from oscar import get_core_apps
 from oscar import OSCAR_MAIN_TEMPLATE_DIR
 from oscar.defaults import *
@@ -56,7 +58,7 @@ INSTALLED_APPS = [
     'articles',
     'site_reviews',
     'common',
-] + get_core_apps(['apps.promotions', 'apps.catalogue', 'apps.catalogue.reviews', 'apps.basket', 'apps.order', 'apps.checkout'])
+] + get_core_apps(['apps.promotions', 'apps.catalogue', 'apps.catalogue.reviews', 'apps.basket', 'apps.order', 'apps.checkout', 'apps.search'])
 
 SITE_ID = 1
 
@@ -175,6 +177,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        'EXCLUDED_INDEXES': ['oscar.apps.search.search_indexes.ProductIndex']
     },
 }
 
@@ -226,6 +229,28 @@ CONSTANCE_CONFIG = {
 # OSCAR settings
 
 OSCAR_DEFAULT_CURRENCY = 'UAH'
+
+OSCAR_SEARCH_FACETS = {
+    'fields': OrderedDict([
+        ('product_class', {'name': _('Type'), 'field': 'product_class'}),
+        ('rating', {'name': _('Rating'), 'field': 'rating'}),
+    ]),
+    'queries': OrderedDict([
+        ('price_range',
+         {
+             'name': _('Price range'),
+             'field': 'price',
+             'queries': [
+                 # This is a list of (name, query) tuples where the name will
+                 # be displayed on the front-end.
+                 (_('0 to 20'), u'[0 TO 20]'),
+                 (_('20 to 40'), u'[20 TO 40]'),
+                 (_('40 to 60'), u'[40 TO 60]'),
+                 (_('60+'), u'[60 TO *]'),
+             ]
+         }),
+    ]),
+}
 
 try:
     from local_settings import *

@@ -19,11 +19,10 @@
     <div class="product_info">
         <span class="review_caption review_caption_inside">{{ article.title }}</span>
         <select class="rating_photo">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            {% for k,v in article.SCORE_CHOICES|slice:"1:" %}
+                {{ k }}
+                <option value="{{ k }}" {% if k == article.score  %}selected=""{% endif %}>{{ v }}</option>
+            {% endfor %}
         </select>
         <div class="comment_text">
             {{ article.text|safe }}

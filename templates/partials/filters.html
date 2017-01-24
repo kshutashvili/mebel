@@ -1,10 +1,14 @@
-{% for field in form %}
-    <p class="select_caption">{{ field.label }}</p>
-    <div class="checkbox_main">
-    {% for choice in field %}
-        {{ choice.tag }}
-        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-        <br>
+
+<form id="filter_form" method="get" action="{{ url|default:'/catalogue/' }}">
+    {% for field in form %}
+        <p class="select_caption">{{ field.label }}</p>
+        <div class="checkbox_main">
+        {% for choice in field %}
+            {{ choice.tag }}
+            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+            <br>
+        {% endfor %}
+        </div>
     {% endfor %}
-    </div>
-{% endfor %}
+    {% csrf_token %}
+</form>

@@ -12,6 +12,11 @@
 
 {% block headertext %}{{ category.name }}{% endblock %}
 
+{% block filters %}
+    {% include 'partials/filters.html' with form=filter_form url=category.get_absolute_url %}
+{% endblock %}
+
+
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li>

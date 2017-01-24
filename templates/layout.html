@@ -89,7 +89,9 @@
                     {% block column_left %}
                         {% include "partials/left_nav.html" %}
                         <h2>Фильтры</h2>
-                        {% draw_filter_form %}
+                        {% block filters %}
+                            {% draw_filter_form %}
+                        {% endblock %}
                     {% endblock %}
                     </div>
 
@@ -184,6 +186,14 @@
 {% block extrascripts %}
     {% include "partials/extrascripts.html" %}
     {{ block.super }}
+     <script type="text/javascript">
+    $(document).ready(function () {
+        $('.checkbox_main input').on('change', function () {
+            $form = $(this).parents('form');
+            $form.submit();
+        })
+    })
+    </script>
 {% endblock %}
 
 {% block onbodyload %}

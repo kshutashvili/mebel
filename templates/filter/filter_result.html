@@ -1,0 +1,18 @@
+{% extends 'layout_2_col.html' %}
+
+{% load product_tags %}
+
+{% block filters %}
+    {% include 'partials/filters.html' with form=filter_form %}
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for product in products %}
+    <li>
+        {% render_product product %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

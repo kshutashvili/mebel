@@ -33,7 +33,6 @@ urlpatterns = [
     url(r'', include(application.urls)),
     url(r'', include('apps.promotions.urls')),
     url(r'', include('common.urls', namespace='common')),
-    url(r'^basket/',include('apps.order.urls', namespace='order') )
-
+    url(r'^basket/',include('apps.order.urls', namespace='order')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

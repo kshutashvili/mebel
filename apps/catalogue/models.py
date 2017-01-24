@@ -19,7 +19,6 @@ class Product(AbstractProduct):
         return 'X'.join(prev_list)
 
 
-
 class MultipleOption(models.Model):
     product = models.ForeignKey('Product', related_name='multiple_options', verbose_name=u'Товар')
     group = models.ForeignKey('OptionGroup', related_name='Choices', verbose_name=u'Група опций', default=1)

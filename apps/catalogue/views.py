@@ -16,7 +16,6 @@ class CatalogueView(CoreCatalogueView):
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
-            print(options)
         try:
             self.search_handler = self.get_search_handler(
                 self.request.GET, request.get_full_path(), [], options)
@@ -45,7 +44,6 @@ class ProductCategoryView(CoreProductCategoryView):
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
-            print(options)
 
         try:
             self.search_handler = self.get_search_handler(

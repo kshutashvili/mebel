@@ -36,7 +36,6 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
 
     def __init__(self, *args, **kwargs):
         super(ProductIndex, self).__init__(*args, **kwargs)
-        print(self.__dict__)
 
     def get_model(self):
         return get_model('catalogue', 'Product')

@@ -25,7 +25,7 @@ class SimpleProductSearchHandler(CoreSimpleProductSearchHandler):
                         reduce(lambda x, y: x | y,
                                [Q(multiple_options__choices__pk=item) for item in self.options[k]]
                                )
-                    )
+                    ).distinct()
         return qs
 
 

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% load i18n %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>
+        <li><a href="{% url 'articles:all' %}">Список статей</a></li>
+        <li class="active">{{ article.title }}</li>
+    </ul>
+    <span class="review_time review_time_inside">Добавлено: {{ article.creation_date|date:'d.y.m' }}</span>
+{% endblock %}
+
+{% block content_cls %}
+    right_before
+{% endblock %}
+
+{% block content %}
+    <div class="product_info">
+        <span class="review_caption review_caption_inside">{{ article.title }}</span>
+        <select class="rating_photo">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="comment_text">
+            {{ article.text|safe }}
+        </div>
+    </div>
+{% endblock %}

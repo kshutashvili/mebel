@@ -671,6 +671,7 @@ select::-ms-expand {
 	margin: 12px;
 	margin-right: 0;
 	margin-top: 0;
+	position: relative;
 }
 .contacts_list{
 	font-size: 0;
@@ -1105,6 +1106,18 @@ p.change_margin{
 .left_banner_review:before {
     min-height: 490px;
 }
+.write_comment{
+	display: inline-block;
+	padding: 7px 30px;
+	background-color: #4bb336;
+	color: #fff;
+	font: 16px "OpenSansLight";
+	border-radius: 4px;
+	text-decoration: none;
+	position: relative;
+	margin-bottom: 20px;
+	border: 0;
+}
 a.write_comment{
 	display: inline-block;
 	padding: 7px 30px;
@@ -1325,6 +1338,73 @@ a.write_comment:before{
 	display: inline-block;
 	vertical-align: top;
 	cursor: pointer;
+}
+.for_write_comment_padding{
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+.review_caption_inside{
+	text-transform: uppercase;
+	letter-spacing: -1px;
+}
+.review_time_inside{
+	position: absolute;
+	top: 15px;
+	right: 0px;
+}
+.review_img_inside{
+	margin: 5px 0 12px;
+	width: 100%;
+}
+.modal-footer .br-wrapper{
+	float: none;
+	display: block;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.modal-header h2{
+	font: 28px "OpenSansLight";
+	text-align: center;
+	margin-bottom: 0px;
+	color: #000;
+	letter-spacing: -1px;
+}
+.modal-footer h5{
+	font: 16px "OpenSansLight";
+	text-align: center;
+	margin-bottom: 3px;
+	margin-top: 0;
+	color: #000;
+}
+.modal-footer, .modal-header {
+    border: 0;
+}
+.modal-body{
+	text-align: center;
+}
+.modal-body input{
+	max-width: 425px;
+	width: 100%;
+	background-color: #f9f9f9;
+}
+.modal-body textarea{
+	max-width: 425px;
+	width: 100%;
+	background-color: #f9f9f9;
+	height: 145px;
+}
+.modal-body .basket_form_input {
+    max-width: 100%;
+    margin-right: 0px;
+}
+.modal-content {
+    border-radius: 4px;
+}
+button.close{
+	display: inline-block;
+	width: 20px;
+	height: 18px;
+	background: url("../img/exit_form.png") no-repeat center center;
 }
 @media (max-width: 1200px){
 	.basket ul li {

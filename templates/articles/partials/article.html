@@ -10,5 +10,5 @@
     </select>
     <div class="comment_text">{{ article.description|safe }}</div>
     <span class="review_time">Добавлено: {{ article.creation_date|date:'d.y.m' }}</span>
-    <a href="#" class="read_more">Читать полностью</a>
+    <a href="{% url 'articles:detail' article.pk %}" class="read_more">Читать полностью</a>
 </div>

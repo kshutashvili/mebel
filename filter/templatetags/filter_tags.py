@@ -1,6 +1,6 @@
 from django import template
 
-from apps.search.forms import FilterForm
+from filter.forms import FilterForm
 
 register = template.Library()
 

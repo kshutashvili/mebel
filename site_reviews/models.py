@@ -21,7 +21,6 @@ class SiteReview(models.Model):
     SCORE_CHOICES = tuple([(x, x) for x in range(0, 6)])
     score = models.SmallIntegerField(_("Score"), choices=SCORE_CHOICES)
 
-
     body = models.TextField(_("Body"))
 
     # User information.
@@ -32,6 +31,7 @@ class SiteReview(models.Model):
     name = models.CharField(
         pgettext_lazy(u"Anonymous reviewer name", u"Name"),
         max_length=255, blank=True)
+
     email = models.EmailField(_("Email"), blank=True)
 
     FOR_MODERATION, APPROVED, REJECTED = 0, 1, 2

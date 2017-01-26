@@ -5,7 +5,6 @@ from oscar.apps.catalogue.abstract_models import AbstractProduct
 from apps.basket.models import Line
 
 from django.db import models
-from django.core.exceptions import ValidationError
 
 
 class Product(AbstractProduct):
@@ -14,8 +13,8 @@ class Product(AbstractProduct):
         for moption in self.multiple_options.all():
             if moption.group.preview:
                 prev_list.append(
-                    '%s(%s)' % (moption.choices.all()[0].name,
-                    ','.join([var.name for var in moption.choices.all()[1:]]))
+                    '%s(%s)' % (moption.choices.all()[0].variant.name,
+                    ','.join([var.variant.name for var in moption.choices.all()[1:]]))
                 )
 
         return 'X'.join(prev_list)
@@ -36,14 +35,40 @@ class MultipleOption(models.Model):
         default=1
     )
 
-    choices = models.ManyToManyField('OptionVariant', verbose_name=u'Варианты')
-
     class Meta:
         verbose_name = u'Множественная опция'
         verbose_name_plural = u'Множественные опции'
 
     def __unicode__(self):
         return self.group.code
+
+
+class OptionInfo(models.Model):
+    multi_option = models.ForeignKey(
+        'MultipleOption',
+        related_name='choices',
+        verbose_name=''
+    )
+
+    variant = models.ForeignKey(
+        'OptionVariant',
+        related_name='infos',
+        verbose_name=u'Вариант'
+    )
+
+    additional_price = models.DecimalField(
+        verbose_name=u'Наценка',
+        default=0,
+        decimal_places=2,
+        max_digits=12,
+    )
+
+    class Meta:
+        verbose_name = u'Информация опции'
+        verbose_name_plural = u'Информации опций'
+
+    def __unicode__(self):
+        return '%s %s'%(self.variant.name, self.additional_price)
 
 
 class OptionGroup(models.Model):
@@ -90,7 +115,10 @@ class OptionVariant(models.Model):
         verbose_name=u'Група'
     )
 
-    name = models.CharField(max_length=100,verbose_name=u'Название')
+    name = models.CharField(
+        max_length=100,
+        verbose_name=u'Название'
+    )
 
     image = models.ImageField(
         verbose_name=u'Изображение',
@@ -113,9 +141,11 @@ class LineOptionChoice(models.Model):
         related_name='options_choices',
         verbose_name=u'Строка корзины'
     )
-    option = models.ForeignKey(MultipleOption, verbose_name=u'Доступные варианты')
 
-    variant = models.ForeignKey(OptionVariant, verbose_name=u'Выбраный вариант')
+    variant = models.ForeignKey(
+        OptionInfo,
+        verbose_name=u'Выбраный вариант'
+    )
 
     class Meta:
         app_label = 'basket'

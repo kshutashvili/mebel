@@ -6,11 +6,15 @@ from oscar.apps.basket.forms import AddToBasketForm as CoreAddToBasketForm
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.utils.html import escape, conditional_escape
+from django.utils.encoding import force_unicode
 
 
 class ImageChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        return mark_safe("<img src='%s'/>" % obj.image.url) if obj.image else '%s %s'%(obj.name, obj.group.postfix)
+        return mark_safe("<img src='%s'/>" % obj.variant.image.url) \
+            if obj.variant.image \
+            else mark_safe('%s %s'%(obj.variant.name, obj.variant.group.postfix))
 
 
 class AddToBasketForm(CoreAddToBasketForm):
@@ -23,9 +27,9 @@ class AddToBasketForm(CoreAddToBasketForm):
         for option in self.parent_product.multiple_options.all():
             choices = []
             if option.group.display_type == 'radio':
-                widget = forms.RadioSelect()
+                widget = forms.RadioSelect(attrs={'class': 'option'})
             else:
-                widget = forms.Select()
+                widget = forms.Select(attrs={'class': 'option'})
 
             self.fields[option.group.code] = ImageChoiceField(widget=widget, queryset=option.choices.all(), label=option.group.name, required=True, empty_label=None)
 
@@ -39,6 +43,17 @@ class AddToBasketForm(CoreAddToBasketForm):
 
         return options
 
+    def options_product_price(self, request):
+        data = self.cleaned_multiple_options()
+        add_price = sum([i['value'].additional_price for i in data])
+        if self.product.is_parent:
+            session = request.strategy.fetch_for_parent(self.product)
+        else:
+            session = request.strategy.fetch_for_product(self.product)
+
+        base_price = session.price.incl_tax if  session.price.incl_tax else session.price.excl_tax
+
+        return base_price + add_price
 
 class SimpleAddToBasketForm(AddToBasketForm):
     quantity = forms.IntegerField(

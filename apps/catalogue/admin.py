@@ -4,15 +4,23 @@ from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductR
     ProductAdmin as CoreProductAdmin
 
 from django.contrib import admin
-from django import forms
 
-from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant
+from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant, OptionInfo
+
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
 
-class MultipleOptionAdminInline(admin.TabularInline):
+class OptionInfoAdminInline(NestedStackedInline):
+    model = OptionInfo
+    extra = 1
+    fk_name = 'multi_option'
+
+
+class MultipleOptionAdminInline(NestedStackedInline):
     model = MultipleOption
     extra = 0
-    filter_horizontal = ('choices',)
+    inlines = [OptionInfoAdminInline, ]
+    fk_name = 'product'
 
 
 class OptionVariantAdminInline(admin.TabularInline):
@@ -20,8 +28,9 @@ class OptionVariantAdminInline(admin.TabularInline):
     extra = 3
 
 
-class ProductAdmin(CoreProductAdmin):
+class ProductAdmin(CoreProductAdmin, NestedModelAdmin):
     inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline]
+
 
 
 

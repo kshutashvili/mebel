@@ -47,8 +47,7 @@ class Basket(AbstractBasket):
         # product (eg T-shirts with different personalisations)
         line_ref = self._create_line_reference(
             product, stock_info.stockrecord, options, multi_options)
-        print(line_ref)
-        print(multi_options)
+
         # Determine price to store (if one exists).  It is only stored for
         # audit and sometimes caching.
         defaults = {
@@ -65,12 +64,19 @@ class Basket(AbstractBasket):
             stockrecord=stock_info.stockrecord,
             defaults=defaults)
         if created:
+            print(multi_options)
+            print(options)
             for option_dict in options:
-                line.attributes.create(option=option_dict['option'],
-                                       value=option_dict['value'])
+                line.attributes.create(
+                    option=option_dict['option'],
+                    value=option_dict['value']
+                )
+
             for moption_dict in multi_options:
-                line.options_choices.create(option=moption_dict['multi_option'],
-                                            variant=moption_dict['value'])
+                line.options_choices.create(
+                    variant=moption_dict['value']
+                )
+                print(moption_dict['value'])
 
         else:
             line.quantity = max(0, line.quantity + quantity)
@@ -99,8 +105,25 @@ class Basket(AbstractBasket):
 
 class Line(AbstractLine):
     def get_preview_info(self):
-        return 'X'.join([var.variant.name for var in self.options_choices.all() if var.option.group.preview])
+        return 'X'.join([var.variant.variant.name for var in self.options_choices.all() if var.variant.variant.group.preview])
 
+    @property
+    def additional_price(self):
+        if self.options_choices.all():
+            add_price = [choices.variant.additional_price for choices in self.options_choices.all()]
+            return sum(add_price)
+
+    @property
+    def unit_tax(self):
+        return super(Line, self).unit_tax + self.additional_price
+
+    @property
+    def unit_price_incl_tax(self):
+        return super(Line, self).unit_price_incl_tax + self.additional_price
+
+    @property
+    def unit_price_excl_tax(self):
+        return super(Line, self).unit_price_excl_tax + self.additional_price
 
 
 from oscar.apps.basket.models import *  # noqa

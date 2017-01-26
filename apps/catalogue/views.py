@@ -1,13 +1,33 @@
 from oscar.apps.catalogue.views import *
-from oscar.apps.catalogue.views import CatalogueView as CoreCatalogueView, ProductCategoryView as CoreProductCategoryView
+from oscar.apps.catalogue.views import CatalogueView as CoreCatalogueView, \
+    ProductCategoryView as CoreProductCategoryView, \
+    ProductDetailView as CoreProductDetailView
+
 from oscar.core.loading import get_class, get_model
 
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import render
+from django.http import HttpResponse
 
 from filter.forms import FilterForm
 
+from apps.basket.forms import AddToBasketForm
+
+
 get_product_search_handler_class = get_class(
     'catalogue.search_handlers', 'get_product_search_handler_class')
+
+
+class ProductDetailView(CoreProductDetailView):
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ProductDetailView, self).get_context_data()
+
+        self.form = AddToBasketForm(self.request.basket, self.object, self.request.GET)
+        self.form.is_valid()
+        ctx['price'] = self.form.options_product_price(self.request)
+
+        return ctx
 
 
 class CatalogueView(CoreCatalogueView):
@@ -58,5 +78,4 @@ class ProductCategoryView(CoreProductCategoryView):
         ctx = super(ProductCategoryView, self).get_context_data(**kwargs)
         ctx['filter_form'] = self.form
         return ctx
-
 

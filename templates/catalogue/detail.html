@@ -76,7 +76,7 @@
                     <p class="product_caption">Доступные варианты</p>
                     {% for field in basket_form %}
                         {% annotate_form_field field %}
-                        {% if field.widget_type == 'Select' %}
+                        {% if field.widget_type == 'Select' or field.widget_type == 'SelectWithPrices' %}
                             <div class="custom_select">
                                 {{ field.label }}
                                 {{ field }}
@@ -121,9 +121,13 @@
             <div class="zakaz">
                 <a href="#" class="zelanie">В список желаемого</a>
                 <div class="payment">
+                    <div class="price">
+                    <div>
                     {% if session.price.exists %}
                         {% if session.price.excl_tax == 0 %}
                             <span>{% trans "Free" %}</span>
+                        {% elif price %}
+                            <span>{{ price|currency:session.price.currency }}</span>
                         {% elif session.price.is_tax_known %}
                             <span>{{ session.price.incl_tax|currency:session.price.currency }}</span>
                         {% else %}
@@ -132,6 +136,8 @@
                     {% else %}
                         <span> </span>
                     {% endif %}
+                    </div>
+                    </div>
                     {% csrf_token %}
                     <button type="submit" class="button_green">В корзину</button>
                 </div>
@@ -162,7 +168,7 @@
                         </ul>
                     </div>
                 </div>
-            {% elif field.widget_type != 'RadioSelect' and field.widget_type != 'Select' %}
+            {% elif field.widget_type != 'RadioSelect' and field.widget_type != 'Select' and field.widget_type != 'SelectWithPrices' %}
                 {{ field }}
             {% endif %}
         {% endfor %}
@@ -319,10 +325,19 @@
     <script src="{% static 'js/jquery.barrating.min.js' %}"></script>
     {{ block.super }}
     <script type="text/javascript">
+    $(document).ready(function () {
+        $('.option').on('change', function () {
+            $form = $(this).parents('form')
+            $('.price').load(window.location.pathname+'?'+$form.serialize()+' .price div')
+        })
+    });
+
     $(function() {
-      $('.rating_photo').barrating({
-        theme: 'fontawesome-stars'
-      });
+
+
+        $('.rating_photo').barrating({
+            theme: 'fontawesome-stars'
+        });
    });
     </script>
 {% endblock %}

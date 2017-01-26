@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 from oscar.app import application
 
-from apps.promotions.views import HomeView
+
 urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
 

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'constance',
     'constance.backends.database',
+    'nested_inline',
 
     'slider',
     'articles',

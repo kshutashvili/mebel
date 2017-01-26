@@ -23,7 +23,7 @@ class SimpleProductSearchHandler(CoreSimpleProductSearchHandler):
                     qs = qs.filter(
                         Q(multiple_options__group__code=code),
                         reduce(lambda x, y: x | y,
-                               [Q(multiple_options__choices__pk=item) for item in self.options[k]]
+                               [Q(multiple_options__choices__variant__pk=item) for item in self.options[k]]
                                )
                     ).distinct()
         return qs

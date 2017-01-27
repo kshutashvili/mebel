@@ -4,3 +4,4 @@ Pillow==3.4.2
 django-oscar
 django_compressor
 django-constance
+django-nested-inline

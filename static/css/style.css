@@ -45,6 +45,11 @@
 	list-style-type: none;
 	outline: none;
 }
+
+#spin{
+	z-index: 100;
+}
+
 ul{
 	margin: 0;
 }

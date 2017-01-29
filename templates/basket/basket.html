@@ -34,12 +34,16 @@
 {% block extrascripts %}
     {{ block.super }}
     <script src="{% static 'js/plusminus.js' %}"></script>
+    <script src="{% static 'js/jquery.babypaunch.spinner.min.js' %}"></script>
     <script type="text/javascript">
     $(document).ready(function () {
-        
+        $("#spin").spinner({
+            color: "black"
+            , background: "rgba(255,255,255,0.5)"
+        });
         $('#basket_submit').on('click', function (e) {
             e.preventDefault();
-
+            $("#spin").show();
             $form = $(this).parents('form');
             var url = $form.attr('action');
             $form.find('.error_field').removeClass('error_field');
@@ -50,14 +54,16 @@
                 success:function (url) {
                     alert('Благодарим ваш заказа оформлен');
                     $(location).attr("href", url);
+                    $("#spin").hide();
+
                 },
                 error:function (jqXHR, textStatus, exception) {
                     if (jqXHR.status == 400){
+                        $("#spin").hide();
                         var errors = $.parseJSON(jqXHR.responseText);
                         $.each(errors, function (key, val) {
                             $form.find('#id_'+key).addClass('error_field');
                         });
-                        console.log(jqXHR.responseText);
                     }
                 }
             })

@@ -1,13 +1,13 @@
 # -*-coding:utf-8-*-
 
 from django.views.generic import CreateView, FormView
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
-
-import json
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.template.loader import get_template
+from django.conf import settings
 
 from .forms import SimpleOrderForm
 
-from django.shortcuts import redirect
+from django.core.mail import EmailMultiAlternatives
 
 
 class AjaxFormMixin(FormView):
@@ -27,8 +27,19 @@ class SimpleOrderView(AjaxFormMixin, CreateView):
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.basket = self.request.basket
+
+        instance.create_check_blank()
+
         instance.save()
+        self.send_mail(instance)
         self.request.basket.submit()
         return HttpResponse(self.success_url)
 
+    def send_mail(self, order):
+        message = get_template('email/tanks_order.html').render({'order':order})
+        subject = u'Заказ №%s' % order.id
+        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, [order.email, ])
+        msg.attach_alternative(message, "text/html")
 
+        msg.attach_file(order.check_blank.path)
+        msg.send()

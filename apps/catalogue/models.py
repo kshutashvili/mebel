@@ -53,7 +53,7 @@ class OptionInfo(models.Model):
     variant = models.ForeignKey(
         'OptionVariant',
         related_name='infos',
-        verbose_name=u'Вариант'
+        verbose_name=u'Вариант',
     )
 
     additional_price = models.DecimalField(

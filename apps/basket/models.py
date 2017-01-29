@@ -104,8 +104,13 @@ class Basket(AbstractBasket):
 
 
 class Line(AbstractLine):
+    @property
     def get_preview_info(self):
         return 'X'.join([var.variant.variant.name for var in self.options_choices.all() if var.variant.variant.group.preview])
+
+    @property
+    def full_info(self):
+        return ''
 
     @property
     def additional_price(self):

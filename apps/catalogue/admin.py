@@ -6,6 +6,7 @@ from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductR
 from django.contrib import admin
 
 from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant, OptionInfo
+from .forms import OptionInfoForm
 
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 
@@ -13,6 +14,7 @@ from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 class OptionInfoAdminInline(NestedStackedInline):
     model = OptionInfo
     extra = 1
+    form = OptionInfoForm
     fk_name = 'multi_option'
 
 
@@ -30,8 +32,6 @@ class OptionVariantAdminInline(admin.TabularInline):
 
 class ProductAdmin(CoreProductAdmin, NestedModelAdmin):
     inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline]
-
-
 
 
 class OptionGroupAdmin(admin.ModelAdmin):

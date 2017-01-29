@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body>
+<table id="basket_table" style="width: 100%; text-align: left; font-size: 40px">
+    {% csrf_token %}
+    <tr class="">
+        <th>Артикул</th><th>Наименование</th><th>Количество</th><th>Цена</th><th>Сума</th>
+    </tr>
+    {% for line in basket.lines.all %}
+            <tr>
+                <td>
+                    {{ line.product.upc }}
+                </td>
+                <td style="line-height: 1.5;">
+                    <p style="">{{ line.product.title }} {{ line.get_preview_info }}</p>
+                </td>
+                <td>
+                    {{ line.quantity }}
+                </td>
+                <td>
+                    {% if line.is_tax_known %}
+                        {{ line.unit_price_incl_tax}} грн.
+                    {% else %}
+                        {{ line.unit_price_excl_tax}} грн.
+                    {% endif %}
+                </td>
+                <td>
+                    {% if line.is_tax_known %}
+                        {{ line.line_price_incl_tax}} грн.
+                    {% else %}
+                        {{ line.line_price_excl_tax}} грн.
+                    {% endif %}
+                </td>
+            </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="4" style="text-align: right">Итого:</td>
+        <td>
+            {% if basket.is_tax_known %}
+                {{ basket.total_incl_tax}} грн.
+            {% else %}
+                {{ basket.total_excl_tax}} грн.
+            {% endif %}
+        </td>
+    </tr>
+</table>
+</body>
+</html>

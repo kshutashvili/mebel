@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'nested_inline',
+    'wkhtmltopdf',
 
     'slider',
     'articles',
@@ -226,6 +227,12 @@ CONSTANCE_CONFIG = {
     'CONTACT_EMAIL': ('info@mebeljazz.com.ua', u'Почта'),
     'ADDRESS': (u'г. Киев, ул. Кириловская 86', u'Адрес'),
 }
+
+#################################################################
+
+USE_DJANGO_JQUERY = False
+
+WKHTMLTOPDF_CMD = ''
 
 #################################################################
 # OSCAR settings

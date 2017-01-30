@@ -10,14 +10,16 @@ from django.db import models
 class Product(AbstractProduct):
     def get_preview_info(self):
         prev_list = []
-        for moption in self.multiple_options.all():
-            if moption.group.preview:
-                prev_list.append(
-                    '%s(%s)' % (moption.choices.all()[0].variant.name,
-                    ','.join([var.variant.name for var in moption.choices.all()[1:]]))
-                )
+        if self.multiple_options:
+            for moption in self.multiple_options.all():
+                if moption.group.preview:
+                    prev_list.append(
+                        '%s(%s)' % (moption.choices.all()[0].variant.name,
+                        ','.join([var.variant.name for var in moption.choices.all()[1:]]))
+                    )
+            return 'X'.join(prev_list)
 
-        return 'X'.join(prev_list)
+        return ''
 
 
 class MultipleOption(models.Model):

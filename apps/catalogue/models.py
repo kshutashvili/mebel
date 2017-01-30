@@ -12,7 +12,7 @@ class Product(AbstractProduct):
         prev_list = []
         if self.multiple_options:
             for moption in self.multiple_options.all():
-                if moption.group.preview:
+                if moption.group.preview and moption.choices.all():
                     prev_list.append(
                         '%s(%s)' % (moption.choices.all()[0].variant.name,
                         ','.join([var.variant.name for var in moption.choices.all()[1:]]))

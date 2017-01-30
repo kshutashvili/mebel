@@ -14,7 +14,6 @@ from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 class OptionInfoAdminInline(NestedStackedInline):
     model = OptionInfo
     extra = 1
-    form = OptionInfoForm
     fk_name = 'multi_option'
 
 

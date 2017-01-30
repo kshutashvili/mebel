@@ -12,9 +12,10 @@ class SimpleOrder(models.Model):
     basket = models.ForeignKey(
         'basket.Basket', verbose_name= u'Корзина',
         null=True, blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=12)
-    comment = models.TextField(blank=True, null=True)
+
+    name = models.CharField(max_length=50, verbose_name=u'Имя')
+    phone = models.CharField(max_length=12, verbose_name=u'Телефон')
+    comment = models.TextField(blank=True, null=True, verbose_name=u'Коментарий')
 
     email = models.EmailField(max_length=50, verbose_name=u'E-mail')
     region = models.CharField(max_length=50, verbose_name=u'Регион')
@@ -25,7 +26,9 @@ class SimpleOrder(models.Model):
 
     def create_check_blank(self):
         tmplt = get_template('pdf/check_blank.html').render({'basket': self.basket})
+
         output_filname = 'order_check__%s.pdf' % (self.basket.id)
+
         config = pdfkit.configuration(wkhtmltopdf=settings.WKHTMLTOPDF_CMD)
         output_file = pdfkit.from_string(tmplt, False, configuration=config)
 

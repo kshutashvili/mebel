@@ -153,7 +153,7 @@ class LineOptionChoice(models.Model):
         verbose_name_plural = u'Опции строки корзин'
 
     def __unicode__(self):
-        return '%s %s: %s'%(self.basket_line, self.option.group.name, self.variant.name)
+        return '%s %s'%(self.basket_line, self.option.group.name)
 
 
 from oscar.apps.catalogue.models import *

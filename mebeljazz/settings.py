@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'nested_inline',
-    'wkhtmltopdf',
 
     'slider',
     'articles',

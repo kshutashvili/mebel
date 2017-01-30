@@ -6,7 +6,6 @@ from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductR
 from django.contrib import admin
 
 from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant, OptionInfo
-from .forms import OptionInfoForm
 
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 

@@ -49,7 +49,7 @@ class OptionInfo(models.Model):
     multi_option = models.ForeignKey(
         'MultipleOption',
         related_name='choices',
-        verbose_name=''
+        verbose_name=u'Опция'
     )
 
     variant = models.ForeignKey(

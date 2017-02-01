@@ -146,7 +146,10 @@ class LineOptionChoice(models.Model):
 
     variant = models.ForeignKey(
         OptionInfo,
-        verbose_name=u'Выбраный вариант'
+        verbose_name=u'Выбраный вариант',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
     )
 
     class Meta:

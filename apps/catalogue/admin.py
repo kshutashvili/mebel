@@ -7,16 +7,16 @@ from django.contrib import admin
 
 from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant, OptionInfo
 
-from nested_inline.admin import NestedStackedInline, NestedModelAdmin
+import nested_admin
 
 
-class OptionInfoAdminInline(NestedStackedInline):
+class OptionInfoAdminInline(nested_admin.NestedStackedInline):
     model = OptionInfo
     extra = 1
     fk_name = 'multi_option'
 
 
-class MultipleOptionAdminInline(NestedStackedInline):
+class MultipleOptionAdminInline(nested_admin.NestedStackedInline):
     model = MultipleOption
     extra = 0
     inlines = [OptionInfoAdminInline, ]
@@ -28,8 +28,8 @@ class OptionVariantAdminInline(admin.TabularInline):
     extra = 3
 
 
-class ProductAdmin(CoreProductAdmin, NestedModelAdmin):
-    inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline]
+class ProductAdmin(CoreProductAdmin, nested_admin.NestedModelAdmin):
+    inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline, ]
 
 
 class OptionGroupAdmin(admin.ModelAdmin):
@@ -39,6 +39,7 @@ admin.site.register(LineOptionChoice)
 admin.site.register(MultipleOption)
 admin.site.register(OptionVariant)
 admin.site.unregister(Product)
+admin.site.register(OptionInfo)
 
 admin.site.register(OptionGroup, OptionGroupAdmin)
 admin.site.register(Product, ProductAdmin)

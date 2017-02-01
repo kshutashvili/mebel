@@ -45,15 +45,15 @@ class AddToBasketForm(CoreAddToBasketForm):
 
     def options_product_price(self, request):
         data = self.cleaned_multiple_options()
-        add_price = sum([i['value'].additional_price for i in data])
+        add_price = sum([i['value'].additional_price for i in data if i['value'].additional_price])
         if self.product.is_parent:
             session = request.strategy.fetch_for_parent(self.product)
         else:
             session = request.strategy.fetch_for_product(self.product)
 
         base_price = session.price.incl_tax if  session.price.incl_tax else session.price.excl_tax
-
         return base_price + add_price
+
 
 class SimpleAddToBasketForm(AddToBasketForm):
     quantity = forms.IntegerField(

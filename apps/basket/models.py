@@ -64,8 +64,6 @@ class Basket(AbstractBasket):
             stockrecord=stock_info.stockrecord,
             defaults=defaults)
         if created:
-            print(multi_options)
-            print(options)
             for option_dict in options:
                 line.attributes.create(
                     option=option_dict['option'],
@@ -130,7 +128,6 @@ class Line(AbstractLine):
     @property
     def unit_price_excl_tax(self):
         return super(Line, self).unit_price_excl_tax + self.additional_price
-
 
 from oscar.apps.basket.models import *  # noqa
 

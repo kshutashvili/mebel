@@ -28,6 +28,7 @@ urlpatterns = [
     # Nonetheless, it's often useful for debugging.
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^nested_admin/', include('nested_admin.urls')),
     url(r'^articles/', include('articles.urls', namespace='articles')),
     url(r'^sitereviews/', include('site_reviews.urls', namespace='site_reviews')),
     url(r'', include(application.urls)),

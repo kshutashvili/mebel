@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="http://{{ site.domain }}{% static 'css/bootstrap.css' %}">
 </head>
 <body>
-<table id="basket_table" style="width: 100%; text-align: left">
+<table id="basket_table" style="width: 100%; text-align: left; font-size: 14px;">
     <tr class="">
         <th>Товар</th><th>Модель</th><th>Цена за единицу</th><th>Цена</th><th>Всего</th>
     </tr>
@@ -18,7 +18,7 @@
                     <p style="">{{ line.product.upc }}</p>
                     <ul>
                         {% for i in line.full_packages %}
-                            <li>Упаковка {{ forloop.counter }}: {{ i.pack.upc }}}</li>
+                            <li>Упаковка {{ forloop.counter }}: {{ i.pack.upc }}</li>
                         {% endfor %}
                     </ul>
                 </td>
@@ -52,7 +52,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="text-align: right">Доставка:</td>
+        <td colspan="4" style="text-align: right">Доставка ({{ order.city.name }}):</td>
         <td>
             {{ order.shipping_price }} грн.
         </td>

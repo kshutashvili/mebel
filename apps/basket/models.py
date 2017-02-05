@@ -150,8 +150,8 @@ class Line(AbstractLine):
                 if choice.variant.variant.group.preview
             ]
         )
-        print(pack_params)
-        return '%s %s, %s'% (self.product.title, pack_params, preview)
+
+        return u'%s %s, %s'% (self.product.title, pack_params, preview)
 
 from oscar.apps.basket.models import *  # noqa
 

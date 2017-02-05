@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /* font-family: "OpenSansRegular"; */
 @font-face {
     font-family: "OpenSansRegular";
@@ -39,17 +41,33 @@
 }
 
 
+/* font-family: "PTSansRegular"; */
+@font-face {
+    font-family: "PTSansRegular";
+    src: url("../fonts/PTSans/PTSansRegular/PTSansRegular.eot");
+    src: url("../fonts/PTSans/PTSansRegular/PTSansRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/PTSans/PTSansRegular/PTSansRegular.woff") format("woff"),
+    url("../fonts/PTSans/PTSansRegular/PTSansRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "PTSansBold"; */
+@font-face {
+    font-family: "PTSansBold";
+    src: url("../fonts/PTSans/PTSansBold/PTSansBold.eot");
+    src: url("../fonts/PTSans/PTSansBold/PTSansBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/PTSans/PTSansBold/PTSansBold.woff") format("woff"),
+    url("../fonts/PTSans/PTSansBold/PTSansBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
 *{
 	padding: 0;
 	margin: 0;
 	list-style-type: none;
 	outline: none;
 }
-
-#spin{
-	z-index: 100;
-}
-
 ul{
 	margin: 0;
 }
@@ -193,6 +211,25 @@ body{
 	margin-right: 13px;
 	font: 15px "OpenSansRegular";
 	color: #a8a8a8;
+}
+.search a{
+	display: inline-block;
+	border: 1px solid #4fbd43;
+	border-radius: 4px;
+	padding: 11px;
+	width: 260px;
+	height: 40px;
+	margin-right: 33px;
+	text-transform: uppercase;
+	font: 13px "OpenSansBold";
+	color: #fff;
+	background-color: #4fbd43;
+	text-align: center;
+	text-decoration: none;
+}
+.search a:hover{
+	//color: #4fbd43;
+	background-color: #57d14a;
 }
 .search button{
 	background: #28c3ff url("../img/loop.png") no-repeat center center;
@@ -1411,6 +1448,88 @@ button.close{
 	height: 18px;
 	background: url("../img/exit_form.png") no-repeat center center;
 }
+.dis_inp{
+	display: none;
+}
+.check_first .block_one{
+	border-bottom: 1px solid #d9d9d9;
+	margin-top: 70px;
+}
+.check_first .block_one_name{
+	display: inline-block;
+	float: right;
+}
+.check_first .block_one_name span{
+	font: 20px "PTSansRegular";
+}
+.check_first .block_one_name p{
+	font: 30px "PTSansRegular";
+	color: #7f7f7f;
+}
+.check_first .block_one .check_first_date{
+	display: inline-block;
+	font: 20px "PTSansRegular";
+	margin-top: 32px;
+}
+.check_first .block_two{
+	margin: 50px 0;
+}
+.check_first .block_two .zakaz_from{
+	font: 20px "PTSansBold";
+	margin-bottom: 5px;
+}
+.check_first .block_two .zakaz_number{
+	font: 17px "PTSansBold";
+}
+.check_first .block_two .zakaz_number span{
+	font: 17px "PTSansRegular";
+}
+.check_first .block_three{
+	margin-bottom: 50px;
+}
+.check_first .block_three table{
+	width: 100%;
+}
+.check_first .block_three table th{
+	font: 20px "PTSansBold";
+}
+.check_first .block_three table td{
+	font: 16px "PTSansRegular";
+	height: 100px;
+}
+.check_first .block_three table *{
+	border: 1px solid #d9d9d9;
+}
+.check_first .block_three table tr *{
+	padding: 7px 10px;
+}
+.check_first .block_four{
+	margin-bottom: 100px;
+}
+.check_first .block_four table{
+	width: 100%;
+}
+.check_first .block_four table *{
+	border: 1px solid #d9d9d9;
+	padding: 10px 20px;
+	font: 18px "PTSansRegular";
+}
+.check_first .block_four table tr th{
+	font: 18px "PTSansBold";
+}
+.check_first .block_four table tr:last-child td:nth-child(2), .check_first .block_four table tr td:nth-child(3), .check_first .block_four table tr th:nth-child(3), .check_first .block_four table tr td:nth-child(4), .check_first .block_four table tr th:nth-child(4){
+	text-align: center;
+	padding: 10px 40px;
+}
+.check_first .block_four table tr:last-child td:nth-child(1){
+	text-align: right;
+}
+.check_first .block_four table tr:last-child *{
+	font: 18px "PTSansBold";
+}
+.check_first .block_four table td.block_four_special{
+	text-align: left;
+}
 @media (max-width: 1200px){
 	.basket ul li {
 	    margin: 27px 6px;
@@ -1478,6 +1597,11 @@ button.close{
 	.search input {
 	    width: 215px;
 	    font: 12px "OpenSansRegular";
+	}
+	.search a {
+	    width: 215px;
+	    font: 11px/18px "OpenSansBold";
+	    margin-right: 13px;
 	}
 	.navbar-default .navbar-nav > li > a {
 	    font: 14px "OpenSansLight";
@@ -1711,6 +1835,19 @@ button.close{
 	.basket_table table th:last-child {
 	    padding: 20px 10px;
 	}
+	.check_first .block_one_name p, .check_first .block_two .zakaz_from, .check_first .block_three table th {
+	    font-size: 14px;
+	}
+	.check_first .block_one_name span, .check_first .block_one .check_first_date, .check_first .block_two .zakaz_number, .check_first .block_two .zakaz_number span, .check_first .block_three table td, .check_first .block_four table *, .check_first .block_four table tr th, .check_first .block_four table tr:last-child *{
+		font-size: 12px;
+		margin-top: 0;
+	}
+	.check_first .block_four table * {
+	    padding: 5px;
+	}
+	.check_first .block_four table tr:last-child td:nth-child(2), .check_first .block_four table tr td:nth-child(3), .check_first .block_four table tr th:nth-child(3), .check_first .block_four table tr td:nth-child(4), .check_first .block_four table tr th:nth-child(4){
+		padding: 5px;
+	}
 }
 @media (max-width: 650px){
 	.product_info .radio_product ul {
@@ -1751,6 +1888,10 @@ button.close{
 	}
 	.search input {
 	    width: 211px;
+	}
+	.search a {
+	    width: 211px;
+	    font-size: 10px;
 	}
 	.slider .container h1 {
 	    margin-top: 48px;

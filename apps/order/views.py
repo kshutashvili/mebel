@@ -27,9 +27,6 @@ class SimpleOrderView(AjaxFormMixin, CreateView):
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.basket = self.request.basket
-
-        instance.create_check_blank()
-
         instance.save()
         self.send_mail(instance)
         self.request.basket.submit()
@@ -42,4 +39,6 @@ class SimpleOrderView(AjaxFormMixin, CreateView):
         msg.attach_alternative(message, "text/html")
 
         msg.attach_file(order.check_blank.path)
+        msg.attach_file(order.manufacture_blank.path)
+        msg.attach_file(order.shipping_blank.path)
         msg.send()

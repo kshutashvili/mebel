@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="http://{{ site.domain }}{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="http://{{ site.domain }}{% static 'css/style.css' %}">
+</head>
+<body style="background-color: #fff">
+	<div class="container-fluid">
+		<div class="container">
+			<div class="check_first">
+				<div class="block_one clear_fix">
+					<span class="check_first_date">{{ order.when_created |date:'d.g.Y' }}</span>
+					<div class="block_one_name">
+						<span>Заказы</span>
+						<p>ЗАМОВЛЕННЯ НА ВИРОБНИЦТВО</p>
+					</div>
+				</div>
+				<div class="block_two">
+					<p class="zakaz_from">Замовлення вiд IНТЕРНЕТ МАГАЗИНУ "Мебель Jazz"</p>
+					<p class="zakaz_number">№ замовлення: <span>{{ order.id }} вiд {{ order.when_created|date:'d.g.Y H:i' }}</span></p>
+				</div>
+				<div class="block_three">
+					<table>
+						<tr>
+							<th>Адрес доставки</th>
+						</tr>
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				<div class="block_four">
+					<table border="1"  width="100%">
+                        {% for line in order.basket.lines.all %}
+						<tr>
+							<td colspan="4" class="block_four_special">{{ line.product.upc }} | {{ line.full_name }} </td>
+						</tr>
+						<tr>
+							<th>Артикул</th>
+							<th>Наiменування упаковки</th>
+							<th>Кiлькiсть упаковок</th>
+							<th>Мiсце №</th>
+						</tr>
+                        {% for d in line.full_packages %}
+                            <tr>
+                                <td>{{ d.pack.upc }}</td>
+                                <td>Уп.{{ forloop.counter }} {{ d.full_name }}</td>
+                                <td>{{ d.count }}</td>
+                                <td>{{ forloop.counter }}</td>
+                            </tr>
+                        {% endfor %}
+						<tr>
+							<td colspan="3">Всього мiсць:</td>
+							<td>{{ line.full_packages|length }}</td>
+						</tr>
+                        {% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

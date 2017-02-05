@@ -7,15 +7,20 @@
 <body>
 <table id="basket_table" style="width: 100%; text-align: left">
     <tr class="">
-        <th>Артикул</th><th>Наименование</th><th>Количество</th><th>Цена</th><th>Сума</th>
+        <th>Товар</th><th>Модель</th><th>Цена за единицу</th><th>Цена</th><th>Всего</th>
     </tr>
     {% for line in order.basket.lines.all %}
             <tr>
                 <td>
-                    {{ line.product.upc }}
+                    {{ line.full_name }}
                 </td>
                 <td style="line-height: 1.5;">
-                    <p style="">{{ line.product.title }} {{ line.get_preview_info }}</p>
+                    <p style="">{{ line.product.upc }}</p>
+                    <ul>
+                        {% for i in line.full_packages %}
+                            <li>Упаковка {{ forloop.counter }}: {{ i.pack.upc }}}</li>
+                        {% endfor %}
+                    </ul>
                 </td>
                 <td>
                     {{ line.quantity }}
@@ -37,13 +42,25 @@
             </tr>
     {% endfor %}
     <tr>
-        <td colspan="4" style="text-align: right">Итого:</td>
+        <td colspan="4" style="text-align: right">Сумма:</td>
         <td>
             {% if order.basket.is_tax_known %}
                 {{ order.basket.total_incl_tax}} грн.
             {% else %}
                 {{ order.basket.total_excl_tax}} грн.
             {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align: right">Доставка:</td>
+        <td>
+            {{ order.shipping_price }} грн.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align: right">Итого:</td>
+        <td>
+            {{ order.total_price }} грн.
         </td>
     </tr>
 </table>

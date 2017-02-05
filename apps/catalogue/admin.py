@@ -5,7 +5,8 @@ from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductR
 
 from django.contrib import admin
 
-from .models import LineOptionChoice, MultipleOption, OptionGroup, OptionVariant, OptionInfo
+from .models import LineOptionChoice, MultipleOption, \
+    OptionGroup, OptionVariant, OptionInfo, ProductPackage
 
 import nested_admin
 
@@ -28,8 +29,13 @@ class OptionVariantAdminInline(admin.TabularInline):
     extra = 3
 
 
+class ProductPackageAdminInline(admin.TabularInline):
+    model = ProductPackage
+    extra = 1
+
+
 class ProductAdmin(CoreProductAdmin, nested_admin.NestedModelAdmin):
-    inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline, ]
+    inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline, ProductPackageAdminInline]
 
 
 class OptionGroupAdmin(admin.ModelAdmin):

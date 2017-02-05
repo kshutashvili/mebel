@@ -129,5 +129,29 @@ class Line(AbstractLine):
     def unit_price_excl_tax(self):
         return super(Line, self).unit_price_excl_tax + self.additional_price
 
+    def full_packages(self):
+        ctx = {i.variant.multi_option.group.code:i.variant.variant.name for i in self.options_choices.all()}
+        a = [{'pack':pack, 'full_name': pack.render_name(**ctx), 'count':self.quantity*pack.count} for pack in self.product.packages.all()]
+        return a
+
+    def full_name(self):
+        options = self.options_choices.all()
+        pack_params = ', '.join(
+            [
+                choice.variant.variant.name
+                for choice in options
+                if not choice.variant.variant.group.preview
+            ]
+        )
+        preview = 'X'.join(
+            [
+                choice.variant.variant.name
+                for choice in options
+                if choice.variant.variant.group.preview
+            ]
+        )
+        print(pack_params)
+        return '%s %s, %s'% (self.product.title, pack_params, preview)
+
 from oscar.apps.basket.models import *  # noqa
 

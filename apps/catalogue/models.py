@@ -2,9 +2,10 @@
 
 from oscar.apps.catalogue.abstract_models import AbstractProduct
 
-from apps.basket.models import Line
-
 from django.db import models
+from django.template import Template, Context
+
+from apps.basket.models import Line
 
 
 class Product(AbstractProduct):
@@ -160,5 +161,43 @@ class LineOptionChoice(models.Model):
     def __unicode__(self):
         return '%s'%(self.variant.variant.name)
 
+
+class ProductPackage(models.Model):
+    product = models.ForeignKey(
+        Product,
+        related_name=u'packages',
+        verbose_name=u'Товар'
+    )
+
+    package_num = models.IntegerField(
+        verbose_name=u'Номер упаковки',
+        default=1
+    )
+
+    count = models.IntegerField(
+        verbose_name=u'Количество упаковок',
+        default=1
+    )
+
+    upc = models.CharField(
+        verbose_name=u'Артикул',
+        max_length=20
+    )
+
+    name = models.CharField(
+        verbose_name=u'Наименование упаковки',
+        max_length=100
+    )
+
+    def render_name(self, **kwargs):
+        temp = Template(self.name)
+        return temp.render(Context(kwargs))
+
+    class Meta:
+        verbose_name = u'Упаковка'
+        verbose_name_plural = u'Упаковки'
+
+    def __unicode__(self):
+        return u'Уп.%d %s'%(self.package_num, self.name)
 
 from oscar.apps.catalogue.models import *

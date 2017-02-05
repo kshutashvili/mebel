@@ -2,6 +2,7 @@
 {% load widget_tweaks %}
 
 <form method="get" action="{% url 'search:search' %}">
-    {% render_field search_form.q class='' placeholder="Шкаф-купе раздвижной желтый" %}
+    <a href="#">конструктор шкафов онлайн</a>
+    {% render_field search_form.q class='dis_inp' placeholder="Шкаф-купе раздвижной желтый" %}
     <button></button>
 </form>

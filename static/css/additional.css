@@ -13,3 +13,7 @@
 .left_column h2 a:hover{
     color: #fff !important;
 }
+
+#spin{
+    z-index: 999;
+}

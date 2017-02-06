@@ -52,7 +52,10 @@ class AddToBasketForm(CoreAddToBasketForm):
             session = request.strategy.fetch_for_product(self.product)
 
         base_price = session.price.incl_tax if  session.price.incl_tax else session.price.excl_tax
-        return base_price + add_price
+        if base_price:
+            return base_price + add_price
+        else:
+            return 0
 
 
 class SimpleAddToBasketForm(AddToBasketForm):

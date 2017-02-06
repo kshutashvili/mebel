@@ -59,7 +59,7 @@
     {% purchase_info_for_product request product as session %}
     {% basket_form request product as basket_form %}
 
-    <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk  %}" method="post">
+    {% if session.availability.is_available_to_buy %}<form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk  %}" method="post">{% endif %}
         <div class="product_info clear_fix">
             {% with image=product.primary_image %}
                 {% thumbnail image.original "220" upscale=False as thumb %}
@@ -71,9 +71,10 @@
                 <p class="product_text">{{ product.get_preview_info }}</p>
                 <p class="product_text">ART.: {{ product.upc }}</p>
 
-                <a href="#" class="button_green">{% if session.availability.is_available_to_buy %}Есть в наличии{% else %}Нету в наличии{% endif %}</a>
+                <a href="#" class="button_green">{% if session.availability.is_available_to_buy %}Есть в наличии{% else %}Нет в наличии{% endif %}</a>
 
                 <div class="varianti">
+                    {% if session.availability.is_available_to_buy %}
                     <p class="product_caption">Доступные варианты</p>
                     {% for field in basket_form %}
                         {% annotate_form_field field %}
@@ -84,6 +85,7 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+                    {% endif %}
                 </div>
                 <ul>
                     <li>
@@ -108,7 +110,7 @@
             </div>
         </div>
 
-        {% if session.availability.is_available_to_buy %}
+
         <div class="gray_bg">
             <span class="red_span">ВАЖНО:</span>
             <p class="product_text">Цвет материала шкафа-купе на экране монитора может отличаться от реального. Возможно незначительное отличие по оттенку (яркость, тон или насыщенность, а не глобально другой цвет)</p>
@@ -128,6 +130,7 @@
                 <div class="payment">
                     <div class="price">
                     <div>
+                    {% if session.availability.is_available_to_buy %}
                     {% if session.price.exists %}
                         {% if session.price.excl_tax == 0 %}
                             <span>{% trans "Free" %}</span>
@@ -141,13 +144,21 @@
                     {% else %}
                         <span> </span>
                     {% endif %}
+
+                    {% endif %}
                     </div>
                     </div>
                     {% csrf_token %}
-                    <button type="submit" class="button_green">В корзину</button>
+
+                    {% if session.availability.is_available_to_buy %}
+                        <button type="submit" class="button_green">В корзину</button>
+                    {% else %}
+                        <button disabled type="submit" class="button_green">Нет в наличии</button>
+                    {% endif %}
                 </div>
             </div>
         </div>
+        {% if session.availability.is_available_to_buy %}
         {% for field in basket_form %}
              {% annotate_form_field field %}
             {% if field.widget_type == 'RadioSelect' %}
@@ -177,6 +188,7 @@
                 {{ field }}
             {% endif %}
         {% endfor %}
+
 
         {% endif %}
     </form>
@@ -213,7 +225,9 @@
                             <button id="review_create_btn" type="button" class="write_comment">Оставить отзыв</button>
                         </div>
                     </div>
-                </form>
+                {% if session.availability.is_available_to_buy %}
+                        </form>
+                {% endif %}
                     </div>
                 </div>
             </div>

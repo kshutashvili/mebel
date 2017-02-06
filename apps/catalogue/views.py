@@ -4,12 +4,15 @@ from oscar.apps.catalogue.views import CatalogueView as CoreCatalogueView, \
     ProductDetailView as CoreProductDetailView
 
 from oscar.core.loading import get_class, get_model
+from apps.catalogue.reviews.forms import ProductReviewForm
 
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.http import HttpResponse
 
+
 from filter.forms import FilterForm
+
 
 from apps.basket.forms import AddToBasketForm
 
@@ -26,7 +29,7 @@ class ProductDetailView(CoreProductDetailView):
         self.form = AddToBasketForm(self.request.basket, self.object, self.request.GET)
         self.form.is_valid()
         ctx['price'] = self.form.options_product_price(self.request)
-
+        ctx['review_form'] = ProductReviewForm(self.object)
         return ctx
 
 

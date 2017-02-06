@@ -182,29 +182,41 @@
     {% iffeature "reviews" %}
         {% block product_review %}
         <div class="product_info">
-            <div id="reviews" class="sub-header">
-                {% if product.num_approved_reviews > 3 %}
-                    <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn pull-right">{% trans "See all reviews" %}</a>
-                {% endif %}
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="reviews/add/">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"></span>
+                                </button>
+                                <h2>Оставьте свой отзыв прямо сейчас</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="basket_form_input">
+                                    {{ review_form.name }}
+                                    {{ review_form.email }}
+                                    {{ review_form.body }}
+                                </div>
+                            </div>
+                            <div class="modal-footer"><h5>Оцените качество данного товара</h5>
+                                {{ review_form.score|add_class:'rating_photo' }}
+                                <div class="for_write_comment">
+                                    {% csrf_token %}
+                                    <button id="review_create_btn" type="button" class="write_comment">Оставить отзыв</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+            <div class="for_write_comment for_write_comment_padding">
+                <a href="#" class="write_comment" type="button" data-toggle="modal" data-target="#myModal">Написать отзыв</a>
+            </div>
+            {% for review in product.reviews.approved.all %}
+                {% include 'catalogue/partials/review.html' %}
+            {% endfor %}
 
-            {% if product.num_approved_reviews == 0 %}
-                <p>
-                    {% if product|is_review_permitted:user %}
-                        {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
-                            {% blocktrans %}This product does not have any reviews yet -
-                            <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
-                        {% endblocktrans %}
-                    {% else %}
-                        {% trans "This product does not have any reviews yet" %}.
-                    {% endif %}
-                </p>
-            {% else %}
-
-                {% for review in product.reviews.approved.all|slice:":3" %}
-                    {% include 'catalogue/partials/review.html' %}
-                {% endfor %}
-            {% endif %}
         </div>
         {% endblock product_review %}
     {% endiffeature %}
@@ -339,5 +351,36 @@
             theme: 'fontawesome-stars'
         });
    });
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#review_create_btn').on('click', function (e) {
+            e.preventDefault();
+            $form = $(this).parents('form');
+            var url = $form.attr('action');
+            $form.find('.error_field').removeClass('error_field');
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data:$form.serialize(),
+                success:function (url) {
+                    $(location).attr("href", url);
+                    $("#spin").hide();
+
+                },
+                error:function (jqXHR, textStatus, exception) {
+                    $("#spin").hide();
+                    if (jqXHR.status == 400){
+                        var errors = $.parseJSON(jqXHR.responseText);
+                        $.each(errors, function (key, val) {
+                            $form.find('#id_'+key).addClass('error_field');
+                        });
+                    }
+                }
+            })
+        });
+    })
     </script>
 {% endblock %}

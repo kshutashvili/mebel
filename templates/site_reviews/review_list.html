@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load i18n %}
+{% load widget_tweaks %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
@@ -11,11 +12,77 @@
 {% block content %}
     <div class="product_info">
         <div class="for_write_comment">
-            <a href="{% url 'site_reviews:create' %}" class="write_comment">Написать отзыв</a>
+            <a href="#" type="button" class="write_comment" data-toggle="modal" data-target="#myModal">Написать отзыв</a>
+            {% comment %} <a href="{% url 'site_reviews:create' %}" class="write_comment">Написать отзыв</a> {% endcomment %}
         </div>
         {% for review in reviews_list %}
             {% include 'catalogue/partials/review.html' with review=review %}
         {% endfor %}
 
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="{% url 'site_reviews:create' %}">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <h2>Оставьте свой отзыв прямо сейчас</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="basket_form_input">
+                        {{ review_form.name }}
+                        {{ review_form.email }}
+                        {{ review_form.body }}
+                        </div>
+                    </div>
+                    <div class="modal-footer"><h5>Оцените качество магазина</h5>
+                        {{ review_form.score|add_class:'rating_photo' }}
+
+                        <div class="for_write_comment">
+                            {% csrf_token %}
+                            <button id="review_create_btn" type="button" class="write_comment">Оставить отзыв</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#review_create_btn').on('click', function (e) {
+            e.preventDefault();
+            $("#spin").show();
+            $form = $(this).parents('form');
+            var url = $form.attr('action');
+            $form.find('.error_field').removeClass('error_field');
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data:$form.serialize(),
+                success:function (url) {
+                    $(location).attr("href", url);
+                    $("#spin").hide();
+
+                },
+                error:function (jqXHR, textStatus, exception) {
+                    $("#spin").hide();
+                    if (jqXHR.status == 400){
+                        var errors = $.parseJSON(jqXHR.responseText);
+                        $.each(errors, function (key, val) {
+                            $form.find('#id_'+key).addClass('error_field');
+                        });
+                    }
+                }
+            })
+        });
+    })
+    </script>
 {% endblock %}

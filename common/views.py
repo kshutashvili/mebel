@@ -4,12 +4,21 @@ from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, FormView
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from common.models import ContactMessage
 from common.forms import ContactMessageForm
+
+
+class AjaxFormMixin(FormView):
+    def form_valid(self, form):
+        return HttpResponse(self.success_url)
+
+    def form_invalid(self, form):
+        return HttpResponseBadRequest(form.errors.as_json())
 
 
 class ContactsView(TemplateView):

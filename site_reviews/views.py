@@ -4,25 +4,28 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, View
 
-from oscar.apps.catalogue.reviews.signals import review_added
-from oscar.core.loading import get_classes, get_model
-from oscar.core.utils import redirect_to_referrer
+from common.views import AjaxFormMixin
 
 from .models import SiteReview
 from .forms import SiteReviewForm
 
 # Create your views here.
 
-class CreateSitetReview(CreateView):
+
+class CreateSitetReview(AjaxFormMixin, CreateView):
     template_name = "site_reviews/create.html"
     model = SiteReview
     form_class = SiteReviewForm
     success_url = '/sitereviews/'
 
+    def form_valid(self, form):
+        form.save()
+        return super(CreateSitetReview, self).form_valid(form)
+
     def dispatch(self, request, *args, **kwargs):
         # check permission to leave review
         if request.user.is_authenticated():
-            if request.user.site_reviews:
+            if request.user.site_reviews.all():
                 message = _("You have already reviewed site!")
                 messages.warning(self.request, message)
 
@@ -33,7 +36,13 @@ class CreateSitetReview(CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+
 class SiteReviewListView(ListView):
     model = SiteReview
     template_name = 'site_reviews/review_list.html'
     context_object_name = 'reviews_list'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(SiteReviewListView, self).get_context_data(**kwargs)
+        ctx['review_form'] = SiteReviewForm()
+        return ctx

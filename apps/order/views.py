@@ -4,18 +4,10 @@ from django.views.generic import CreateView, FormView
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template.loader import get_template
 from django.conf import settings
-
-from .forms import SimpleOrderForm
-
 from django.core.mail import EmailMultiAlternatives
 
-
-class AjaxFormMixin(FormView):
-    def form_valid(self, form):
-        return HttpResponse('OK')
-
-    def form_invalid(self, form):
-        return HttpResponseBadRequest(form.errors.as_json())
+from .forms import SimpleOrderForm
+from common.views import AjaxFormMixin
 
 
 class SimpleOrderView(AjaxFormMixin, CreateView):

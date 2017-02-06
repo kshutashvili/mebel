@@ -1,3 +1,5 @@
+# -*-coding:utf8-*-
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -7,8 +9,8 @@ from .models import SiteReview
 
 
 class SiteReviewForm(forms.ModelForm):
-    name = forms.CharField(label=_('Name'), required=True)
-    email = forms.EmailField(label=_('Email'), required=True)
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder':u'Ваше имя'}), required=True)
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':u'Ваш e-mail'}), required=True)
 
     def __init__(self, user=None, *args, **kwargs):
         print(kwargs)
@@ -21,3 +23,12 @@ class SiteReviewForm(forms.ModelForm):
     class Meta:
         model = SiteReview
         fields = ('score', 'body', 'name', 'email')
+        widgets={
+            'body':forms.Textarea(attrs={'placeholder':u'Ваше сообщение...', 'cols':'30', 'rows':'10'})
+        }
+        labels={
+            'score': u'Оцените качество магазина',
+            'body': '',
+            'name': '',
+            'email': ''
+        }

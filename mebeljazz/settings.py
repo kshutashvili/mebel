@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'site_reviews',
     'common',
     'filter',
+    'favoritelist',
 ] + get_core_apps(['apps.promotions', 'apps.catalogue', 'apps.catalogue.reviews', 'apps.basket', 'apps.order', 'apps.checkout'])
 
 SITE_ID = 1
@@ -73,8 +74,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'oscar.apps.basket.middleware.BasketMiddleware',
+    'favoritelist.middleware.FavoriteListMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 

@@ -82,3 +82,16 @@ class ProductCategoryView(CoreProductCategoryView):
         ctx['filter_form'] = self.form
         return ctx
 
+
+def AddProductToFavorite(request, product_slug, pk):
+    product = get_object_or_404(Product,pk=pk)
+    request.favlist.add(product)
+    url = request.META['HTTP_REFERER']
+    return redirect(url)
+
+
+def RemoveProductFromFavorite(request, product_slug, pk):
+    product = get_object_or_404(Product, pk=pk)
+    request.favlist.remove(product)
+    url = request.META['HTTP_REFERER']
+    return redirect(url)

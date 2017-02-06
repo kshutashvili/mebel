@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+    Список желаемого | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{# Hide mini-basket so we don't have two baskets to keep in sync #}
+{% block mini_basket %}{% endblock %}
+
+{% block headertext %}
+    Список желаемого
+{% endblock %}
+{% block content_cls %}contacts_page{% endblock %}
+{% block content %}
+    {% if request.favlist.lines.all %}
+     <p class="basket_caption">Список желаемого</p>
+            <div class="right_before right_before_basket">
+                <div class="basket_table">
+                    <table id="basket_table">
+                        {% csrf_token %}
+                        <tr class="first_row">
+                            <th>Фото</th><th>наименование товара</th><th>Модель</th><th>Удалить</th>
+                        </tr>
+                        {% for line in request.favlist.lines.all %}
+                            {% with product=line.product %}
+
+                            <tr>
+                            <td>
+                                {% with image=product.primary_image %}
+                                    {% thumbnail image.original "50x80" upscale=False as thumb %}
+                                        <a href="{{ product.get_absolute_url }}">
+                                            <img class="thumbnail" src="{{ thumb.url }}" alt="{{ product.get_title }}"/>
+                                        </a>
+                                    {% endthumbnail %}
+                                {% endwith %}
+                            </td>
+                            <td style="line-height: 1.5;">
+                                <p style="margin: 0px;">{{ product.title }} {{ product.get_preview_info }}</p>
+                            </td>
+                            <td>
+                                {{ product.upc }}
+                            </td>
+                            <td>
+                                <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}">Удалить</a>
+                            </td>
+                            </tr>
+                            {% endwith %}
+                        {% endfor %}
+                    </table>
+                </div>
+             </div>
+     {% else %}
+        У вас нету товаров в списке желаемого, <a href="/">добавте товары в список желаний</a>
+    {% endif %}
+{% endblock content %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    {# We pass in the URL to send AJAX requests to #}
+    var options = {
+        'basketURL': '{% url 'basket:summary' %}'
+    };
+    oscar.basket.init(options);
+{% endblock %}

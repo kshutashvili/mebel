@@ -12,6 +12,7 @@
 {% load basket_tags %}
 {% load form_tags %}
 {% load widget_tweaks %}
+{% load favlist_tags %}
 
 {% block styles %}
     {{ block.super }}
@@ -119,7 +120,11 @@
                 <li>Сборка<br>262,00 грн</li>
             </ul>
             <div class="zakaz">
-                <a href="#" class="zelanie">В список желаемого</a>
+                {% if not product|favlist_exist:request.favlist %}
+                    <a href="{% url 'catalogue:add_to_fav' product_slug=product.slug pk=product.id %}" class="zelanie">В список желаемого</a>
+                {% else %}
+                    <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}" class="zelanie">Из списка желаемого</a>
+                {% endif %}
                 <div class="payment">
                     <div class="price">
                     <div>
@@ -185,28 +190,30 @@
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form method="post" action="reviews/add/">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true"></span>
-                                </button>
-                                <h2>Оставьте свой отзыв прямо сейчас</h2>
-                            </div>
-                            <div class="modal-body">
-                                <div class="basket_form_input">
-                                    {{ review_form.name }}
-                                    {{ review_form.email }}
-                                    {{ review_form.body }}
-                                </div>
-                            </div>
-                            <div class="modal-footer"><h5>Оцените качество данного товара</h5>
-                                {{ review_form.score|add_class:'rating_photo' }}
-                                <div class="for_write_comment">
-                                    {% csrf_token %}
-                                    <button id="review_create_btn" type="button" class="write_comment">Оставить отзыв</button>
-                                </div>
-                            </div>
-                        </form>
+
+                        <form method="post" action="{% url 'site_reviews:create' %}">
+                             <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <h2>Оставьте свой отзыв прямо сейчас</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="basket_form_input">
+                        {{ review_form.name }}
+                        {{ review_form.email }}
+                        {{ review_form.body }}
+                        </div>
+                    </div>
+                    <div class="modal-footer"><h5>Оцените качество магазина</h5>
+                        {{ review_form.score|add_class:'rating_photo' }}
+
+                        <div class="for_write_comment">
+                            {% csrf_token %}
+                            <button id="review_create_btn" type="button" class="write_comment">Оставить отзыв</button>
+                        </div>
+                    </div>
+                </form>
                     </div>
                 </div>
             </div>
@@ -351,36 +358,5 @@
             theme: 'fontawesome-stars'
         });
    });
-    </script>
-
-    <script type="text/javascript">
-    $(document).ready(function () {
-
-        $('#review_create_btn').on('click', function (e) {
-            e.preventDefault();
-            $form = $(this).parents('form');
-            var url = $form.attr('action');
-            $form.find('.error_field').removeClass('error_field');
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data:$form.serialize(),
-                success:function (url) {
-                    $(location).attr("href", url);
-                    $("#spin").hide();
-
-                },
-                error:function (jqXHR, textStatus, exception) {
-                    $("#spin").hide();
-                    if (jqXHR.status == 400){
-                        var errors = $.parseJSON(jqXHR.responseText);
-                        $.each(errors, function (key, val) {
-                            $form.find('#id_'+key).addClass('error_field');
-                        });
-                    }
-                }
-            })
-        });
-    })
     </script>
 {% endblock %}

@@ -4,9 +4,9 @@
 <div class="basket">
     <ul>
         <li>
-            <a href="#">
+            <a href="{% url 'full_favlist' %}">
                 Желаемое
-                <span class="bg_blue">2</span>
+                <span class="bg_blue">{{ request.favlist.lines.count }}</span>
             </a>
         </li>
         <li>

@@ -3,66 +3,120 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="http://{{ site.domain }}{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="http://{{ site.domain }}{% static 'css/style.css' %}">
 </head>
-<body>
-<table id="basket_table" style="width: 100%; text-align: left; font-size: 14px;">
-    <tr class="">
-        <th>Товар</th><th>Модель</th><th>Цена за единицу</th><th>Цена</th><th>Всего</th>
-    </tr>
-    {% for line in order.basket.lines.all %}
-            <tr>
-                <td>
-                    {{ line.full_name }}
-                </td>
-                <td style="line-height: 1.5;">
-                    <p style="">{{ line.product.upc }}</p>
-                    <ul>
-                        {% for i in line.full_packages %}
-                            <li>Упаковка {{ forloop.counter }}: {{ i.pack.upc }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-                <td>
-                    {{ line.quantity }}
-                </td>
-                <td>
-                    {% if line.is_tax_known %}
-                        {{ line.unit_price_incl_tax}} грн.
-                    {% else %}
-                        {{ line.unit_price_excl_tax}} грн.
-                    {% endif %}
-                </td>
-                <td>
-                    {% if line.is_tax_known %}
-                        {{ line.line_price_incl_tax}} грн.
-                    {% else %}
-                        {{ line.line_price_excl_tax}} грн.
-                    {% endif %}
-                </td>
-            </tr>
-    {% endfor %}
-    <tr>
-        <td colspan="4" style="text-align: right">Сумма:</td>
-        <td>
-            {% if order.basket.is_tax_known %}
-                {{ order.basket.total_incl_tax}} грн.
-            {% else %}
-                {{ order.basket.total_excl_tax}} грн.
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4" style="text-align: right">Доставка ({{ order.city.name }}):</td>
-        <td>
-            {{ order.shipping_price }} грн.
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4" style="text-align: right">Итого:</td>
-        <td>
-            {{ order.total_price }} грн.
-        </td>
-    </tr>
-</table>
+<body style="background-color: #fff;">
+
+<div class="container-fluid">
+		<div class="container">
+			<div class="check_second">
+				<div class="block_one clear_fix">
+					<p class="block_one_title">Мебель Jazz</p>
+					<div class="block_one_left">
+						<p>г. Киев, ул. Кириловская 86</p>
+						<p>Телефон: (093) 552 51 00</p>
+						<p>doros-zakaz@ukr.net</p>
+						<p>https://mebeljazz.com.ua</p>
+					</div>
+					<div class="block_one_right">
+						<p>Дата добавления: <span>{{ order.when_created|date:'d.g.Y H:i' }}</span></p>
+						<p>№ замовлення: <span>{{ order.id }}</span></p>
+						<p>Способ оплаты:  <span>Оплата при доставке</span></p>
+						<p>Способ доставки: <span>Доставка по г. {{ order.city.name }}у</span></p>
+					</div>
+				</div>
+				<div class="block_two">
+					<table>
+						<tr>
+							<th>Адрес оплаты</th><th>Адрес доставки</th>
+						</tr>
+						<tr>
+							<td>
+								<ul>
+									<li>{{ order.city.name }} {{ order.address }}</li>
+									<li>Украина</li>
+									<li>{{ order.email }}</li>
+									<li>{{ order.phone }}</li>
+								</ul>
+							</td>
+							<td>
+								<ul>
+									<li>Киев, {{ order.address }}</li>
+									<li>Украина</li>
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="block_three">
+					<table  width="100%">
+						<tr>
+							<th>Товар</th>
+							<th>Модель</th>
+							<th>Количество</th>
+							<th>Цена за еденицу</th>
+							<th>Всього</th>
+						</tr>
+                        {% for line in order.basket.lines.all %}
+						<tr>
+							<td>
+								<p>{{ line.full_name }}</p>
+								<ul>
+                                    {% for prev_op in line.preview_options %}
+									<li>- {{ prev_op.group.name }}: <span> {{ prev_op.name }} {{ prev_op.group.postfix }}</span></li>
+                                    {% endfor %}
+								</ul>
+								<ul>
+									<li class="special_caption_for_ul">Упаковки:</li>
+									{% for i in line.full_packages %}
+                                        <li>Упаковка {{ forloop.counter }}: {{ i.pack.upc }}</li>
+                                    {% endfor %}
+								</ul>
+							</td>
+							<td>{{ line.product.upc }}</td>
+							<td>{{ line.quantity }}</td>
+							<td>
+                                {% if line.is_tax_known %}
+                                    {{ line.unit_price_incl_tax}} грн.
+                                {% else %}
+                                    {{ line.unit_price_excl_tax}} грн.
+                                {% endif %}
+                            </td>
+							<td>
+                                {% if line.is_tax_known %}
+                                    {{ line.line_price_incl_tax}} грн.
+                                {% else %}
+                                    {{ line.line_price_excl_tax}} грн.
+                                {% endif %}
+                            </td>
+						</tr>
+						<tr>
+							<td colspan="4" class="td_bold check_second_last_table">Сумма</td>
+							<td class="check_second_last_table">
+                                {% if order.basket.is_tax_known %}
+                                    {{ order.basket.total_incl_tax}} грн.
+                                {% else %}
+                                    {{ order.basket.total_excl_tax}} грн.
+                                {% endif %}
+                            </td>
+						</tr>
+						<tr>
+							<td colspan="4" class="td_bold check_second_last_table">Доставка по г. {{ order.city.name }}у</td>
+							<td class="check_second_last_table">
+                                {{ order.shipping_price }} грн.
+                            </td>
+						</tr>
+						<tr>
+							<td colspan="4" class="td_bold check_second_last_table">Итого:</td>
+							<td class="check_second_last_table">
+                                {{ order.total_price }} грн.
+                            </td>
+						</tr>
+                    {% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

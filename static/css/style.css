@@ -1528,6 +1528,72 @@ button.close{
 .check_first .block_four table td.block_four_special{
 	text-align: left;
 }
+.check_second .block_one{
+	margin: 50px 0 90px;
+}
+.check_second .block_one p.block_one_title{
+	display: block;
+	font: 20px "PTSansBold";
+}
+.check_second .block_one p{
+	font: 20px "PTSansRegular";
+}
+.check_second .block_one .block_one_right{
+	float: right;
+}
+.check_second .block_one .block_one_left{
+	float: left;
+}
+.check_second .block_two table{
+	width: 100%;
+}
+.check_second .block_two table th{
+	font: 20px "PTSansBold";
+	padding: 7px 10px;
+	border: 1px solid #d9d9d9;
+}
+.check_second .block_two table td{
+	font: 16px "PTSansRegular";
+	height: 100px;
+	padding: 40px 10px 35px;
+	border: 1px solid #d9d9d9;
+	vertical-align: top;
+}
+.check_second .block_three{
+	margin: 50px 0 100px;
+}
+
+.check_second .block_three{
+	margin-bottom: 100px;
+}
+.check_second .block_three table{
+	width: 100%;
+	border: 1px solid #d9d9d9;
+}
+.check_second .block_three table td{
+	border: 1px solid #d9d9d9;
+	padding: 10px 35px;
+	font: 20px "PTSansRegular";
+}
+.check_second .block_three table th{
+	border: 1px solid #d9d9d9;
+	padding: 10px 20px;
+	font: 20px "PTSansBold";
+}
+.check_second .block_three table td ul{
+	margin: 15px 0;
+}
+.check_second .block_three table td ul .special_caption_for_ul{
+	font-family: "PTSansBold";
+}
+.check_second .block_three .check_second_last_table{
+	border-left: 0;
+	border-right: 0;
+	text-align: right;
+}
+.check_second .block_three table td.td_bold{
+	font-family: "PTSansBold";
+}
 @media (max-width: 1200px){
 	.basket ul li {
 	    margin: 27px 6px;
@@ -1846,6 +1912,19 @@ button.close{
 	.check_first .block_four table tr:last-child td:nth-child(2), .check_first .block_four table tr td:nth-child(3), .check_first .block_four table tr th:nth-child(3), .check_first .block_four table tr td:nth-child(4), .check_first .block_four table tr th:nth-child(4){
 		padding: 5px;
 	}
+	.check_second .block_three table td, .check_second .block_three table th  {
+	    padding: 5px !important;
+	    font-size: 12px;
+	}
+	.check_second .block_one p.block_one_title, .check_second .block_two table th{
+		font-size: 14px;
+	}
+	.check_second .block_one p, .check_second .block_two table td{
+		font-size: 12px;
+	}
+	.check_second .block_one, .check_second .block_three {
+	    margin: 20px 0;
+	}
 }
 @media (max-width: 650px){
 	.product_info .radio_product ul {
@@ -1876,6 +1955,10 @@ button.close{
 	.table_button {
 	    text-align: center;
 	    margin: 12px auto 20px;
+	}
+	.check_second .block_one .block_one_right, .check_second .block_one .block_one_left{
+		float: none;
+		margin: 20px 0;
 	}
 }
 @media (max-width: 581px){

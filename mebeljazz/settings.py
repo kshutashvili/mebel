@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'common',
     'filter',
     'favoritelist',
+    'banner',
 ] + get_core_apps(['apps.promotions', 'apps.catalogue', 'apps.catalogue.reviews', 'apps.basket', 'apps.order', 'apps.checkout'])
 
 SITE_ID = 1

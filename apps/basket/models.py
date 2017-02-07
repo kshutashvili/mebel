@@ -153,5 +153,12 @@ class Line(AbstractLine):
 
         return u'%s %s, %s'% (self.product.title, pack_params, preview)
 
+    def preview_options(self):
+        return [
+            choice.variant.variant
+            for choice in self.options_choices.all()
+            if choice.variant.variant.group.preview
+            ]
+
 from oscar.apps.basket.models import *  # noqa
 

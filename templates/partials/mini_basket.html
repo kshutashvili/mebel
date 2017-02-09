@@ -1,4 +1,7 @@
 {% load currency_filters %}
+{% load thumbnail %}
+{% load currency_filters %}
+{% load purchase_info_tags %}
 {% load i18n %}
 
 <div class="basket">
@@ -10,7 +13,8 @@
             </a>
         </li>
         <li>
-            <a href="{% url "basket:summary" %}">
+        <div class="dropdown">
+            <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Сумма
                 <span class="bg_green">
                     {% if request.basket.is_tax_known %}
@@ -20,6 +24,38 @@
                     {% endif %}
                 </span>
             </a>
+            {% if request.basket.lines.all %}
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                {% for line in request.basket.lines.all %}
+                <li>
+                    <div class="basket_drop_item">
+                        {% with image=line.product.primary_image %}
+                            {% thumbnail image.original "35x55" upscale=False as thumb %}
+                                <img class="thumbnail" src="{{ thumb.url }}" alt="{{ line.product.get_title }}"/>
+                            {% endthumbnail %}
+                        {% endwith %}
+                        <p class="product_caption">{{ line.description }}</p>
+                        <p class="product_text">{{ line.get_preview_info }}</p>
+                        <p class="product_text">ART.: {{ line.product.upc }}</p>
+                        <span class="basket_drop_item_price">
+                            {% if not show_tax_separately and line.is_tax_known %}
+                                {{ line.line_price_incl_tax|currency:request.basket.currency }}
+                            {% else %}
+                                {{ line.line_price_excl_tax|currency:request.basket.currency }}
+                            {% endif %}
+                        </span>
+                        <a href="#" class="basket_drop_item_delete">x</a>
+                    </div>
+                </li>
+                {% endfor %}
+                <a href="{% url 'basket:summary' %}">
+                    <button class="basket_drop_button">Оформить заказ</button>
+                </a>
+
+            </ul>
+            {% endif %}
+        </div>
+
         </li>
         <li>
             <a href="{% url "basket:summary" %}">

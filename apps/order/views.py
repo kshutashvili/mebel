@@ -6,7 +6,7 @@ from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 
-from .forms import SimpleOrderForm
+from .forms import SimpleOrderForm, OneClickOrderForm
 from common.views import AjaxFormMixin
 
 
@@ -34,3 +34,4 @@ class SimpleOrderView(AjaxFormMixin, CreateView):
         msg.attach_file(order.manufacture_blank.path)
         msg.attach_file(order.shipping_blank.path)
         msg.send()
+

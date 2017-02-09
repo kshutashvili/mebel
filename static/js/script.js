@@ -12,5 +12,10 @@ $(document).ready(function(){
 	  $(this).tab('show')
 	});
 
- 
+	 $('.bxslider_two').bxSlider({
+	  pagerCustom: '#bx-pager', 
+	  minSlides: 1,
+	  maxSlides: 1,
+	  moveSlides: 1
+	});
 });

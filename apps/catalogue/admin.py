@@ -1,5 +1,4 @@
 from oscar.apps.catalogue.admin import *
-
 from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductRecommendationInline,\
     ProductAdmin as CoreProductAdmin
 
@@ -44,8 +43,13 @@ class OptionGroupAdmin(admin.ModelAdmin):
 admin.site.register(LineOptionChoice)
 admin.site.register(MultipleOption)
 admin.site.register(OptionVariant)
+
 admin.site.unregister(Product)
 admin.site.register(OptionInfo)
 
 admin.site.register(OptionGroup, OptionGroupAdmin)
 admin.site.register(Product, ProductAdmin)
+
+admin.site.unregister(Option)
+admin.site.unregister(AttributeOptionGroup)
+admin.site.unregister(ProductAttribute)

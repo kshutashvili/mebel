@@ -1,20 +1,26 @@
+# coding: utf-8
+
 from oscar.apps.catalogue.views import *
 from oscar.apps.catalogue.views import CatalogueView as CoreCatalogueView, \
     ProductCategoryView as CoreProductCategoryView, \
     ProductDetailView as CoreProductDetailView
 
 from oscar.core.loading import get_class, get_model
-from apps.catalogue.reviews.forms import ProductReviewForm
 
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import CreateView
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.template.loader import get_template
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 
 from filter.forms import FilterForm
 
-
 from apps.basket.forms import AddToBasketForm
+from apps.order.forms import OneClickOrderForm
+from apps.catalogue.reviews.forms import ProductReviewForm
+from common.views import AjaxFormMixin
 
 
 get_product_search_handler_class = get_class(
@@ -30,6 +36,7 @@ class ProductDetailView(CoreProductDetailView):
         self.form.is_valid()
         ctx['price'] = self.form.options_product_price(self.request)
         ctx['review_form'] = ProductReviewForm(self.object)
+        ctx['oneclick_form'] = OneClickOrderForm()
         return ctx
 
 
@@ -81,6 +88,28 @@ class ProductCategoryView(CoreProductCategoryView):
         ctx = super(ProductCategoryView, self).get_context_data(**kwargs)
         ctx['filter_form'] = self.form
         return ctx
+
+
+class OneClickOrderCreateView(AjaxFormMixin, CreateView):
+    form_class = OneClickOrderForm
+    product_model = Product
+
+    def dispatch(self, request, *args, **kwargs):
+        self.product = get_object_or_404(
+            self.product_model, pk=kwargs['pk'])
+        return super(OneClickOrderCreateView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.product = self.product
+        instance.save()
+
+        message = get_template('email/oneclick_order.html').render({'instance': instance})
+        subject = u'Заявка на заказ(в один клик) №%s' % instance.id
+        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, ['developinc@yandex.ru', ])
+        msg.attach_alternative(message, "text/html")
+        msg.send()
+        return HttpResponse(self.product.get_absolute_url())
 
 
 def AddProductToFavorite(request, product_slug, pk):

@@ -23,6 +23,7 @@ class Product(AbstractProduct):
         return ''
 
 
+
 class MultipleOption(models.Model):
 
     product = models.ForeignKey(

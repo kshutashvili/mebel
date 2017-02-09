@@ -1,0 +1,7 @@
+{% load staticfiles %}
+
+{% for banner in banners %}
+    <a href="{{ banner.link }}">
+        <img src="{{ banner.image.url }}" alt="asda">
+    </a>
+{% endfor %}

@@ -4,7 +4,7 @@ from oscar.apps.catalogue.reviews.app import application as reviews_app
 from oscar.core.application import Application
 from oscar.core.loading import get_class
 
-from .views import AddProductToFavorite, RemoveProductFromFavorite
+from .views import AddProductToFavorite, RemoveProductFromFavorite, OneClickOrderCreateView
 
 class BaseCatalogueApplication(Application):
     name = 'catalogue'
@@ -23,6 +23,8 @@ class BaseCatalogueApplication(Application):
                 AddProductToFavorite, name='add_to_fav'),
             url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/rmfromfav/$',
                 RemoveProductFromFavorite, name='rm_from_fav'),
+            url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
+                OneClickOrderCreateView.as_view(), name='oneclick'),
             url(r'^category/(?P<category_slug>[\w-]+(/[\w-]+)*)_(?P<pk>\d+)/$',
                 self.category_view.as_view(), name='category'),
             # Fallback URL if a user chops of the last part of the URL

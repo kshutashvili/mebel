@@ -106,7 +106,7 @@ class OneClickOrderCreateView(AjaxFormMixin, CreateView):
 
         message = get_template('email/oneclick_order.html').render({'instance': instance})
         subject = u'Заявка на заказ(в один клик) №%s' % instance.id
-        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, ['developinc@yandex.ru', ])
+        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL, ])
         msg.attach_alternative(message, "text/html")
         msg.send()
         return HttpResponse(self.product.get_absolute_url())

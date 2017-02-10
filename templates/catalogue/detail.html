@@ -16,6 +16,7 @@
 
 {% block styles %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
     <link rel="stylesheet" href="{% static "css/fontawesome-stars.css"%}">
 {% endblock %}
 
@@ -174,9 +175,9 @@
                 <div class="product_info">
                     {{ field.errors }}
                     <div class="radio_product">
-                        <ul>
+                        <div class="owl-carousel owl-theme">
                             {% for choice in field %}
-                            <li>
+                            <div class="item">
                                 {% comment %}
                                 <input id="radio1" type="radio" name="{{ field.html_name }}" value="radio1">
                                 <label for="radio1"></label>
@@ -184,10 +185,10 @@
                                 {{ choice.tag }}
                                 <label for="{{ choice.id_for_label }}"></label>
                                 {{ choice.choice_label }}
-                            </li>
+                            </div>
                             {% endfor %}
 
-                        </ul>
+                        </div>
                     </div>
                 </div>
             {% elif field.widget_type != 'RadioSelect' and field.widget_type != 'Select' and field.widget_type != 'SelectWithPrices' %}

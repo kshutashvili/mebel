@@ -40,6 +40,10 @@
     {% endblocktrans %}
 {% endblock %}
 
+{% block content_cls %}
+    right_column
+{% endblock %}
+
 {% block content %}
     <form method="get" action="." class="form-horizontal">
         {# Render other search params in a hidden block #}
@@ -61,9 +65,7 @@
                     Found <strong>{{ num_results }}</strong> results. 
                 {% endblocktrans %}
             {% endif %}
-            <div class="pull-right">
-                {% include "partials/form_field.html" with field=search_form.sort_by %}
-            </div>
+
         {% else %}
             <p>
                 {% trans "Found <strong>0</strong> results." %}
@@ -79,14 +81,12 @@
 
     {% if page.object_list %}
 
-                <ol class="row">
+                <ul>
                     {% for result in page.object_list %}
-                        <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">{% render_product result.object %}</li>
+                        <li>{% render_product result.object %}</li>
                     {% endfor %}
-                </ol>
+                </ul>
                 {% include "partials/pagination.html" with page_obj=page %}
-            </div>
-        </section>
     {% endif %}
 
 {% endblock %}

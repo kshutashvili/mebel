@@ -90,29 +90,33 @@
                                 {% endif %}
                             </td>
 						</tr>
-						<tr>
-							<td colspan="4" class="td_bold check_second_last_table">Сумма</td>
-							<td class="check_second_last_table">
+                    {% endfor %}
+                        <tr>
+                            <td colspan="4" class="td_bold check_second_last_table">Сумма</td>
+                            <td class="check_second_last_table">
                                 {% if order.basket.is_tax_known %}
+
                                     {{ order.basket.total_incl_tax}} грн.
+
                                 {% else %}
+
                                     {{ order.basket.total_excl_tax}} грн.
+
                                 {% endif %}
                             </td>
-						</tr>
-						<tr>
-							<td colspan="4" class="td_bold check_second_last_table">Доставка по г. {{ order.city.name }}у</td>
-							<td class="check_second_last_table">
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="td_bold check_second_last_table">Доставка по г. {{ order.city.name }}у</td>
+                            <td class="check_second_last_table">
                                 {{ order.shipping_price }} грн.
                             </td>
-						</tr>
+                        </tr>
 						<tr>
 							<td colspan="4" class="td_bold check_second_last_table">Итого:</td>
 							<td class="check_second_last_table">
                                 {{ order.total_price }} грн.
                             </td>
 						</tr>
-                    {% endfor %}
 					</table>
 				</div>
 			</div>

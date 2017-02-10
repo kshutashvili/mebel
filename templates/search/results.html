@@ -83,7 +83,7 @@
 
                 <ul>
                     {% for result in page.object_list %}
-                        <li>{% render_product result.object %}</li>
+                        <li class="product-item">{% render_product result.object %}</li>
                     {% endfor %}
                 </ul>
                 {% include "partials/pagination.html" with page_obj=page %}

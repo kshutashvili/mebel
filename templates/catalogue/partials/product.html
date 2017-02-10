@@ -5,6 +5,10 @@
 {% load staticfiles %}
 
 {% block product %}
+    {% if product.is_discountable %}
+    <p class="product-triangle_text">АКЦИЯ</p>
+    <div class="product-triangle"></div>
+    {% endif %}
     <div>
         {% block product_image %}
                 {% with image=product.primary_image %}

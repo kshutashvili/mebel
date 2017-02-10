@@ -4,13 +4,6 @@
 {% load purchase_info_tags %}
 {% load widget_tweaks %}
 
-{% if basket_warnings %}
-    <h5>{% trans "Important messages about items in your basket" %}</h5>
-    {% for warning in basket_warnings %}
-        <div class="alert">{{ warning }}</div>
-    {% endfor %}
-{% endif %}
-
 {% if upsell_messages %}
     <div class="well">
         <h3>{% trans "You could be missing out on offers!" %}</h3>

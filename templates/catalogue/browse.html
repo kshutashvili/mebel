@@ -65,7 +65,7 @@
     {% if products %}
         <ul>
             {% for product in products %}
-                <li>{% render_product product %}</li>
+                <li class="product-item">{% render_product product %}</li>
             {% endfor %}
         </ul>
         {% include "partials/pagination.html" %}

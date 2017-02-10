@@ -20,7 +20,6 @@ class Selector(object):
     """
 
     def strategy(self, request=None, user=None, **kwargs):
-        print('asdasdas')
         """
         Return an instanticated strategy instance
         """
@@ -68,7 +67,6 @@ class NoTax(object):
     """
 
     def pricing_policy(self, product, stockrecord):
-        print('dfasfadsf')
         # Check stockrecord has the appropriate data
         if not stockrecord or stockrecord.price_excl_tax is None:
             return prices.Unavailable()

@@ -37,9 +37,18 @@ $(document).ready(function(){
 	})
 
 	 $(".search_button").click(function (){
-  		$(".dis_inp").css("display", "inline-block");
-		 $(".dis_inp").css("display", "inline-block");
-  		$(".constructor").css("display", "none");
+		 if($(".dis_inp").hasClass('active')){
+			 $(".dis_inp").css("display", "none");
+			 $(".constructor").css("display", "inline-block");
+			 $(".dis_inp").removeClass('active');
+		 }
+		 else{
+			 $(".dis_inp").css("display", "inline-block");
+			 $(".dis_inp").addClass('active');
+			 $(".constructor").css("display", "none");
+		 }
+
+
   	});
 
 

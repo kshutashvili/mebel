@@ -20,7 +20,7 @@
 					</div>
 					<div class="block_one_right">
 						<p>Дата добавления: <span>{{ order.when_created|date:'d.g.Y H:i' }}</span></p>
-						<p>№ замовлення: <span>{{ order.id }}</span></p>
+						<p>№ замовлення: <span>{{ order.pk }}</span></p>
 						<p>Способ оплаты:  <span>Оплата при доставке</span></p>
 						<p>Способ доставки: <span>Доставка по г. {{ order.city.name }}у</span></p>
 					</div>

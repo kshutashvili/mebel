@@ -113,6 +113,7 @@ class SimpleOrder(models.Model):
             self.shipping_blank.save(output_filname, ContentFile(output_file))
 
     def save(self, *args, **kwargs):
+        super(SimpleOrder, self).save(*args, **kwargs)
 
         if not self.check_blank:
             self.create_check_blank()
@@ -121,7 +122,6 @@ class SimpleOrder(models.Model):
         if not self.shipping_blank:
             self.create_shipping_blank()
 
-        super(SimpleOrder, self).save(*args, **kwargs)
 
     @property
     def shipping_price(self):

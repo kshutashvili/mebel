@@ -5,7 +5,7 @@
 {% load staticfiles %}
 
 {% block product %}
-    {% if product.is_discountable %}
+    {% if product.is_discountable and product.discount_value > 0 %}
     <p class="product-triangle_text">АКЦИЯ</p>
     <div class="product-triangle"></div>
     {% endif %}

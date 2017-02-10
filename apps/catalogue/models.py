@@ -9,6 +9,25 @@ from apps.basket.models import Line
 
 
 class Product(AbstractProduct):
+    DISCOUNT_TYPE_CHOICES = (
+        (1, u'Фиксированая скидка'),
+        (2, u'Процент скидки')
+    )
+
+    discount_type = models.IntegerField(
+        verbose_name=u'Тип скидки',
+        choices=DISCOUNT_TYPE_CHOICES,
+        blank=True,
+        null=True
+    )
+
+    discount_value = models.DecimalField(
+        verbose_name=u'Значение скидки',
+        default=0.00,
+        decimal_places=2,
+        max_digits=12
+    )
+
     def get_preview_info(self):
         prev_list = []
         if self.multiple_options:

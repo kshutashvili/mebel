@@ -1735,7 +1735,7 @@ a.basket_drop_item_delete{
 	top: -4px;
 }
 .left_banner img{
-	max-width: 300px;
+	width:100%;
 }
 .right_banner img{
 	max-width: 71vw;

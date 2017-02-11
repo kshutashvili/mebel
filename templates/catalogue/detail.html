@@ -198,6 +198,49 @@
 
 
         {% endif %}
+    <div class="product_info clear_fix">
+            <ul class="dostavka">
+                <li>Доставка до подъезда<br>БЕСПЛАТНО</li>
+                <li>Занос в квартиру или дом<br>min 50 грн</li>
+                <li>Сборка<br>262,00 грн</li>
+            </ul>
+            <div class="zakaz">
+                {% if not product|favlist_exist:request.favlist %}
+                    <a href="{% url 'catalogue:add_to_fav' product_slug=product.slug pk=product.id %}" class="zelanie">В список желаемого</a>
+                {% else %}
+                    <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}" class="zelanie">Из списка желаемого</a>
+                {% endif %}
+                <div class="payment">
+                    <div class="price1">
+                    <div>
+                    {% if session.availability.is_available_to_buy %}
+                    {% if session.price.exists %}
+                        {% if session.price.excl_tax == 0 %}
+                            <span>{% trans "Free" %}</span>
+                        {% elif price %}
+                            <span>{{ price|currency:session.price.currency }}</span>
+                        {% elif session.price.is_tax_known %}
+                            <span>{{ session.price.incl_tax|currency:session.price.currency }}</span>
+                        {% else %}
+                            <span>{{ session.price.excl_tax|currency:session.price.currency }}</span>
+                        {% endif %}
+                    {% else %}
+                        <span> </span>
+                    {% endif %}
+
+                    {% endif %}
+                    </div>
+                    </div>
+                    {% csrf_token %}
+
+                    {% if session.availability.is_available_to_buy %}
+                        <button type="submit" class="button_green">В корзину</button>
+                    {% else %}
+                        <button disabled type="submit" class="button_green">Нет в наличии</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </form>
     <div class="gray_bg caption_choose">
         <p class="product_text">ОТЗЫВЫ:</p>
@@ -367,7 +410,9 @@
     $(document).ready(function () {
         $('.option').on('change', function () {
             $form = $(this).parents('form');
-            $('.price').load(window.location.pathname+'?'+$form.serialize()+' .price div')
+            $('.price').load(window.location.pathname+'?'+$form.serialize()+' .price div', function (data) {
+                $('.price1').html($(this).html());
+            })
         })
     });
 

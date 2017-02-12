@@ -94,26 +94,7 @@
                     {% endfor %}
                     {% endif %}
                 </div>
-                <ul>
-                    <li>
-                        <p class="product_text"><span>В КОМПЛЕКТ ВХОДИТ:</span> Двери с фотопечатью №2а.</p>
-                    </li>
-                    <li>
-                        <p class="product_text"><span>Цвет ДСП:</span> на выбор.</p>
-                    </li>
-                    <li>
-                        <p class="product_text"><span>Система направляющих:</span> алюминиевая раздвижная система (пр-во Германия)</p>
-                    </li>
-                    <li>
-                        <p class="product_text"><span>Доставка:</span> до 14 дней</p>
-                    </li>
-                    <li>
-                        <p class="product_text"><span>Предоплата:</span> 10%</p>
-                    </li>
-                    <li>
-                        <p class="product_text"><span>Гарантия:</span> 18 месяцев</p>
-                    </li>
-                </ul>
+                {{ product.description|safe }}
             </div>
         </div>
 

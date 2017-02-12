@@ -1353,7 +1353,7 @@ a.write_comment:before{
 	vertical-align: top;
 	margin-right: 20px;
 }
-.basket_form_input input{
+.basket_form_input input, .basket_form_input select{
 	width: 100%;
 	padding: 5px 13px;
 	background-color: #f0f0f0;

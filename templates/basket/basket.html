@@ -35,12 +35,14 @@
     {{ block.super }}
     <script src="{% static 'js/plusminus.js' %}"></script>
     <script src="{% static 'js/jquery.babypaunch.spinner.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
     <script type="text/javascript">
     $(document).ready(function () {
         $("#spin").spinner({
             color: "black"
             , background: "rgba(255,255,255,0.5)"
         });
+        $("select").niceSelect();
         $('#basket_submit').on('click', function (e) {
             e.preventDefault();
             $("#spin").show();

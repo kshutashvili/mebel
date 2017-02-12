@@ -1353,7 +1353,7 @@ a.write_comment:before{
 	vertical-align: top;
 	margin-right: 20px;
 }
-.basket_form_input input, .basket_form_input select{
+.basket_form_input input, .basket_form_input .nice-select{
 	width: 100%;
 	padding: 5px 13px;
 	background-color: #f0f0f0;
@@ -1361,6 +1361,16 @@ a.write_comment:before{
 	border-radius: 4px;
 	margin: 8px 0;
 }
+
+.nice-select .list{
+	width: 100% !important;
+}
+
+.nice-select{
+	line-height: 20px !important;
+	height: auto !important;
+}
+
 .basket_form_input textarea{
 	width: 100%;
 	padding: 5px 13px;

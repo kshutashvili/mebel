@@ -6,4 +6,4 @@ from .models import SliderSlide
 
 @admin.register(SliderSlide)
 class SliderSlideAdmin(admin.ModelAdmin):
-    list_display = ('image', 'link')
+    list_display = ('id', 'image', 'link')

@@ -112,7 +112,6 @@ class Line(AbstractLine):
 
     @property
     def additional_price(self):
-        print(self.options_choices.all())
         if self.options_choices.all():
             add_price = [choices.variant.additional_price for choices in self.options_choices.all()]
             return sum(add_price)

@@ -26,26 +26,38 @@ class AddToBasketForm(CoreAddToBasketForm):
     def _create_option_fields(self):
         for option in self.parent_product.multiple_options.all():
             choices = []
+
+
             if option.group.display_type == 'radio':
                 widget = forms.RadioSelect(attrs={'class': 'option'})
             else:
                 widget = forms.Select(attrs={'class': 'option'})
 
-            self.fields[option.group.code] = ImageChoiceField(widget=widget, queryset=option.choices.all(), label=option.group.name, required=True, empty_label=None)
+            self.fields[option.group.code] = ImageChoiceField(
+                widget=widget,
+                queryset=option.choices.all(),
+                label=option.group.name,
+                required=option.is_required,
+                empty_label=None
+            )
 
     def cleaned_multiple_options(self):
         options = []
+        data = self.cleaned_data
         for option in self.parent_product.multiple_options.all():
-            if option.group.code in self.cleaned_data:
+            if option.group.code in data and data[option.group.code] :
                 options.append({
                     'multi_option': option,
-                    'value': self.cleaned_data[option.group.code]})
+                    'value': data[option.group.code]})
 
         return options
 
     def options_product_price(self, request):
         data = self.cleaned_multiple_options()
-        add_price = sum([i['value'].additional_price for i in data if i['value'].additional_price])
+        add_price = sum([i['value'].additional_price
+                         for i in data
+                         if i['value'] and i['value'].additional_price]
+                        )
         if self.product.is_parent:
             session = request.strategy.fetch_for_parent(self.product)
         else:

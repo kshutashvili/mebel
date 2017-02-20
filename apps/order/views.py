@@ -9,6 +9,8 @@ from django.core.mail import EmailMultiAlternatives
 from .forms import SimpleOrderForm, OneClickOrderForm
 from common.views import AjaxFormMixin
 
+from constance import config
+
 
 class SimpleOrderView(AjaxFormMixin, CreateView):
     form_class = SimpleOrderForm
@@ -27,7 +29,7 @@ class SimpleOrderView(AjaxFormMixin, CreateView):
     def send_mail(self, order):
         message = get_template('email/tanks_order.html').render({'order':order})
         subject = u'Заказ №%s' % order.id
-        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, [order.email, ])
+        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, [order.email, config.EMAIL_FOR_BLANC,])
         msg.attach_alternative(message, "text/html")
 
         msg.attach_file(order.check_blank.path)

@@ -2,7 +2,11 @@ from oscar.apps.order.admin import *  # noqa
 
 from .models import SimpleOrder, ShippingCity
 
-admin.site.register(SimpleOrder)
+
+class SimpleOrderAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'when_created', 'order_status')
+
+admin.site.register(SimpleOrder, SimpleOrderAdmin)
 admin.site.register(ShippingCity)
 
 admin.site.unregister(Order)

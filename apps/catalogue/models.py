@@ -42,7 +42,6 @@ class Product(AbstractProduct):
         return ''
 
 
-
 class MultipleOption(models.Model):
 
     product = models.ForeignKey(
@@ -56,6 +55,11 @@ class MultipleOption(models.Model):
         related_name='Choices',
         verbose_name=u'Група опций',
         default=1
+    )
+
+    is_required = models.BooleanField(
+        verbose_name=u'Обязательное поле ?',
+        default=True
     )
 
     class Meta:

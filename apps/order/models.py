@@ -83,6 +83,13 @@ class SimpleOrder(models.Model):
         blank=True
     )
 
+    class Meta:
+        verbose_name = u'Заказ'
+        verbose_name_plural = u'Заказы'
+
+    def __unicode__(self):
+        return '%s %s' %(self.when_created, self.order_status)
+
     def create_pdf(self, template_name, add_ctx={}):
         ctx = {'order': self, 'site': Site.objects.get_current()}
         if add_ctx:

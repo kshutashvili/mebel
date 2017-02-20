@@ -226,6 +226,7 @@ CONSTANCE_CONFIG = {
     'CONTACT_NUM_2': ('(093) 552 51 00', u'Телефон 2'),
     'CONTACT_NUM_3': ('(068) 678 70 66', u'Телефон 3'),
     'CONTACT_EMAIL': ('info@mebeljazz.com.ua', u'Почта'),
+    'EMAIL_FOR_BLANC': ('info@mebeljazz.com.ua', u'Почта для оповещений'),
     'ADDRESS': (u'г. Киев, ул. Кириловская 86', u'Адрес'),
 }
 

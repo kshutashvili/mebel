@@ -14,3 +14,27 @@
 #spin{
     z-index: 999;
 }
+
+.product-akziya, .product-akziya-percent{
+    width: 85px;
+    height: 35px;
+    position: absolute;
+    z-index: 98;
+}
+
+.product-akziya-percent{
+    top: 0;
+    right: 0;
+    background-color: #4fbd43;
+}
+.product-akziya{
+    top: 0;
+    left: 0;
+    background-color: #ff4040;
+}
+
+.product-akziya p, .product-akziya-percent p{
+    margin-top: 8px;
+    color: #fff;
+    font-weight: bold !important;
+}

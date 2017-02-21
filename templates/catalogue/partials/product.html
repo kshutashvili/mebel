@@ -2,12 +2,19 @@
 {% load thumbnail %}
 {% load i18n %}
 {% load display_tags %}
+{% load discount_tags %}
 {% load staticfiles %}
 
 {% block product %}
     {% if product.is_discountable and product.discount_value > 0 %}
-    <p class="product-triangle_text">АКЦИЯ</p>
-    <div class="product-triangle"></div>
+        <div class="product-akziya">
+            <p style="color: #fff;">АКЦИЯ!</p>
+        </div>
+        {% if product.discount_type == 2 %}
+            <div class="product-akziya-percent">
+                <p style="color: #fff;">-{{ product.discount_value|cut_percent }}%</p>
+            </div>
+        {% endif %}
     {% endif %}
     <div>
         {% block product_image %}

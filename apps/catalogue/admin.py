@@ -6,6 +6,7 @@ from django.contrib import admin
 
 from .models import LineOptionChoice, MultipleOption, \
     OptionGroup, OptionVariant, OptionInfo, ProductPackage
+from .forms import ProductForm
 
 import nested_admin
 
@@ -35,6 +36,7 @@ class ProductPackageAdminInline(admin.TabularInline):
 
 class ProductAdmin(CoreProductAdmin, nested_admin.NestedModelAdmin):
     inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline, ProductPackageAdminInline]
+    form = ProductForm
 
 
 class OptionGroupAdmin(admin.ModelAdmin):

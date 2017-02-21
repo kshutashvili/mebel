@@ -5,6 +5,7 @@ from oscar.apps.catalogue.abstract_models import AbstractProduct
 from django.db import models
 from django.template import Template, Context
 
+
 from apps.basket.models import Line
 
 

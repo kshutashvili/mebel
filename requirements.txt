@@ -5,4 +5,5 @@ django-oscar
 django_compressor
 django-constance
 django-nested-admin
+django-ckeditor
 pdfkit

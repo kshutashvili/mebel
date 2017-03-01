@@ -67,9 +67,9 @@
     <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk  %}" method="post">
         <div class="product_info clear_fix">
             {% include 'catalogue/partials/gallery.html' with product=product %}
-            <div class="product_right">
+            <div class="product_right" style="min-width: 353px;">
                 <p class="product_caption">{{ product.get_title }}</p>
-                <p class="product_text">{{ product.get_preview_info }}</p>
+                <p class="product_text" {% if not product.get_preview_info %}style="height: 19px; display: block;" {% endif %}>{{ product.get_preview_info }}</p>
                 <p class="product_text">ART.: {{ product.upc }}</p>
 
                 <a href="#" class="button_green">{% if session.availability.is_available_to_buy %}Есть в наличии{% else %}Нет в наличии{% endif %}</a>

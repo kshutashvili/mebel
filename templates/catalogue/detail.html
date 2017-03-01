@@ -79,7 +79,7 @@
                     {% csrf_token %}
                     <button type="button">Заказать в один клик</button>
                 </div>
-
+                {% if basket_form.radio_num > 0 %}
                 <div class="varianti">
                     {% if session.availability.is_available_to_buy %}
                     <p class="product_caption">Доступные варианты</p>
@@ -94,6 +94,7 @@
                     {% endfor %}
                     {% endif %}
                 </div>
+                {% endif %}
                 <div style="max-width: 353px">
                     {{ product.description|safe }}
                 </div>
@@ -151,7 +152,7 @@
         </div>
         {% if session.availability.is_available_to_buy %}
         {% for field in basket_form %}
-             {% annotate_form_field field %}
+            {% annotate_form_field field %}
             {% if field.widget_type == 'RadioSelect' %}
                 <div class="gray_bg caption_choose">
                     <p class="product_text">{{ field.label }}:</p>
@@ -182,6 +183,7 @@
 
 
         {% endif %}
+    {% if basket_form.select_num > 0 %}
     <div class="product_info clear_fix">
             <ul class="dostavka">
                 <li>Доставка до подъезда<br>БЕСПЛАТНО</li>
@@ -224,7 +226,8 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
+    </div>
+    {% endif %}
     </form>
     <div class="gray_bg caption_choose">
         <p class="product_text">ОТЗЫВЫ:</p>

@@ -24,14 +24,17 @@ class AddToBasketForm(CoreAddToBasketForm):
         self._create_option_fields()
 
     def _create_option_fields(self):
+        radio_num = 0
+        select_num = 0
         for option in self.parent_product.multiple_options.all():
             choices = []
 
-
             if option.group.display_type == 'radio':
                 widget = forms.RadioSelect(attrs={'class': 'option'})
+                radio_num +=1
             else:
                 widget = forms.Select(attrs={'class': 'option'})
+                select_num +=1
 
             self.fields[option.group.code] = ImageChoiceField(
                 widget=widget,
@@ -40,6 +43,8 @@ class AddToBasketForm(CoreAddToBasketForm):
                 required=option.is_required,
                 empty_label=None
             )
+        self.radio_num = radio_num
+        self.select_num = select_num
 
     def cleaned_multiple_options(self):
         options = []

@@ -113,6 +113,8 @@ class OptionGroup(models.Model):
         help_text=u'Только латинские символы'
     )
 
+    is_filter = models.BooleanField(verbose_name=u'Фильтровать?',default=True)
+
     display_type = models.CharField(
         choices=TYPE_CHOICES,
         default='radio',

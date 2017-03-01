@@ -10,7 +10,7 @@ class FilterForm(forms.Form):
         self.make_filter()
 
     def make_filter(self):
-        for group in OptionGroup.objects.all():
+        for group in OptionGroup.objects.filter(is_filter=True):
             self.fields['filter_%s'%group.code] = \
                 forms.MultipleChoiceField(
                     widget=forms.CheckboxSelectMultiple(),

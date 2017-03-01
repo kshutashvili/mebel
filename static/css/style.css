@@ -519,7 +519,7 @@ select::-ms-expand {
 	position: relative;
 	border: 1px solid #e3e3e3; 
 	border-left: 0; 
-	min-height: 505px;
+	min-height: 470px;
 	height: 100%;
 	width: 100%;
 	margin: 12px 0;
@@ -529,14 +529,21 @@ select::-ms-expand {
 	content: "";
 	left: 0;
 	display: block;
-	min-height: 505px;
+	min-height: 470px;
 	width: 100vw;
 	background-color: #fff;
 	border: 1px solid #e3e3e3; 
 	border-right: 0; 
 	transform: translateX(-100%);
 	top: -1px;
+	z-index: -1;
 }
+
+.left_banner a{
+	display: block;
+	margin-left: -100%;
+}
+
 .right_banner{
 	background-color: #fff;
 	color: #000;
@@ -545,7 +552,7 @@ select::-ms-expand {
 	border-right: 0; 
 	margin: 12px 0;
 	font-size: 0;
-	min-height: 270px;
+	min-height: 250px;
 }
 /*.right_banner:before{
 	position: absolute;

@@ -1,4 +1,6 @@
-from oscar.apps.partner.strategy import *
+from oscar.apps.partner.strategy import (Base, D, StockRequired, Structured,
+                                         UseFirstStockRecord, prices)
+
 
 class Selector(object):
     """

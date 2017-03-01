@@ -10,11 +10,11 @@ class FilterForm(forms.Form):
         self.make_filter()
 
     def make_filter(self):
-        for group in OptionGroup.objects.all():
-            self.fields['filter_%s'%group.code] = \
+        for group in OptionGroup.objects.filter(is_filter=True):
+            self.fields[u'filter_%s'%group.code] = \
                 forms.MultipleChoiceField(
                     widget=forms.CheckboxSelectMultiple(),
                     label=group.name,
-                    choices=[(i.id, '%s %s'%(i.name, group.postfix))for i in group.variants.all()],
+                    choices=[(i.id, u'%s %s'%(i.name, group.postfix))for i in group.variants.all()],
                     required=False
                 )

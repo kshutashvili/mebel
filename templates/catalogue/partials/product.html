@@ -12,7 +12,7 @@
         </div>
         {% if product.discount_type == 1 %}
             <div class="product-akziya-percent">
-                <p style="color: #fff;">-{{ product.discount_value|cut_percent }} грн.</p>
+                <p style="color: #fff;">-{{ product.discount_value|cut_percent }} <span style="font-size: 10px; text-transform: lowercase;">грн.</span></p>
             </div>
         {% endif %}
         {% if product.discount_type == 2 %}

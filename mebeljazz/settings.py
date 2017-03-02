@@ -234,7 +234,7 @@ CONSTANCE_CONFIG = {
 
 USE_DJANGO_JQUERY = False
 
-WKHTMLTOPDF_CMD = ''
+WKHTMLTOPDF_CMD = '/usr/bin/wkhtmltopdf'
 
 #################################################################
 # OSCAR settings

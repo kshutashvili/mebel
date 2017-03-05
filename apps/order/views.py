@@ -29,7 +29,11 @@ class SimpleOrderView(AjaxFormMixin, CreateView):
     def send_mail(self, order):
         message = get_template('email/tanks_order.html').render({'order':order})
         subject = u'Заказ №%s' % order.id
-        msg = EmailMultiAlternatives(subject, message, settings.DEFAULT_FROM_EMAIL, [order.email, config.EMAIL_FOR_BLANC,])
+        msg = EmailMultiAlternatives(subject=subject,
+                                     body=message,
+                                     from_email=settings.DEFAULT_FROM_EMAIL,
+                                     to=[order.email],
+                                     bcc=[config.EMAIL_FOR_BLANC])
         msg.attach_alternative(message, "text/html")
 
         msg.attach_file(order.check_blank.path)

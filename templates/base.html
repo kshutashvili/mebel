@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load staticfiles %}
-{% load compress %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -25,7 +24,6 @@
         {% endblock %}
 
         {# Block where global CSS will go. #}
-    {% compress css %}
         {% block styles %}{% endblock %}
 
         {# Additional CSS - specific to certain pages #}
@@ -37,7 +35,6 @@
             {# Default to using Google analytics #}
             {% include "partials/google_analytics.html" %}
         {% endblock %}
-    {% endcompress %}
     </head>
 
     <body>
@@ -53,7 +50,6 @@
         {% endblock %}
 
         {# Local scripts #}
-        {% compress js %}
         {% block scripts %}
         {% endblock %}
 
@@ -66,7 +62,6 @@
                 {% block onbodyload %}{% endblock %}
             });
         </script>
-        {% endcompress %}
 
         {# Page meta-data - this is populated by the 'metadata' template context processor #}
         <!-- {% trans "Version:" %} {{ version }} -->

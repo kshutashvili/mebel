@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load staticfiles %}
+{% load compress %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="{{ LANGUAGE_CODE|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -22,12 +23,13 @@
         {% block favicon %}
             <link rel="shortcut icon" href="{% static "favicon.ico" %}" />
         {% endblock %}
-
+        {% compress css %}
         {# Block where global CSS will go. #}
         {% block styles %}{% endblock %}
 
         {# Additional CSS - specific to certain pages #}
         {% block extrastyles %}{% endblock %}
+        {% endcompress %}
 
         {% block extrahead %}{% endblock %}
 
@@ -50,9 +52,10 @@
         {% endblock %}
 
         {# Local scripts #}
+        {% compress js %}
         {% block scripts %}
         {% endblock %}
-
+        {% endcompress %}
         {# Additional JS scripts #}
         {% block extrascripts %}{% endblock %}
 
@@ -62,6 +65,7 @@
                 {% block onbodyload %}{% endblock %}
             });
         </script>
+
 
         {# Page meta-data - this is populated by the 'metadata' template context processor #}
         <!-- {% trans "Version:" %} {{ version }} -->

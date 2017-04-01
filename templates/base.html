@@ -57,7 +57,9 @@
         {% endblock %}
         {% endcompress %}
         {# Additional JS scripts #}
+        {% compress js %}
         {% block extrascripts %}{% endblock %}
+        {% endcompress %}
 
         {# Block for body onload functions #}
         <script type="text/javascript">

@@ -115,9 +115,9 @@
             </ul>
             <div class="zakaz">
                 {% if not product|favlist_exist:request.favlist %}
-                    <a href="{% url 'catalogue:add_to_fav' product_slug=product.slug pk=product.id %}" class="zelanie">В список желаемого</a>
+                    <a href="{% url 'catalogue:add_to_fav' product_slug=product.slug pk=product.id  %}?next={{ request.build_absolute_uri }}" class="zelanie">В список желаемого</a>
                 {% else %}
-                    <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}" class="zelanie">Из списка желаемого</a>
+                    <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}?next={{ request.build_absolute_uri }}" class="zelanie">Из списка желаемого</a>
                 {% endif %}
                 <div class="payment">
                     <div class="price">

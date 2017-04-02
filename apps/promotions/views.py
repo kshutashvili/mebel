@@ -10,6 +10,6 @@ Product = get_model('catalogue', 'Product')
 class HomeView(DefaultHomeView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['last_products'] = Product.browsable.base_queryset()[:9]
+        context['last_products'] = Product.browsable.base_queryset()[:12]
         context['slides'] = SliderSlide.objects.all()
         return context

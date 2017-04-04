@@ -5,7 +5,7 @@ from oscar.apps.catalogue.abstract_models import AbstractProduct
 from django.db import models
 from django.template import Template, Context
 
-
+from django.core.urlresolvers import reverse
 from apps.basket.models import Line
 
 
@@ -41,6 +41,22 @@ class Product(AbstractProduct):
             return 'X'.join(prev_list)
 
         return ''
+
+    def get_absolute_url(self):
+        """
+        Overriding parent method
+        Return a product's absolute url
+        """
+        category = self.get_categories().first()
+        if category:
+            category_slug = '{}_'.format(category.slug)
+            category_id = category.id
+        else:
+            category_slug = 'others'
+            category_id = ''
+        return reverse('catalogue:detail',
+                       kwargs={'category_slug': category_slug, 'id': category_id,
+                               'product_slug': self.slug, 'pk': self.id })
 
 
 class MultipleOption(models.Model):

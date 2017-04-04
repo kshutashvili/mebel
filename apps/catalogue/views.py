@@ -41,6 +41,7 @@ class ProductDetailView(CoreProductDetailView):
 
 
 class CatalogueView(CoreCatalogueView):
+
     def get(self, request, *args, **kwargs):
         self.form = FilterForm(request.GET)
         options = []
@@ -62,6 +63,7 @@ class CatalogueView(CoreCatalogueView):
 
 
 class ProductCategoryView(CoreProductCategoryView):
+
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
         self.category = self.get_category()

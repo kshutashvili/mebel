@@ -18,19 +18,22 @@ class BaseCatalogueApplication(Application):
         urlpatterns = super(BaseCatalogueApplication, self).get_urls()
         urlpatterns += [
             url(r'^$', self.catalogue_view.as_view(), name='index'),
-            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)_*(?P<id>\d*)/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/$',
+            url(
+                r'^(?P<category_slug>[\w-]+(/[\w-]+)*)/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/$',
                 self.detail_view.as_view(), name='detail'),
+            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)/$',
+                self.category_view.as_view(), name='category'),
+            # Fallback URL if a user chops of the last part of the URL
+            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)/$',
+                self.category_view.as_view()),
             url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/addtofav/$',
                 AddProductToFavorite, name='add_to_fav'),
             url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/rmfromfav/$',
                 RemoveProductFromFavorite, name='rm_from_fav'),
             url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
                 OneClickOrderCreateView.as_view(), name='oneclick'),
-            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)_(?P<pk>\d+)/$',
-                self.category_view.as_view(), name='category'),
-            # Fallback URL if a user chops of the last part of the URL
-            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)/$',
-                self.category_view.as_view()),
+
+
             url(r'^ranges/(?P<slug>[\w-]+)/$',
                 self.range_view.as_view(), name='range')]
         return self.post_process_urls(urlpatterns)

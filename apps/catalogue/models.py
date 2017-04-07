@@ -1,13 +1,35 @@
 # -*-coding:utf8-*-
 
-from oscar.apps.catalogue.abstract_models import AbstractProduct
+from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractCategory
 
 from django.db import models
 from django.template import Template, Context
-
+from django.utils.translation import get_language
+from django.contrib.staticfiles.finders import find
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from apps.basket.models import Line
 
+class Category(AbstractCategory):
+
+    def get_absolute_url(self):
+        """
+                Our URL scheme means we have to look up the category's ancestors. As
+                that is a bit more expensive, we cache the generated URL. That is
+                safe even for a stale cache, as the default implementation of
+                ProductCategoryView does the lookup via primary key anyway. But if
+                you change that logic, you'll have to reconsider the caching
+                approach.
+                """
+        current_locale = get_language()
+        cache_key = 'CATEGORY_URL_%s_%s' % (current_locale, self.pk)
+        url = cache.get(cache_key)
+        if not url:
+            url = reverse(
+                'catalogue:category',
+                kwargs={'category_slug': self.full_slug})
+            cache.set(cache_key, url)
+        return url
 
 class Product(AbstractProduct):
     DISCOUNT_TYPE_CHOICES = (
@@ -49,13 +71,13 @@ class Product(AbstractProduct):
         """
         category = self.get_categories().first()
         if category:
-            category_slug = '{}_'.format(category.slug)
+            category_slug = '{}'.format(category.slug)
             category_id = category.id
         else:
             category_slug = 'others'
             category_id = ''
         return reverse('catalogue:detail',
-                       kwargs={'category_slug': category_slug, 'id': category_id,
+                       kwargs={'category_slug': category_slug,
                                'product_slug': self.slug, 'pk': self.id })
 
 

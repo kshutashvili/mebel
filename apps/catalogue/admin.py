@@ -1,6 +1,6 @@
 from oscar.apps.catalogue.admin import *
 from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductRecommendationInline,\
-    ProductAdmin as CoreProductAdmin
+    ProductAdmin as CoreProductAdmin, CategoryAdmin as CoreCategoryAdmin
 
 from django.contrib import admin
 
@@ -34,6 +34,9 @@ class ProductPackageAdminInline(admin.TabularInline):
     extra = 1
 
 
+class CategoryAdmin(CoreCategoryAdmin, nested_admin.NestedModelAdmin):
+    pass
+
 class ProductAdmin(CoreProductAdmin, nested_admin.NestedModelAdmin):
     inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline, ProductPackageAdminInline]
     form = ProductForm
@@ -45,6 +48,8 @@ class OptionGroupAdmin(admin.ModelAdmin):
 admin.site.register(LineOptionChoice)
 admin.site.register(MultipleOption)
 admin.site.register(OptionVariant)
+admin.site.unregister(Category)
+admin.site.register(Category, CategoryAdmin)
 
 admin.site.unregister(Product)
 admin.site.register(OptionInfo)

@@ -115,7 +115,7 @@ class OneClickOrderCreateView(AjaxFormMixin, CreateView):
 
 
 def AddProductToFavorite(request, product_slug, pk):
-    product = get_object_or_404(Product,pk=pk)
+    product = get_object_or_404(Product, pk=pk)
     request.favlist.add(product)
     url = request.GET.get('next')
     return redirect(url)

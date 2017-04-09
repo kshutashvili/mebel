@@ -65,9 +65,9 @@
     {% basket_form request product as basket_form %}
 
     <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk  %}" method="post">
-        <div class="product_info clear_fix">
-            {% include 'catalogue/partials/gallery.html' with product=product %}
-            <div class="product_right" style="min-width: 353px;">
+        <div class="product_info clear_fix row">
+            <div class="col-sm-4">{% include 'catalogue/partials/gallery.html' with product=product %}</div>
+            <div class="product_right col-sm-8" style="min-width: 353px;">
                 <p class="product_caption">{{ product.get_title }}</p>
                 <p class="product_text" {% if not product.get_preview_info %}style="height: 19px; display: block;" {% endif %}>{{ product.get_preview_info }}</p>
                 <p class="product_text">ART.: {{ product.upc }}</p>

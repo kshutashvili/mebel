@@ -39,11 +39,45 @@
     font-weight: bold !important;
 }
 
-.pager li a {
+.pager li a, .pagination li a {
   color: #286090 !important;
+}
+
+.pager li {
+  float: left; !important;
 }
 
 .pager li.current{
     color: #286090 !important;
+    display: inline-block;
     font-size: 14px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+
+}
+
+.pages {
+    margin-left: 80px !important;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+    margin-left: 0;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    float: left;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+    margin-left: 0;
+    border-top-right-radius: 20px ;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    float: right;
 }

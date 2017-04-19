@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'', include('apps.promotions.urls')),
     url(r'', include('common.urls', namespace='common')),
     url(r'^basket/',include('apps.order.urls', namespace='order')),
-    url(r'^favlist/$', TemplateView.as_view(template_name='favlist/favlist.html'), name='full_favlist')
+    url(r'^favlist/$', TemplateView.as_view(template_name='favlist/favlist.html'), name='full_favlist'),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

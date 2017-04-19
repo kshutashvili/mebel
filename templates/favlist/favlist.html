@@ -47,7 +47,7 @@
                                 {{ product.upc }}
                             </td>
                             <td>
-                                <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}">Удалить</a>
+                                <a href="{% url 'catalogue:rm_from_fav' product_slug=product.slug pk=product.id %}?next={{ request.build_absolute_uri }}">Удалить</a>
                             </td>
                             </tr>
                             {% endwith %}

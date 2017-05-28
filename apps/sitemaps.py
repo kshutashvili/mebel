@@ -10,6 +10,10 @@ Category = get_model('catalogue', 'Category')
 
 
 class I18nSitemap(Sitemap):
+    """
+    A language-specific Sitemap class. Returns URLS for items for passed
+    language.
+    """
     def __init__(self, language):
         self.language = language
         self.original_language = get_language()
@@ -50,7 +54,6 @@ language_neutral_sitemaps = {
     'products': ProductSitemap,
     'categories': CategorySitemap,
 }
-
 
 # Construct the sitemaps for every language
 base_sitemaps = {}

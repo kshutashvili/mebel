@@ -275,6 +275,7 @@ OSCAR_SEARCH_FACETS = {
 
 THUMBNAIL_QUALITY = 60
 
+
 try:
     from local_settings import *
 except ImportError:

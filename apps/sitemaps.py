@@ -51,6 +51,7 @@ language_neutral_sitemaps = {
     'categories': CategorySitemap,
 }
 
+
 # Construct the sitemaps for every language
 base_sitemaps = {}
 for language, __ in settings.LANGUAGES:

@@ -46,6 +46,6 @@ urlpatterns = [
         {'sitemaps': base_sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', views.sitemap,
         {'sitemaps': base_sitemaps},
-        name='django.contrib.sitemaps.views.sitemap')
+        name='sitemap')
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

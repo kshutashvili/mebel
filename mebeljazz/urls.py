@@ -19,6 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+from django.contrib.sitemaps import views
+from apps.sitemaps import base_sitemaps
+
 from mebeljazz.app import application
 
 
@@ -38,5 +41,11 @@ urlpatterns = [
     url(r'^basket/',include('apps.order.urls', namespace='order')),
     url(r'^favlist/$', TemplateView.as_view(template_name='favlist/favlist.html'), name='full_favlist'),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
+
+    url(r'^sitemap\.xml$', views.index,
+        {'sitemaps': base_sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', views.sitemap,
+        {'sitemaps': base_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap')
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -16,6 +16,11 @@
     {% include 'partials/filters.html' with form=filter_form url=category.get_absolute_url %}
 {% endblock %}
 
+{% block canonical %}
+    {% if canonical %}
+        <link rel="canonical" href="{{ category.get_absolute_url }}" />
+    {% endif %}
+{% endblock %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">

@@ -43,6 +43,7 @@ class ProductDetailView(CoreProductDetailView):
 class CatalogueView(CoreCatalogueView):
 
     def get(self, request, *args, **kwargs):
+
         self.form = FilterForm(request.GET)
         options = []
         if self.form.is_valid():
@@ -59,6 +60,7 @@ class CatalogueView(CoreCatalogueView):
     def get_context_data(self, **kwargs):
         ctx = super(CatalogueView, self).get_context_data(**kwargs)
         ctx['filter_form'] = self.form
+
         return ctx
 
 
@@ -66,11 +68,13 @@ class ProductCategoryView(CoreProductCategoryView):
 
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
+
         self.category = self.get_category()
         potential_redirect = self.redirect_if_necessary(
             request.path, self.category)
         if potential_redirect is not None:
             return potential_redirect
+
 
         self.form=FilterForm(request.GET)
         options = []
@@ -80,14 +84,19 @@ class ProductCategoryView(CoreProductCategoryView):
         try:
             self.search_handler = self.get_search_handler(
                 request.GET, request.get_full_path(), self.get_categories(), options)
+
         except InvalidPage:
             messages.error(request, _('The given page number was invalid.'))
             return redirect(self.category.get_absolute_url())
 
+
+        print 
         return super(CoreProductCategoryView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+
         ctx = super(ProductCategoryView, self).get_context_data(**kwargs)
+        ctx['canonical'] = (self.search_handler.kwargs['page'] != 1)
         ctx['filter_form'] = self.form
         return ctx
 

@@ -164,7 +164,7 @@ body{
 	background-color: #fff;
 	border-top: 1px solid #e3e3e3;
 	border-bottom: 1px solid #e3e3e3;
-	margin: 7px 0;
+	margin: 90px 0 7px;
 }
 .navbar-default {
     background-color: transparent;
@@ -1952,6 +1952,10 @@ a.basket_drop_item_delete{
 	}
 }
 @media (max-width: 768px){
+	.menu {
+	    margin-top: 242px;
+	}
+
 	.phone_numbers, .basket, .logo {
 	    display: block;
 	    float: none;
@@ -2212,6 +2216,10 @@ a.basket_drop_item_delete{
 	}
 }
 @media (max-width: 400px){
+	.menu {
+	    margin-top: 279px;
+	}
+
 	.basket ul li {
 	    margin: 10px 6px;
 	    display: block;

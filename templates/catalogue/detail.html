@@ -21,11 +21,17 @@
 {% endblock %}
 
 {% block title %}
-    {{ product.title }} | {{ block.super }}
+    {% if product.title_tag %}
+        {{ product.title_tag }} | {{ block.super }}
+    {% else %}
+        {{ product.title }} | {{ block.super }}
+    {% endif %}
 {% endblock %}
 
 {% block description %}
-    {{ product.description|default:""|striptags }}
+    {% if product.meta_description %}
+        {{ product.meta_description|default:""|striptags }}
+    {% endif %}
 {% endblock %}
 
 {% block content_cls %}

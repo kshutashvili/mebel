@@ -12,6 +12,20 @@ from apps.basket.models import Line
 
 class Category(AbstractCategory):
 
+    title_tag = models.CharField(
+        verbose_name=u'HTML-тег Title',
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    meta_description = models.CharField(
+        verbose_name=u'Мета-тег Description',
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
     def get_absolute_url(self):
         """
                 Our URL scheme means we have to look up the category's ancestors. As
@@ -35,6 +49,20 @@ class Product(AbstractProduct):
     DISCOUNT_TYPE_CHOICES = (
         (1, u'Фиксированая скидка'),
         (2, u'Процент скидки')
+    )
+
+    title_tag = models.CharField(
+        verbose_name=u'HTML-тег Title',
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    meta_description = models.CharField(
+        verbose_name=u'Мета-тег Description',
+        max_length=255,
+        blank=True,
+        null=True
     )
 
     discount_type = models.IntegerField(

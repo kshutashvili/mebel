@@ -1,3 +1,4 @@
+from ckeditor.widgets import CKEditorWidget
 from oscar.apps.catalogue.admin import *
 from oscar.apps.catalogue.admin import AttributeInline, CategoryInline, ProductRecommendationInline,\
     ProductAdmin as CoreProductAdmin, CategoryAdmin as CoreCategoryAdmin
@@ -6,7 +7,7 @@ from django.contrib import admin
 
 from .models import LineOptionChoice, MultipleOption, \
     OptionGroup, OptionVariant, OptionInfo, ProductPackage
-from .forms import ProductForm
+from .forms import ProductForm, CategoryForm
 
 import nested_admin
 
@@ -35,7 +36,8 @@ class ProductPackageAdminInline(admin.TabularInline):
 
 
 class CategoryAdmin(CoreCategoryAdmin, nested_admin.NestedModelAdmin):
-    pass
+    form = CategoryForm
+
 
 class ProductAdmin(CoreProductAdmin, nested_admin.NestedModelAdmin):
     inlines = [AttributeInline, CategoryInline, MultipleOptionAdminInline, ProductRecommendationInline, ProductPackageAdminInline]

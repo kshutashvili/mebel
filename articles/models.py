@@ -12,6 +12,19 @@ class Article(models.Model):
     SCORE_CHOICES = tuple([(x, x) for x in range(0, 6)])
 
     title = models.CharField(verbose_name='Название', max_length=200)
+    title_tag = models.CharField(
+        verbose_name=u'HTML-тег Title',
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    meta_description = models.CharField(
+        verbose_name=u'Мета-тег Description',
+        max_length=255,
+        blank=True,
+        null=True
+    )
     description = RichTextField(verbose_name='Описание')
     text = RichTextField(verbose_name='Основной текст')
 

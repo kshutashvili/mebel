@@ -2,6 +2,20 @@
 
 {% load i18n %}
 
+{% block title %}
+    {% if article.title_tag %}
+        {{ article.title_tag }} | {{ block.super }}
+    {% else %}
+        {{ article.title }} | {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% if article.meta_description %}
+        {{ article.meta_description|default:""|striptags }}
+    {% endif %}
+{% endblock %}
+
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="{{ homepage_url }}">{% trans 'Home' %}</a></li>

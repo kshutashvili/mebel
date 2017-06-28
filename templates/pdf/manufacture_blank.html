@@ -11,6 +11,7 @@
 	<div class="container-fluid">
 		<div class="container">
 			<div class="check_first">
+				<img src="http://{{ site.domain }}{% static 'img/logo.png' %}" alt="logo">
 				<div class="block_one clear_fix">
 					<span class="check_first_date">{{ order.when_created |date:'d.g.Y' }}</span>
 					<div class="block_one_name">
@@ -19,7 +20,7 @@
 					</div>
 				</div>
 				<div class="block_two">
-					<p class="zakaz_from">Замовлення вiд IНТЕРНЕТ МАГАЗИНУ "Мебель Jazz"</p>
+					<p class="zakaz_from">Замовлення вiд IНТЕРНЕТ МАГАЗИНУ "Шкафманн"</p>
 					<p class="zakaz_number">№ замовлення: <span>{{ order.pk }} вiд {{ order.when_created|date:'d.g.Y H:i' }}</span></p>
 				</div>
 				<div class="block_three">

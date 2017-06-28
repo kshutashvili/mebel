@@ -5,44 +5,51 @@
     <link rel="stylesheet" href="http://{{ site.domain }}{% static 'css/bootstrap.css' %}">
 </head>
 <body>
+<div>
+    <img class="pull-left" src="http://{{ site.domain }}{% static 'img/logo.png' %}" alt="logo">
+</div>
 <table id="basket_table" style="width: 100%; text-align: left">
     <tr class="">
-        <th>Артикул</th><th>Наименование</th><th>Количество</th><th>Цена</th><th>Сума</th>
+        <th>Артикул</th>
+        <th>Наименование</th>
+        <th>Количество</th>
+        <th>Цена</th>
+        <th>Сума</th>
     </tr>
     {% for line in order.basket.lines.all %}
-            <tr>
-                <td>
-                    {{ line.product.upc }}
-                </td>
-                <td style="line-height: 1.5;">
-                    <p style="">{{ line.product.title }} {{ line.get_preview_info }}</p>
-                </td>
-                <td>
-                    {{ line.quantity }}
-                </td>
-                <td>
-                    {% if line.is_tax_known %}
-                        {{ line.unit_price_incl_tax}} грн.
-                    {% else %}
-                        {{ line.unit_price_excl_tax}} грн.
-                    {% endif %}
-                </td>
-                <td>
-                    {% if line.is_tax_known %}
-                        {{ line.line_price_incl_tax}} грн.
-                    {% else %}
-                        {{ line.line_price_excl_tax}} грн.
-                    {% endif %}
-                </td>
-            </tr>
+    <tr>
+        <td>
+            {{ line.product.upc }}
+        </td>
+        <td style="line-height: 1.5;">
+            <p style="">{{ line.product.title }} {{ line.get_preview_info }}</p>
+        </td>
+        <td>
+            {{ line.quantity }}
+        </td>
+        <td>
+            {% if line.is_tax_known %}
+            {{ line.unit_price_incl_tax}} грн.
+            {% else %}
+            {{ line.unit_price_excl_tax}} грн.
+            {% endif %}
+        </td>
+        <td>
+            {% if line.is_tax_known %}
+            {{ line.line_price_incl_tax}} грн.
+            {% else %}
+            {{ line.line_price_excl_tax}} грн.
+            {% endif %}
+        </td>
+    </tr>
     {% endfor %}
     <tr>
         <td colspan="4" style="text-align: right">Итого:</td>
         <td>
             {% if order.basket.is_tax_known %}
-                {{ order.basket.total_incl_tax}} грн.
+            {{ order.basket.total_incl_tax}} грн.
             {% else %}
-                {{ order.basket.total_excl_tax}} грн.
+            {{ order.basket.total_excl_tax}} грн.
             {% endif %}
         </td>
     </tr>

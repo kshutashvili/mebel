@@ -159,7 +159,7 @@
         {% if session.availability.is_available_to_buy %}
         {% for field in basket_form %}
             {% annotate_form_field field %}
-            {% if field.widget_type == 'RadioSelect' %}
+            {% if field.widget_type == 'RadioSelect' or field.widget_type == 'CheckboxSelectMultiple' %}
                 <div class="gray_bg caption_choose">
                     <p class="product_text">{{ field.label }}:</p>
                 </div>
@@ -182,7 +182,7 @@
                         </div>
                     </div>
                 </div>
-            {% elif field.widget_type != 'RadioSelect' and field.widget_type != 'Select' and field.widget_type != 'SelectWithPrices' %}
+            {% elif field.widget_type != 'RadioSelect' and field.widget_type != 'Select' and field.widget_type != 'SelectWithPrices' and field.widget_type != 'CheckboxSelectMultiple'%}
                 {{ field }}
             {% endif %}
         {% endfor %}

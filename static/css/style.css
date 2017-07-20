@@ -1037,6 +1037,11 @@ p.change_margin{
 .radio_product input[type=radio] {
 	display: none;
 }
+
+.radio_product input[type=checkbox] {
+	display: none;
+}
+
 .radio_product label:before {
 	content: "";
 	display: inline-block;
@@ -1063,11 +1068,17 @@ p.change_margin{
 .radio_product input[type=radio]:checked + label:before {
 	background-color: #4bb336;
 }
+
+.radio_product input[type=checkbox]:checked + label:before {
+	background-color: #4bb336;
+}
 .product_info .radio_product ul li{
 	display: inline-block;
 	margin: 0;
 	text-align: center;
 }
+
+
 /*.product_info .radio_product ul{
 	//display: flex;
 	flex-direction: row;

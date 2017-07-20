@@ -168,7 +168,8 @@ class OptionInfo(models.Model):
 class OptionGroup(models.Model):
     TYPE_CHOICES = (
         ('radio', 'radio'),
-        ('select', 'select')
+        ('select', 'select'),
+        ('checkbox', 'checkbox')
     )
 
     name = models.CharField(max_length=100, verbose_name=u'Название групы')

@@ -104,8 +104,10 @@
                 <div class="col-xs-12 col-sm-9 col-md-9 cold-lg-9">
                 {# block for content #}
                 {% block breadcrumbs %}
-                
+
                 {% endblock %}
+
+                    {% block messages %} {% endblock %}
 
                     <div class="{% block content_cls %}right_before{% endblock %}">
                     {% block content %}{% endblock %}

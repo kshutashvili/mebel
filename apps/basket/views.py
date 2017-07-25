@@ -29,3 +29,15 @@ class BasketAddView(CoreBasketAddView):
             sender=self, product=form.product, user=self.request.user,
             request=self.request)
         return super(CoreBasketAddView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        msgs = []
+        for field_errors in form.errors.items():
+            for error in field_errors[1]:
+                if error.startswith('* '):
+                    error.replace('* ', '')
+                msgs.append('%s: %s' % (form.fields[field_errors[0]].label, error))
+        for message in msgs:
+            messages.error(self.request, message)
+
+        return redirect_to_referrer(self.request, 'basket:summary')

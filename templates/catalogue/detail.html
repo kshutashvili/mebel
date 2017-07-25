@@ -66,6 +66,21 @@
 {% block header %}
 {% endblock header %}
 
+{% block messages %}
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger fade in alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+            </div>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     {% purchase_info_for_product request product as session %}
     {% basket_form request product as basket_form %}

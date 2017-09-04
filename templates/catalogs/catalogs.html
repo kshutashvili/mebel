@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    Каталог
+{% endblock %}
+
+{% block content_cls %}{% endblock %}
+
+{% block content %}
+<div class="right_column catalog">
+    <div class="top_panel">
+        <p class="title">Каталоги</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!"></a>
+            <a class="right" href="#!"></a>
+        </div>
+    </div>
+    <ul class="slider">
+        {% for item in catalogs %}
+        <li>
+            <img src="{{ item.photo.url }}" alt="{{ item.photo.url }}">
+            <p>Каталог фото</p>
+            <p>{{ item.description }}</p>
+            <a href="{{ item.pdf.url }}" class="more">Смотреть каталог</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="right_column catalog">
+    <div class="top_panel">
+        <p class="title">Популярные</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!"></a>
+            <a class="right" href="#!"></a>
+        </div>
+    </div>
+    <ul class="slider">
+        {% for item in populars %}
+        <li>
+            <img src="{{ item.photo.url }}" alt="{{ item.photo.url }}">
+            <p>Каталог фото</p>
+            <p>{{ item.description }}</p>
+            <a href="{{ item.pdf.url }}" class="more">Смотреть каталог</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

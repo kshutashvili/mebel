@@ -1,17 +1,16 @@
 # -*-coding: utf8-*-
 from __future__ import unicode_literals
 
+from pyPdf import PdfFileReader
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from pyPdf import PdfFileReader
 from django.core.exceptions import ValidationError
+
 from utils import get_admin_thumb
 
 
 class CatalogAbstract(models.Model):
-    class Meta:
-        abstract = True
-
     photo = models.ImageField(
         verbose_name=_('Фото'),
         help_text=_('PNG/JPG'),
@@ -29,6 +28,12 @@ class CatalogAbstract(models.Model):
         auto_now_add=True
     )
 
+    class Meta:
+        abstract = True
+
+    def __unicode__(self):
+        return self.description
+
     def clean(self, *args, **kwargs):
         try:
             PdfFileReader(self.pdf)
@@ -40,9 +45,6 @@ class CatalogAbstract(models.Model):
 
     admin_photo.allow_tags = True
     admin_photo.short_description = _('Фото каталога')
-
-    def __unicode__(self):
-        return self.description
 
 
 class Catalog(CatalogAbstract):

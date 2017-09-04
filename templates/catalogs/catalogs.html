@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% load staticfiles %}
+
 {% load i18n %}
 
 {% block title %}
@@ -13,17 +13,17 @@
     <div class="top_panel">
         <p class="title">Каталоги</p>
         <div class="arrows_wrap">
-            <a class="left" href="#!"></a>
-            <a class="right" href="#!"></a>
+            <a class="left" href="#!" id="slider-prev"></a>
+            <a class="right" href="#!" id="slider-next"></a>
         </div>
     </div>
-    <ul class="slider">
+    <ul class="bxslider-catalog">
         {% for item in catalogs %}
         <li>
             <img src="{{ item.photo.url }}" alt="{{ item.photo.url }}">
             <p>Каталог фото</p>
             <p>{{ item.description }}</p>
-            <a href="{{ item.pdf.url }}" class="more">Смотреть каталог</a>
+            <a href="{{ item.pdf.url }}" target="_blank" class="more">Смотреть каталог</a>
         </li>
         {% endfor %}
     </ul>
@@ -32,17 +32,17 @@
     <div class="top_panel">
         <p class="title">Популярные</p>
         <div class="arrows_wrap">
-            <a class="left" href="#!"></a>
-            <a class="right" href="#!"></a>
+            <a class="left" href="#!"  id="slider-prev-p"></a>
+            <a class="right" href="#!" id="slider-next-p"></a>
         </div>
     </div>
-    <ul class="slider">
+    <ul class="bxslider-popular">
         {% for item in populars %}
         <li>
             <img src="{{ item.photo.url }}" alt="{{ item.photo.url }}">
             <p>Каталог фото</p>
             <p>{{ item.description }}</p>
-            <a href="{{ item.pdf.url }}" class="more">Смотреть каталог</a>
+            <a href="{{ item.pdf.url }}" target="_blank" class="more">Смотреть каталог</a>
         </li>
         {% endfor %}
     </ul>

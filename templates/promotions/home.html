@@ -29,7 +29,8 @@
             {% endwith %}
             <p>{{ dp.product.get_title}}</p>
             <p>{{ dp.product.get_preview_info }}</p>
-            <a href="{{ dp.product.get_absolute_url }}" class="new_price">{{ dp.price_with_discount| floatformat:2 }} грн.</a>
+            <a href="{{ dp.product.get_absolute_url }}" class="new_price">{{ dp.price_with_discount| floatformat:2 }}
+                грн.</a>
             <a href="{{ dp.product.get_absolute_url }}" class=" price old_price"><span>{{ dp.price_excl_tax| floatformat:2 }}</span>грн</a>
         </li>
         {% endfor %}
@@ -45,18 +46,17 @@
         </div>
     </div>
     <ul class="slider">
+        {% for product in popular %}
         <li>
-            {% for product in popular %}
-            <!--{% with image=product.primary_image.original %}-->
-            <!--{% thumbnail image "x253" upscale=False as thumb %}-->
-            <!--<img src="{{ thumb.url }}" alt="{{ product.get_title }}">-->
-            <!--{% endthumbnail %}-->
-            <!--{% endwith %}-->
-            <!--<p>{{ product.get_title}}</p>-->
-            <!--<p>{{ product.get_preview_info }}</p>-->
-            {% render_product product %}
-            {% endfor %}
+            {% with image=product.primary_image.original %}
+            {% thumbnail image "x253" upscale=False as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ product.get_title }}">
+            {% endthumbnail %}
+            {% endwith %}
+            <p>{{ product.get_title}}</p>
+            <p>{{ product.get_preview_info }}</p>
         </li>
+        {% endfor %}
     </ul>
 
 </div>
@@ -69,8 +69,8 @@
         </div>
     </div>
     <ul class="slider">
+        {% for product in recommended %}
         <li>
-            {% for product in recommended %}
             {% with image=product.primary_image.original %}
             {% thumbnail image "x253" upscale=False as thumb %}
             <img src="{{ thumb.url }}" alt="{{ product.get_title }}">
@@ -78,8 +78,8 @@
             {% endwith %}
             <p>{{ product.get_title}}</p>
             <p>{{ product.get_preview_info }}</p>
-            {% endfor %}
         </li>
+        {% endfor %}
     </ul>
 
 </div>

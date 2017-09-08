@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    Каталог
+{% endblock %}
+
+{% block content_cls %}{% endblock %}
+
+{% block content %}
+<div class="right_column catalog">
+    <div class="top_panel">
+        <p class="title">Каталоги</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!" id="slider-prev"></a>
+            <a class="right" href="#!" id="slider-next"></a>
+        </div>
+    </div>
+    <ul class="bxslider-catalog">
+        {% for item in catalogs %}
+        <li>
+            <img src="{{ item.photo.url }}" alt="{{ item.photo.url }}">
+            <p>Каталог фото</p>
+            <p>{{ item.description }}</p>
+            <a href="{{ item.pdf.url }}" target="_blank" class="more">Смотреть каталог</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="right_column catalog">
+    <div class="top_panel">
+        <p class="title">Популярные</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!"  id="slider-prev-p"></a>
+            <a class="right" href="#!" id="slider-next-p"></a>
+        </div>
+    </div>
+    <ul class="bxslider-popular">
+        {% for item in populars %}
+        <li>
+            <img src="{{ item.photo.url }}" alt="{{ item.photo.url }}">
+            <p>Каталог фото</p>
+            <p>{{ item.description }}</p>
+            <a href="{{ item.pdf.url }}" target="_blank" class="more">Смотреть каталог</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

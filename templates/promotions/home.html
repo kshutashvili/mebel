@@ -1,36 +1,86 @@
 {% extends "layout_2_col.html" %}
 {% load staticfiles %}
+{% load thumbnail %}
 {% load product_tags %}
+{% load discount_tags %}
 {% load i18n %}
 
-{% block content %}
-
-        <ul>
-            {% for product in last_products %}
-                <li class="product-item">
-                    {% render_product product %}
-                </li>
-            {% endfor %}
-        </ul>
-        {% if last_products.has_other_pages %}
-        <div class="pagination">
-            <ul class="pagination pagination-lg">
-                {% if last_products.has_previous %}
-                <li>
-                    <a href="?page={{ last_products.previous_page_number }}">Предыдущие</a>
-                </li>
-                {% endif %}
-                <li class="">
-                    <span class="pages">{{ last_products.number }} из {{ last_products.paginator.num_pages }}</span>
-                </li>
-                {% if last_products.has_next %}
-                <li>
-                    <a href="?page={{ last_products.next_page_number }}">Следующие</a>
-                </li>
-                {% endif %}
-
-            </ul>
+{% block all_content %}
+<div class="right_column tovar">
+    <div class="top_panel">
+        <p class="title">Акции</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!"></a>
+            <a class="right" href="#!"></a>
         </div>
-        {% endif %}
+    </div>
+    <ul class="slider">
+        {% for dp in discounted_products %}
+        <li>
+            {% if dp.product.discount_type == 1 %}
+            <span>-{{ dp.product.discount_value| cut_percent }} грн.</span>
+            {% else %}
+            <span>-{{ dp.product.discount_value| cut_percent }}%</span>
+            {% endif %}
+            {% with image=dp.product.primary_image.original %}
+            {% thumbnail image "x253" upscale=False as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ dp.product.get_title }}">
+            {% endthumbnail %}
+            {% endwith %}
+            <p>{{ dp.product.get_title}}</p>
+            <p>{{ dp.product.get_preview_info }}</p>
+            <a href="{{ dp.product.get_absolute_url }}" class="new_price">{{ dp.price_with_discount| floatformat:2 }} грн.</a>
+            <a href="{{ dp.product.get_absolute_url }}" class=" price old_price"><span>{{ dp.price_excl_tax| floatformat:2 }}</span>грн</a>
+        </li>
+        {% endfor %}
+    </ul>
 
-{% endblock content %}
+</div>
+<div class="right_column tovar">
+    <div class="top_panel">
+        <p class="title">Популярное</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!"></a>
+            <a class="right" href="#!"></a>
+        </div>
+    </div>
+    <ul class="slider">
+        <li>
+            {% for product in popular %}
+            <!--{% with image=product.primary_image.original %}-->
+            <!--{% thumbnail image "x253" upscale=False as thumb %}-->
+            <!--<img src="{{ thumb.url }}" alt="{{ product.get_title }}">-->
+            <!--{% endthumbnail %}-->
+            <!--{% endwith %}-->
+            <!--<p>{{ product.get_title}}</p>-->
+            <!--<p>{{ product.get_preview_info }}</p>-->
+            {% render_product product %}
+            {% endfor %}
+        </li>
+    </ul>
+
+</div>
+<div class="right_column tovar">
+    <div class="top_panel">
+        <p class="title">Рекомендуемое</p>
+        <div class="arrows_wrap">
+            <a class="left" href="#!"></a>
+            <a class="right" href="#!"></a>
+        </div>
+    </div>
+    <ul class="slider">
+        <li>
+            {% for product in recommended %}
+            {% with image=product.primary_image.original %}
+            {% thumbnail image "x253" upscale=False as thumb %}
+            <img src="{{ thumb.url }}" alt="{{ product.get_title }}">
+            {% endthumbnail %}
+            {% endwith %}
+            <p>{{ product.get_title}}</p>
+            <p>{{ product.get_preview_info }}</p>
+            {% endfor %}
+        </li>
+    </ul>
+
+</div>
+{% endblock %}

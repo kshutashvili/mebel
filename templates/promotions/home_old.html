@@ -1,0 +1,36 @@
+{% extends "layout_2_col.html" %}
+{% load staticfiles %}
+{% load product_tags %}
+{% load i18n %}
+
+{% block content %}
+
+        <ul>
+            {% for product in last_products %}
+                <li class="product-item">
+                    {% render_product product %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% if last_products.has_other_pages %}
+        <div class="pagination">
+            <ul class="pagination pagination-lg">
+                {% if last_products.has_previous %}
+                <li>
+                    <a href="?page={{ last_products.previous_page_number }}">Предыдущие</a>
+                </li>
+                {% endif %}
+                <li class="">
+                    <span class="pages">{{ last_products.number }} из {{ last_products.paginator.num_pages }}</span>
+                </li>
+                {% if last_products.has_next %}
+                <li>
+                    <a href="?page={{ last_products.next_page_number }}">Следующие</a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </div>
+        {% endif %}
+
+{% endblock content %}

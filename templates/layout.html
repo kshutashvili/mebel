@@ -21,7 +21,7 @@
 
 {% block layout %}
     <div class="container-fluid">
-		<div class="header navbar-fixed-top">
+		<div class="header">
 			<div class="container">
 				<div class="logo">
 					<a href="{% url "promotions:home" %}">
@@ -109,9 +109,11 @@
 
                     {% block messages %} {% endblock %}
 
+                    {% block all_content %}
                     <div class="{% block content_cls %}right_before{% endblock %}">
                     {% block content %}{% endblock %}
                     </div>
+                    {% endblock %}
 
                 {% block right_description %}
                 {% endblock %}

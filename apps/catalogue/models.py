@@ -1,5 +1,5 @@
 # -*-coding:utf8-*-
-
+from lxml import etree
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractCategory
 
 from django.db import models
@@ -8,6 +8,8 @@ from django.utils.translation import get_language
 from django.contrib.staticfiles.finders import find
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
+
 from apps.basket.models import Line
 
 class Category(AbstractCategory):
@@ -293,5 +295,43 @@ class ProductPackage(models.Model):
 
     def __unicode__(self):
         return u'Уп.%d %s'%(self.package_num, self.name)
+
+
+class XMLDownloader(models.Model):
+    msg = u'Загрузите правильный XML файл. ' + \
+           u'Файл, который Вы загрузили, поврежден или не является XML файлом'
+    description = models.CharField(
+        max_length=128,
+        verbose_name=u'Краткое описание',
+    )
+    xml = models.FileField(
+        verbose_name=u'XML файл',
+        help_text=u'XML',
+    )
+    creation_date = models.DateField(
+        verbose_name=u'Дата создания',
+        auto_now_add=True
+    )
+
+    class Meta:
+        verbose_name = u'XML файл'
+        verbose_name_plural = u'XML файлы'
+
+    def __unicode__(self):
+        return self.description
+
+    def clean(self, *args, **kwargs):
+        try:
+            if self.xml:
+                etree.parse(self.xml)
+        except etree.XMLSyntaxError as e:
+            raise ValidationError(self.msg)
+
+    def remove(self):
+        file = self.id
+        return '<a href="{}/delete/" class="deletelink">Удалить</a>'.format(file)
+
+    remove.allow_tags = True
+
 
 from oscar.apps.catalogue.models import *

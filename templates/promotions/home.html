@@ -31,7 +31,7 @@
             <p>{{ dp.product.get_preview_info }}</p>
             <a href="{{ dp.product.get_absolute_url }}" class="new_price">{{ dp.price_with_discount| floatformat:2 }}
                 грн.</a>
-            <a href="{{ dp.product.get_absolute_url }}" class=" price old_price"><span>{{ dp.price_excl_tax| floatformat:2 }}</span>грн</a>
+            <a href="{{ dp.product.get_absolute_url }}" class="price old_price"><span>{{ dp.price_excl_tax| floatformat:2 }}</span>грн</a>
         </li>
         {% endfor %}
     </ul>
@@ -55,6 +55,8 @@
             {% endwith %}
             <p>{{ product.get_title}}</p>
             <p>{{ product.get_preview_info }}</p>
+            <a href="#!" class="new_price"> грн.</a>
+            <a href="#!" class="price old_price"><span></span>грн.</a>
         </li>
         {% endfor %}
     </ul>
@@ -78,6 +80,8 @@
             {% endwith %}
             <p>{{ product.get_title}}</p>
             <p>{{ product.get_preview_info }}</p>
+            <a href="#!" class="new_price"> грн.</a>
+            <a href="#!" class="price old_price"><span></span>грн.</a>
         </li>
         {% endfor %}
     </ul>

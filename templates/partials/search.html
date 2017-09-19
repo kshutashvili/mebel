@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 
-<form method="get" action="{% url 'search:search' %}">
+<form method="get" action="{% url 'search:search' %}" id="searchForm">
     <a class="constructor" href="http://constructor.shkafmann.com.ua">конструктор шкафов онлайн</a>
     {% render_field search_form.q class='dis_inp' placeholder="Шкаф-купе раздвижной желтый" %}
     <button></button>

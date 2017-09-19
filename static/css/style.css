@@ -2988,7 +2988,7 @@ select::-ms-expand {
 	text-transform: uppercase;
 }
 .right_column ul li img{
-	width: 253px;
+	max-width: 253px;
 	height: 188px;
 	max-height: 240px;
 	margin-bottom: 20px;
@@ -3120,9 +3120,11 @@ select::-ms-expand {
 	font: 14px "OpenSansRegular";
 }
 .right_column.tovar ul li img{
-	width: 253px;
+	max-width: 253px;
 	height: 188px;
 	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
 	max-height: 240px;
 }
 .right_column.tovar ul li a{

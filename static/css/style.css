@@ -3117,8 +3117,8 @@ select::-ms-expand {
 	font: 14px "OpenSansRegular";
 }
 .right_column.tovar ul li img{
-	width: 100%;
-	height: auto;
+	width: 253px;
+	height: 188px;
 	margin-bottom: 20px;
 	max-height: 240px;
 }

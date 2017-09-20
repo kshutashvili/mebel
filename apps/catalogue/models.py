@@ -81,6 +81,13 @@ class Product(AbstractProduct):
         max_digits=12
     )
 
+    price = models.DecimalField(
+        verbose_name=u'Стоимость товара',
+        default=0.00,
+        decimal_places=2,
+        max_digits=12
+    )
+
     def get_preview_info(self):
         prev_list = []
         if self.multiple_options:

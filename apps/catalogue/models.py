@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 
 from apps.basket.models import Line
+from apps.partner.models import StockRecord
 
 class Category(AbstractCategory):
 
@@ -81,13 +82,6 @@ class Product(AbstractProduct):
         max_digits=12
     )
 
-    price = models.DecimalField(
-        verbose_name=u'Стоимость товара',
-        default=0.00,
-        decimal_places=2,
-        max_digits=12
-    )
-
     def get_preview_info(self):
         prev_list = []
         if self.multiple_options:
@@ -100,6 +94,10 @@ class Product(AbstractProduct):
             return 'X'.join(prev_list)
 
         return ''
+
+    def get_price(self):
+        price = StockRecord.objects.get(product__id=self.id)
+        return price.price_retail
 
     def get_absolute_url(self):
         """

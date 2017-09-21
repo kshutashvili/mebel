@@ -55,7 +55,7 @@
             {% endwith %}
             <p>{{ product.get_title}}</p>
             <p>{{ product.get_preview_info }}</p>
-            <a href="#!" class="price"><span></span>{{ product.price }} грн.</a>
+            <a href="{{ product.get_absolute_url }}" class="price"><span></span>{{ product.get_price }} грн.</a>
         </li>
         {% endfor %}
     </ul>
@@ -79,7 +79,7 @@
             {% endwith %}
             <p>{{ product.get_title}}</p>
             <p>{{ product.get_preview_info }}</p>
-            <a href="#!" class="price"><span></span>{{ product.price }} грн.</a>
+            <a href="{{ product.get_absolute_url }}" class="price"><span></span>{{ product.get_price }} грн.</a>
         </li>
         {% endfor %}
     </ul>

@@ -132,7 +132,7 @@ class Line(AbstractLine):
 
     def full_packages(self):
         ctx = {i.variant.multi_option.group.code:i.variant.variant.name for i in self.options_choices.all()}
-        a = [{'pack':pack, 'full_name': pack.render_name(**ctx), 'count':self.quantity*pack.count} for pack in self.product.packages.all()]
+        a = [{'pack':pack, 'full_name': pack.render_name(**ctx), 'count':self.quantity*pack.count} for pack in self.product.packages.all() if pack.name in ctx.values()]
         return a
 
     def full_name(self):

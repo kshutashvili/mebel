@@ -21,6 +21,7 @@ from apps.basket.forms import AddToBasketForm
 from apps.order.forms import OneClickOrderForm
 from apps.catalogue.reviews.forms import ProductReviewForm
 from common.views import AjaxFormMixin
+from .models import XMLDownloader
 
 
 get_product_search_handler_class = get_class(
@@ -90,7 +91,7 @@ class ProductCategoryView(CoreProductCategoryView):
             return redirect(self.category.get_absolute_url())
 
 
-        print 
+        print
         return super(CoreProductCategoryView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -99,6 +100,14 @@ class ProductCategoryView(CoreProductCategoryView):
         ctx['canonical'] = (self.search_handler.kwargs['page'] != 1)
         ctx['filter_form'] = self.form
         return ctx
+
+
+# class XMLDownloaderView(TemplateView):
+#     model = XMLDownloader
+#     template =
+#     def get(self, request, *args, **kwargs):
+#         print request.GET
+#         return super(XMLDownloaderView, self).get(request, *args, **kwargs)
 
 
 class OneClickOrderCreateView(AjaxFormMixin, CreateView):
@@ -121,6 +130,14 @@ class OneClickOrderCreateView(AjaxFormMixin, CreateView):
         msg.attach_alternative(message, "text/html")
         msg.send()
         return HttpResponse(self.product.get_absolute_url())
+
+
+def XMLDownloaderView(request):
+    path = 'media' + request.path
+    xml = open(path).read()
+    response = HttpResponse(content_type='text/xml')
+    response.write(xml)
+    return response
 
 
 def AddProductToFavorite(request, product_slug, pk):

@@ -9,6 +9,7 @@ from django.contrib.staticfiles.finders import find
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 from apps.basket.models import Line
 from apps.partner.models import StockRecord

@@ -10,7 +10,7 @@ from oscar.core.loading import get_class, get_model
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -125,11 +125,14 @@ class OneClickOrderCreateView(AjaxFormMixin, CreateView):
 
 
 def XMLDownloaderView(request):
-    path = 'media' + request.path
-    xml = open(path).read()
-    response = HttpResponse(content_type='text/xml')
-    response.write(xml)
-    return response
+    path = settings.MEDIA_ROOT + request.path
+    try:
+        xml = open(path).read()
+        response = HttpResponse(content_type='text/xml')
+        response.write(xml)
+        return response
+    except IOError:
+        raise Http404
 
 
 def AddProductToFavorite(request, product_slug, pk):

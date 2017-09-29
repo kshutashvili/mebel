@@ -102,14 +102,6 @@ class ProductCategoryView(CoreProductCategoryView):
         return ctx
 
 
-# class XMLDownloaderView(TemplateView):
-#     model = XMLDownloader
-#     template =
-#     def get(self, request, *args, **kwargs):
-#         print request.GET
-#         return super(XMLDownloaderView, self).get(request, *args, **kwargs)
-
-
 class OneClickOrderCreateView(AjaxFormMixin, CreateView):
     form_class = OneClickOrderForm
     product_model = Product

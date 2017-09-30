@@ -4,7 +4,7 @@ from .models import SimpleOrder, ShippingCity
 
 
 class SimpleOrderAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'when_created', 'order_status')
+    list_display = ('id', 'name', 'phone', 'when_created', 'order_status', 'total_price')
 
 admin.site.register(SimpleOrder, SimpleOrderAdmin)
 admin.site.register(ShippingCity)

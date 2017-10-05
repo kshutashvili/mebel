@@ -4,7 +4,7 @@ from .models import SimpleOrder, ShippingCity
 
 
 class SimpleOrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'phone', 'when_created', 'order_status', 'total_price')
+    list_display = ('id', 'name', 'phone', 'when_created', 'order_status', 'order_price' )
 
 admin.site.register(SimpleOrder, SimpleOrderAdmin)
 admin.site.register(ShippingCity)
@@ -20,4 +20,3 @@ admin.site.unregister(CommunicationEvent)
 admin.site.unregister(ShippingEvent)
 admin.site.unregister(ShippingEventType)
 admin.site.unregister(OrderDiscount)
-

@@ -23,7 +23,7 @@ from django.contrib.sitemaps import views
 from apps.sitemaps import base_sitemaps
 
 from mebeljazz.app import application
-
+from apps.catalogue.views import XMLDownloaderView
 
 urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
@@ -47,6 +47,8 @@ urlpatterns = [
         {'sitemaps': base_sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', views.sitemap,
         {'sitemaps': base_sitemaps},
-        name='sitemap')
+        name='sitemap'),
+    url(r'\.xml$', XMLDownloaderView),
+
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -50,7 +50,7 @@ class OptionGroupAdmin(admin.ModelAdmin):
     inlines = [OptionVariantAdminInline]
 
 class XMLDownloaderAdmin(admin.ModelAdmin):
-    list_display = ('remove', 'id', 'description', 'creation_date', 'xml', )
+    list_display = ('remove', 'id', 'description', 'creation_date', 'file')
     list_display_links = ('id', 'description', )
 
 

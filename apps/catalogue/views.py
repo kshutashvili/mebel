@@ -10,7 +10,7 @@ from oscar.core.loading import get_class, get_model
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -21,6 +21,7 @@ from apps.basket.forms import AddToBasketForm
 from apps.order.forms import OneClickOrderForm
 from apps.catalogue.reviews.forms import ProductReviewForm
 from common.views import AjaxFormMixin
+from .models import XMLDownloader
 
 
 get_product_search_handler_class = get_class(
@@ -90,7 +91,7 @@ class ProductCategoryView(CoreProductCategoryView):
             return redirect(self.category.get_absolute_url())
 
 
-        print 
+        print
         return super(CoreProductCategoryView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -121,6 +122,17 @@ class OneClickOrderCreateView(AjaxFormMixin, CreateView):
         msg.attach_alternative(message, "text/html")
         msg.send()
         return HttpResponse(self.product.get_absolute_url())
+
+
+def XMLDownloaderView(request):
+    path = settings.MEDIA_ROOT + request.path
+    try:
+        xml = open(path).read()
+        response = HttpResponse(content_type='text/xml')
+        response.write(xml)
+        return response
+    except IOError:
+        raise Http404
 
 
 def AddProductToFavorite(request, product_slug, pk):

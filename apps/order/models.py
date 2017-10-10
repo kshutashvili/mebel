@@ -83,6 +83,13 @@ class SimpleOrder(models.Model):
         blank=True
     )
 
+    order_price = models.CharField(
+        max_length=12,
+        default='0.0',
+        verbose_name=u'Сумма заказа',
+        blank=True,
+    )
+
     class Meta:
         verbose_name = u'Заказ'
         verbose_name_plural = u'Заказы'
@@ -95,10 +102,8 @@ class SimpleOrder(models.Model):
         if add_ctx:
             ctx.update(add_ctx)
         tmplt = get_template(template_name).render(ctx)
-
         config = pdfkit.configuration(wkhtmltopdf=settings.WKHTMLTOPDF_CMD)
         output_file = pdfkit.from_string(tmplt, False, configuration=config)
-
         return output_file
 
     def create_check_blank(self):
@@ -121,7 +126,7 @@ class SimpleOrder(models.Model):
 
     def save(self, *args, **kwargs):
         super(SimpleOrder, self).save(*args, **kwargs)
-
+        self.order_price = self.total_price
         if not self.check_blank:
             self.create_check_blank()
         if not self.manufacture_blank:
@@ -185,5 +190,3 @@ class OneClickOrder(models.Model):
     )
 
 from oscar.apps.order.models import *  # noqa
-
-

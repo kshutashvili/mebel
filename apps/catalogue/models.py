@@ -9,6 +9,8 @@ from django.contrib.staticfiles.finders import find
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from django.conf import settings
+from django.utils.html import format_html
 
 from apps.basket.models import Line
 from apps.partner.models import StockRecord
@@ -324,6 +326,9 @@ class XMLDownloader(models.Model):
 
     def __unicode__(self):
         return self.description
+
+    def file(self):
+        return format_html('<a href="/{}" class="button">Просмотреть файл</a>'.format(self.xml))
 
     def clean(self, *args, **kwargs):
         try:

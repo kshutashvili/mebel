@@ -10,7 +10,6 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from django.utils.html import format_html
 
 from apps.basket.models import Line
 from apps.partner.models import StockRecord
@@ -303,6 +302,23 @@ class ProductPackage(models.Model):
     def __unicode__(self):
         return u'Уп.%d %s'%(self.package_num, self.name)
 
+# import os
+# def path_and_rename(instance, filename):
+#     # print filename
+#     upload_to = '.'
+#     # ext = filename.split('.')[-1]
+#     # get filename
+#     # if instance.pk:
+#     #     filename = '{}.{}'.format(instance.pk, ext)
+#     #     print instance.pk
+#     # else:
+#     path = os.path.join(upload_to, filename)
+#     print delete(path)
+
+#         # set filename as random string
+#         # filename = '{}.{}'.format(uuid4().hex, ext)
+#     # return the whole path to the file
+#     return os.path.join(upload_to, filename)
 
 class XMLDownloader(models.Model):
     msg = u'Загрузите правильный XML файл. ' + \
@@ -328,7 +344,7 @@ class XMLDownloader(models.Model):
         return self.description
 
     def file(self):
-        return format_html('<a href="/{}" class="button">Просмотреть файл</a>'.format(self.xml))
+        return '<a href="/{}" class="button">Просмотреть файл</a>'.format(self.xml)
 
     def clean(self, *args, **kwargs):
         try:
@@ -337,11 +353,40 @@ class XMLDownloader(models.Model):
         except etree.XMLSyntaxError as e:
             raise ValidationError(self.msg)
 
+    # def save(self, *args, **kwargs):
+    #     super(XMLDownloader, self).save(*args, **kwargs)
+    #     try:
+    #         file = XMLDownloader.objects.get(id=self.id)
+    #         print file.xml.path
+    #         storage = self.xml.storage
+    #         path = self.xml.path
+    #         # file_path = XMLDownloader.objects.get(xml=self.xml)
+    #         print path
+    #     except:
+    #         pass
+
+    # def save(self, *args, **kwargs):
+    #     oldrec = type(self).objects.get(id=self.id)
+    #     # save the current instance, and keep the result
+    #     result = super(XMLDownloader, self).save(*args, **kwargs)
+    #     print oldrec, result
+
+
     def remove(self):
         file = self.id
         return '<a href="{}/delete/" class="deletelink">Удалить</a>'.format(file)
 
+    def delete(self):
+        XMLDownloader.objects.filter(id=self.id).delete()
+        try:
+            storage = self.xml.storage
+            path = self.xml.path
+            storage.delete(path)
+        except:
+            pass
+
     remove.allow_tags = True
+    file.allow_tags = True
 
 
 from oscar.apps.catalogue.models import *

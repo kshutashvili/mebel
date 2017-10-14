@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 
 from .models import LineOptionChoice, MultipleOption, \
-    OptionGroup, OptionVariant, OptionInfo, ProductPackage, XMLDownloader
+    OptionGroup, OptionVariant, OptionInfo, ProductPackage, XMLDownloader, Services
 from .forms import ProductForm, CategoryForm
 
 import nested_admin
@@ -54,6 +54,10 @@ class XMLDownloaderAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'description', )
 
 
+class ServicesAdmin(admin.ModelAdmin):
+    list_display = ('free_delivery_from', 'lifting', 'installation', 'is_relevant')
+
+
 admin.site.register(XMLDownloader, XMLDownloaderAdmin)
 admin.site.register(LineOptionChoice)
 admin.site.register(MultipleOption)
@@ -70,3 +74,5 @@ admin.site.register(Product, ProductAdmin)
 admin.site.unregister(Option)
 admin.site.unregister(AttributeOptionGroup)
 admin.site.unregister(ProductAttribute)
+
+admin.site.register(Services, ServicesAdmin)

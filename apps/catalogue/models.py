@@ -373,4 +373,24 @@ class XMLDownloader(models.Model):
     file.allow_tags = True
 
 
+class Services(models.Model):
+    free_delivery_from = models.DecimalField(verbose_name=u'Бесплатная доставка от, грн.',
+                                             max_digits=7,
+                                             decimal_places=2
+                                             )
+    lifting = models.DecimalField(u'Занос в квартиру от, грн.',
+                                  max_digits=7,
+                                  decimal_places=2
+                                  )
+    installation = models.DecimalField(u'Сборка, % от стоимости',
+                                       max_digits=5,
+                                       decimal_places=2
+                                       )
+    is_relevant = models.BooleanField(u'Актуальная информация')
+
+    class Meta:
+        verbose_name = u'Информация об услугах'
+        verbose_name_plural = u'Информация об услугах'
+
+
 from oscar.apps.catalogue.models import *

@@ -21,7 +21,7 @@ from apps.basket.forms import AddToBasketForm
 from apps.order.forms import OneClickOrderForm
 from apps.catalogue.reviews.forms import ProductReviewForm
 from common.views import AjaxFormMixin
-from .models import XMLDownloader
+from .models import XMLDownloader, Services
 
 
 get_product_search_handler_class = get_class(
@@ -38,6 +38,7 @@ class ProductDetailView(CoreProductDetailView):
         ctx['price'] = self.form.options_product_price(self.request)
         ctx['review_form'] = ProductReviewForm(self.object)
         ctx['oneclick_form'] = OneClickOrderForm()
+        ctx['services'] = Services.objects.get(is_relevant=True)
         return ctx
 
 

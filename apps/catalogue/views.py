@@ -38,7 +38,11 @@ class ProductDetailView(CoreProductDetailView):
         ctx['price'] = self.form.options_product_price(self.request)
         ctx['review_form'] = ProductReviewForm(self.object)
         ctx['oneclick_form'] = OneClickOrderForm()
-        ctx['services'] = Services.objects.get(is_relevant=True)
+        try:
+            ctx['services'] = Services.objects.get(is_relevant=True)
+        except:
+            pass
+
         return ctx
 
 

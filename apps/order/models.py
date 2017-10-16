@@ -126,14 +126,17 @@ class SimpleOrder(models.Model):
 
     def save(self, *args, **kwargs):
         super(SimpleOrder, self).save(*args, **kwargs)
-        self.order_price = self.total_price
+        if self.order_price == '0.0' or not self.order_price:
+            try:
+                self.order_price = self.total_price
+            except:
+                pass
         if not self.check_blank:
             self.create_check_blank()
         if not self.manufacture_blank:
             self.create_manufacture_blank()
         if not self.shipping_blank:
             self.create_shipping_blank()
-
 
     @property
     def shipping_price(self):

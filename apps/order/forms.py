@@ -14,7 +14,7 @@ class SimpleOrderForm(forms.ModelForm):
         model = SimpleOrder
         exclude = ('basket','check_blank', 'order_status')
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder':u'Ваше ммя'}),
+            'name': forms.TextInput(attrs={'placeholder':u'Ваше имя'}),
             'comment': forms.Textarea(attrs={'placeholder': u'Коментарий'}),
             'email': forms.TextInput(attrs={'placeholder': u'E-mail'}),
             'region': forms.TextInput(attrs={'placeholder': u'Регион'}),

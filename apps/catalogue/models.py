@@ -120,7 +120,6 @@ class Product(AbstractProduct):
 
 
 class MultipleOption(models.Model):
-
     product = models.ForeignKey(
         'Product',
         related_name='multiple_options',
@@ -140,11 +139,11 @@ class MultipleOption(models.Model):
     )
 
     class Meta:
-        verbose_name = u'Множественная опция'
-        verbose_name_plural = u'Множественные опции'
+        verbose_name = u'Множественная опция продукта'
+        verbose_name_plural = u'Множественные опции продукта'
 
     def __unicode__(self):
-        return self.group.code
+        return u'%s' % self.group.name
 
 
 class OptionInfo(models.Model):
@@ -172,7 +171,7 @@ class OptionInfo(models.Model):
         verbose_name_plural = u'Информации опций'
 
     def __unicode__(self):
-        return '%s %s'%(self.variant.name, self.additional_price)
+        return '%s %s %s'%(unicode(self.multi_option), self.variant.name, self.additional_price)
 
 
 class OptionGroup(models.Model):
@@ -242,7 +241,6 @@ class OptionVariant(models.Model):
 
 
 class LineOptionChoice(models.Model):
-
     basket_line = models.ForeignKey(
         Line,
         related_name='options_choices',
@@ -264,6 +262,29 @@ class LineOptionChoice(models.Model):
 
     def __unicode__(self):
         return '%s'%(self.variant.variant.name)
+
+
+class PackageOptionChoice(models.Model):
+    package = models.ForeignKey(
+        'ProductPackage',
+        related_name='options_choices',
+        verbose_name=u'Упаковка'
+    )
+
+    variant = models.ForeignKey(
+        'OptionInfo',
+        verbose_name=u'Выбраный вариант',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = u'Опция упаковки'
+        verbose_name_plural = u'Опции упаковок'
+
+    def __unicode__(self):
+        return '%s' % (self.variant.variant.name)
 
 
 class ProductPackage(models.Model):

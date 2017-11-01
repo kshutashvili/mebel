@@ -2,7 +2,7 @@ from ckeditor.widgets import CKEditorWidget
 from django import forms
 from treebeard.forms import movenodeform_factory
 
-from .models import Product, Category
+from .models import Product, Category, PackageOptionChoice, OptionInfo
 
 
 class ProductForm(forms.ModelForm):
@@ -20,3 +20,11 @@ class CategoryForm(movenodeform_factory(Category)):
         super(CategoryForm, self).__init__(*args, **kwargs)
         self.fields['description'].widget = CKEditorWidget()
 
+#
+# class PackageOptionChoiceForm(forms.ModelForm):
+#     class Meta:
+#         model = PackageOptionChoice
+#
+#     def __init__(self, *args, **kwargs):
+#         super(PackageOptionChoiceForm, self).__init__(*args, **kwargs)
+#         self.fields['variant'].choices = OptionInfo.objects.filter(multi_option__product=)

@@ -1,4 +1,6 @@
 import zlib
+from collections import defaultdict
+
 from oscar.apps.basket.abstract_models import AbstractBasket, AbstractLine
 
 
@@ -130,9 +132,22 @@ class Line(AbstractLine):
     def unit_price_excl_tax(self):
         return super(Line, self).unit_price_excl_tax + self.additional_price
 
+    def package_fit(self, package):
+        line_options = {i.variant.multi_option.group.code: i.variant.variant.name for i in self.options_choices.all()}
+        package_options = defaultdict(list)
+        for opt in package.options_choices.all():
+            package_options[opt.variant.multi_option.group.code].append(opt.variant.variant.name)
+        fit = True
+        for code, variants in package_options.items():
+            if line_options[code] not in variants:
+                fit = False
+                break
+        return fit
+
     def full_packages(self):
-        ctx = {i.variant.multi_option.group.code:i.variant.variant.name for i in self.options_choices.all()}
-        a = [{'pack':pack, 'full_name': pack.render_name(**ctx), 'count':self.quantity*pack.count} for pack in self.product.packages.all() if pack.name in ctx.values()]
+        line_options = {i.variant.multi_option.group.code:i.variant.variant.name for i in self.options_choices.all()}
+        a = [{'pack':pack, 'full_name': pack.render_name(**line_options), 'count':self.quantity*pack.count}
+             for pack in self.product.packages.all() if self.package_fit((pack))]
         return a
 
     def full_name(self):

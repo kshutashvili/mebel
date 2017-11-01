@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 
 from .models import LineOptionChoice, MultipleOption, \
-    OptionGroup, OptionVariant, OptionInfo, ProductPackage, XMLDownloader, Services
+    OptionGroup, OptionVariant, OptionInfo, ProductPackage, XMLDownloader, Services, PackageOptionChoice
 from .forms import ProductForm, CategoryForm
 
 import nested_admin
@@ -32,9 +32,27 @@ class OptionVariantAdminInline(admin.TabularInline):
     extra = 3
 
 
-class ProductPackageAdminInline(admin.TabularInline):
+class PackageOptionChoiceAdminInline(nested_admin.NestedStackedInline):
+    model = PackageOptionChoice
+    extra = 1
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+
+        field = super(PackageOptionChoiceAdminInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+        if db_field.name == 'variant':
+            if request.resolver_match.args is not None:
+                field.queryset = field.queryset.filter(multi_option__product__pk=request.resolver_match.args[0])
+            else:
+                field.queryset = field.queryset.none()
+
+        return field
+
+
+class ProductPackageAdminInline(nested_admin.NestedStackedInline):
     model = ProductPackage
     extra = 1
+    inlines = [PackageOptionChoiceAdminInline, ]
 
 
 class CategoryAdmin(CoreCategoryAdmin, nested_admin.NestedModelAdmin):

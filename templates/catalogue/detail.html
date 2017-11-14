@@ -207,9 +207,9 @@
     {% if basket_form.select_num > 0 %}
     <div class="product_info clear_fix">
             <ul class="dostavka">
-                <li>Доставка до подъезда<br>бесплатно от 3500 грн</li>
-                <li>Занос в квартиру или дом<br>от 50 грн</li>
-                <li>Сборка<br>7% от стоимости</li>
+                <li>Доставка до подъезда<br>бесплатно от {{ services.free_delivery_from|floatformat:0 }} грн</li>
+                <li>Занос в квартиру или дом<br>от {{ services.lifting|floatformat:0 }}  грн</li>
+                <li>Сборка<br>{{ services.installation|floatformat:0 }}% от стоимости</li>
             </ul>
             <div class="zakaz">
                 {% if not product|favlist_exist:request.favlist %}

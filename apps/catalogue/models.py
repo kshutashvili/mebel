@@ -51,6 +51,7 @@ class Category(AbstractCategory):
             cache.set(cache_key, url)
         return url
 
+
 class Product(AbstractProduct):
     DISCOUNT_TYPE_CHOICES = (
         (1, u'Фиксированая скидка'),

@@ -41,7 +41,7 @@ class PackageOptionChoiceAdminInline(nested_admin.NestedStackedInline):
         field = super(PackageOptionChoiceAdminInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
         if db_field.name == 'variant':
-            if request.resolver_match.args is not None:
+            if request.resolver_match.args:
                 field.queryset = field.queryset.filter(multi_option__product__pk=request.resolver_match.args[0])
             else:
                 field.queryset = field.queryset.none()

@@ -34,4 +34,4 @@ rjsmin==1.0.12
 six==1.10.0
 sorl-thumbnail==12.4a1
 wsgiref==0.1.2
-lxml==3.8.0
+lxml==4.6.3

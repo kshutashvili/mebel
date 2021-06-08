@@ -2,7 +2,7 @@ Babel==2.3.4
 Django==1.9.12
 Faker==0.7.7
 MySQL-python==1.2.5
-Pillow==3.4.2
+Pillow==8.2.0
 Unidecode==0.04.20
 argparse==1.2.1
 django-appconf==1.0.2
